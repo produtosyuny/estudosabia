@@ -69,6 +69,8 @@ th,td{padding:9px 10px;border-bottom:1px solid var(--line-2);text-align:left;ver
 th{font-weight:600;color:var(--ink-2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;background:#FAF8F4;position:sticky;top:0}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
 tr.q td{background:#FBF4EC;font-weight:600}
+.sortbtn{all:unset;cursor:pointer;font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;white-space:normal}.sortbtn:hover{color:var(--ink)}.sortbtn:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}.sortbtn .ar{color:var(--bronze)}
+.linkbtn{all:unset;cursor:pointer;color:var(--a1);text-decoration:underline;font-size:12.5px}
 .cell-yes{color:var(--ok);font-weight:600}
 .cell-no{color:var(--muted)}
 .cell-unk{color:#B9B4AA}
@@ -166,7 +168,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
 <section id="precos">
   <h2><span class="n">05</span>Preços</h2>
   <p class="lede">Lançamento, tabela e % vendido serão todos atualizados. Aguardar.</p>
-  <div class="tbl-wrap"><table id="precotbl"></table></div>
+  <p class="note" id="sortinfo" style="margin:0 0 10px"></p><div class="tbl-wrap"><table id="precotbl"></table></div>
 </section>
 
 <section id="fichas">
@@ -329,16 +331,28 @@ function drawAttr(){
   $("#attr").innerHTML=h+"</tbody>";
 }
 
+let PSORT={key:"dist", dir:1};
 function drawPrecos(){
-  const rows=[{...D.quaddra,anel:"q"}, ...[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9))];
-  let h=`<thead><tr><th>Empreendimento</th><th class="r">Lançamento R$/m²</th><th class="r">Tabela atual R$/m²</th><th class="r">Fechamento real R$/m²</th><th class="r">Desconto</th><th>% vendido</th><th>Atualizado em</th></tr></thead><tbody>`;
-  rows.forEach(p=>{
-    const v=(D.precos||{})[p.id]||{};
+  const val=(p,k)=>{ const v=(D.precos||{})[p.id]||{}; const t=toNum(v.tab), f=toNum(v.fech);
+    if(k==="dist") return p.dist_m; if(k==="nome") return p.nome;
+    if(k==="desc") return (t&&f)? 1-f/t : null; if(k==="vend") return toNum(v.vend);
+    return toNum(v[k]); };
+  const rows=[...D.projetos].sort((a,b)=>{ const A=val(a,PSORT.key), B=val(b,PSORT.key);
+    if(A==null && B==null) return (a.dist_m??9e9)-(b.dist_m??9e9); if(A==null) return 1; if(B==null) return -1;
+    if(typeof A==="string") return A.localeCompare(B,"pt-BR")*PSORT.dir; return (A-B)*PSORT.dir; });
+  const cols=[["nome","Empreendimento",""],["lanc","Lançamento R$/m²","r"],["tab","Tabela atual R$/m²","r"],["fech","Fechamento real R$/m²","r"],["desc","Desconto","r"],["vend","% vendido",""]];
+  const arrow=k=> PSORT.key===k ? (PSORT.dir===1?" ▲":" ▼") : "";
+  let h=`<thead><tr>${cols.map(([k,l,c])=>`<th class="${c}"><button class="sortbtn" data-k="${k}" aria-label="Ordenar por ${l}" aria-sort="${PSORT.key===k?(PSORT.dir===1?"ascending":"descending"):"none"}">${l}<span class="ar">${arrow(k)}</span></button></th>`).join("")}<th>Atualizado em</th></tr></thead><tbody>`;
+  const line=(p)=>{ const v=(D.precos||{})[p.id]||{};
     const t=toNum(v.tab), f=toNum(v.fech); const desc=(t&&f)? ((1-f/t)*100).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%":"";
     const nome = p.anel==='q'? esc(p.nome) : `<a class="go" data-id="${p.id}" href="#ficha-${p.id.toLowerCase()}">${esc(p.nome)}</a>`;
-    h+=`<tr class="${p.anel==='q'?'q':''}"><td>${nome}</td><td class="r">${money(v.lanc)}</td><td class="r">${money(v.tab)}</td><td class="r">${money(v.fech)}</td><td class="r">${desc}</td><td>${v.vend? esc(/%$/.test(String(v.vend))? v.vend : v.vend+"%") : ""}</td><td>${v.data? esc(v.data) : '<span style="color:var(--muted);font-weight:400">aguardando</span>'}</td></tr>`;
-  });
+    return `<tr class="${p.anel==='q'?'q':''}"><td>${nome}</td><td class="r">${money(v.lanc)}</td><td class="r">${money(v.tab)}</td><td class="r">${money(v.fech)}</td><td class="r">${desc}</td><td>${v.vend? esc(/%$/.test(String(v.vend))? v.vend : v.vend+"%") : ""}</td><td>${v.data? esc(v.data) : '<span style="color:var(--muted);font-weight:400">aguardando</span>'}</td></tr>`; };
+  h+=line({...D.quaddra,anel:"q"}) + rows.map(line).join("");
   $("#precotbl").innerHTML=h+"</tbody>";
+  $("#precotbl").querySelectorAll(".sortbtn").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.k; if(PSORT.key===k) PSORT.dir*=-1; else { PSORT.key=k; PSORT.dir = (k==="nome")?1:-1; } drawPrecos(); }));
+  const lab={dist:"distância do Quaddra",nome:"nome",lanc:"lançamento",tab:"tabela atual",fech:"fechamento real",desc:"desconto",vend:"% vendido"}[PSORT.key];
+  $("#sortinfo").innerHTML = `Ordenado por <b>${lab}</b>${PSORT.key==="dist"?"":PSORT.dir===1?" (menor para maior)":" (maior para menor)"}. Clique no título de uma coluna para ordenar; clique de novo para inverter.${PSORT.key!=="dist"?' <button class="linkbtn" id="sortreset">Voltar à ordem por distância</button>':''}`;
+  const r=$("#sortreset"); if(r) r.onclick=()=>{ PSORT={key:"dist",dir:1}; drawPrecos(); };
 }
 
 function chipStatus(s){ s=s||""; return /Diverg/.test(s)?`<span class="chip div">${esc(s)}</span>`:/Confirm/.test(s)?`<span class="chip ok">${esc(s)}</span>`:`<span class="chip one">${esc(s)}</span>`; }
