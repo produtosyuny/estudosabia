@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaddra Sabiá · Concorrência</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: coluna editorial de 1120px; resumo antes do detalhe; mapa e tipologias como peças centrais. */
+:root{
+  --bg:#FBFAF7; --surface:#FFFFFF; --ink:#1D2523; --ink-2:#4E5754; --muted:#7B8380; --line:#E4E1DA; --line-2:#EFECE6;
+  --bronze:#B0682A; --a1:#008F7A; --a2:#6A5FC8; --ref:#8F8A80;
+  --ok:#2E7D4F; --warn:#B7791F; --bad:#B4412F;
+  --band-a:#F3EEE6; --band-b:#EAF3F1; --band-c:#EFEDF8; --band-d:#F4F4F2;
+  --display:"Jost","Helvetica Neue",Arial,sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+a{color:var(--a1)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top .wrap{display:flex;gap:24px;align-items:flex-end;justify-content:space-between;padding-top:28px;padding-bottom:22px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:300;letter-spacing:.42em;font-size:34px;line-height:1;color:var(--bronze)}
+.brand small{display:block;font-size:12px;letter-spacing:.5em;margin-top:8px;color:var(--ink-2);font-weight:400}
+.top h1{font-family:var(--display);font-weight:400;font-size:20px;margin:14px 0 0;letter-spacing:.02em;text-wrap:balance}
+.meta{font-size:13px;color:var(--ink-2);text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.btn{font:600 13px var(--body);border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;padding:7px 12px;cursor:pointer}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink)}
+nav.toc{position:sticky;top:0;z-index:5;background:rgba(251,250,247,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:18px;overflow-x:auto;padding-top:10px;padding-bottom:10px;font-size:13px;white-space:nowrap}
+nav.toc a{color:var(--ink-2);text-decoration:none}
+nav.toc a:hover{color:var(--ink)}
+section{padding:44px 0 8px}
+h2{font-family:var(--display);font-weight:400;font-size:26px;margin:0 0 6px;text-wrap:balance}
+h2 .n{color:var(--bronze);font-size:15px;letter-spacing:.2em;margin-right:12px;vertical-align:4px}
+.lede{color:var(--ink-2);max-width:68ch;margin:0 0 22px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.tile .v{font-family:var(--display);font-size:40px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums}
+.tile .l{font-size:13px;color:var(--ink-2);margin-top:6px}
+.tile .bar{height:3px;border-radius:2px;margin-bottom:12px}
+.findings{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.find{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--bronze);border-radius:8px;padding:14px 16px}
+.find b{display:block;font-family:var(--display);font-weight:500;font-size:16px;margin-bottom:4px}
+.find p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px;align-items:start}
+svg text{font-family:var(--body)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin:4px 0 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend i.dash{background:transparent!important;border:2px dashed var(--ink-2);width:12px;height:12px}
+.plist{list-style:none;margin:0;padding:0;font-size:14px;max-height:620px;overflow:auto}
+.plist li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;padding:7px 4px;border-bottom:1px solid var(--line-2);align-items:baseline}
+.plist li{cursor:pointer}.plist li:hover,.plist li.hl{background:#F6F3EE}
+a.go{color:var(--ink);text-decoration:underline;text-decoration-color:#CFC8BC;text-underline-offset:3px}a.go:hover{text-decoration-color:var(--bronze)}
+.card{scroll-margin-top:60px}.card.flash{box-shadow:0 0 0 3px var(--bronze);transition:box-shadow .3s}
+.num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;font-weight:700}
+.plist .d{font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:13px}
+.plist .s{font-size:12px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px;max-width:90ch}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line-2);text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;background:#FAF8F4;position:sticky;top:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+tr.q td{background:#FBF4EC;font-weight:600}
+.cell-yes{color:var(--ok);font-weight:600}
+.cell-no{color:var(--muted)}
+.cell-unk{color:#B9B4AA}
+.chip{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:#fff;white-space:nowrap}
+.chip.a1{border-color:var(--a1);color:var(--a1)}
+.chip.a2{border-color:var(--a2);color:var(--a2)}
+.chip.new{border-color:var(--bad);color:var(--bad)}
+.chip.ok{border-color:var(--ok);color:var(--ok)}
+.chip.div{border-color:var(--bad);color:var(--bad)}
+.chip.one{border-color:var(--warn);color:var(--warn)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filters button{font:600 13px var(--body);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer;color:var(--ink-2)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-family:var(--display);font-weight:500;font-size:19px;margin:0;display:flex;gap:10px;align-items:center}
+.card .sub{font-size:13px;color:var(--ink-2);margin-top:-6px}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:3px 10px;font-size:13.5px;margin:0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.bcs{display:grid;gap:8px}
+.bc{border-radius:8px;padding:9px 11px;font-size:13.5px;border:1px solid var(--line-2)}
+.bc b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.bc.v{background:#F2F8F6}.bc.v b{color:var(--a1)}
+.bc.at{background:#FBF1EE}.bc.at b{color:var(--bad)}
+.bc.re{background:#FBF4EC}.bc.re b{color:var(--bronze)}
+.obs{font-size:13px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:8px}
+.src{font-size:12px;color:var(--muted);word-break:break-all}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:8px 10px;border-radius:6px;max-width:280px;z-index:20;opacity:0;transition:opacity .08s;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.tip b{display:block;font-size:13px}
+.status{font-size:12.5px;color:var(--ink-2)}
+.status.err{color:var(--bad)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
+@media (max-width:860px){
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .findings,.mapgrid,.cards,.two{grid-template-columns:1fr}
+  .meta{align-items:flex-start;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <div class="brand">QUADDRA<small>SABIÁ</small></div>
+      <h1>Estudo de concorrência · produtos de 200 m² ou mais</h1>
+    </div>
+    <div class="meta">
+      <div>Versão diretoria · dados checados em <b id="dt"></b></div>
+      <div>Base: planilha <a id="sheetlink" href="#" target="_blank" rel="noopener">Quaddra Sabiá - Concorrência 200m+</a></div>
+      <div style="display:flex;gap:8px;align-items:center"><span class="status" id="syncst">Dados embutidos na página</span><button class="btn" id="syncbtn" disabled>Atualizar da planilha</button></div>
+    </div>
+  </div>
+</header>
+<nav class="toc" aria-label="Seções"><div class="wrap">
+  <a href="#resumo">Resumo</a><a href="#mapa">Mapa</a><a href="#tipologias">Tipologias</a><a href="#atributos">Diferenciais</a><a href="#precos">Preços</a><a href="#fichas">Fichas e battle cards</a><a href="#referencia">Referência</a><a href="#metodo">Método</a>
+</div></nav>
+
+<main class="wrap">
+<section id="resumo">
+  <h2><span class="n">01</span>Resumo</h2>
+  <p class="lede">Lançamentos e obras com ao menos uma planta de 200 m² ou mais, em dois anéis ao redor do Quaddra: até 1 km (concorrência direta) e de 1 a 2 km.</p>
+  <div class="tiles" id="tiles"></div>
+  <div class="findings" id="findings"></div>
+</section>
+
+<section id="mapa">
+  <h2><span class="n">02</span>Mapa dos anéis</h2>
+  <p class="lede">Esquema em escala, com o Quaddra no centro. Posições medidas sobre os mapas dos estudos de fevereiro e julho de 2026 (±100 m) ou estimadas pelo endereço (contorno tracejado, ±300 a 400 m).</p>
+  <div class="mapgrid">
+    <div class="panel">
+      <div class="legend"><span><i style="background:var(--bronze)"></i>Quaddra</span><span><i style="background:var(--a1)"></i>Anel 1 (até 1 km)</span><span><i style="background:var(--a2)"></i>Anel 2 (1 a 2 km)</span><span><i class="dash"></i>Posição estimada</span></div>
+      <svg id="map" viewBox="-2150 -2150 4300 4300" role="img" aria-label="Mapa esquemático dos concorrentes em anéis de 1 e 2 km ao redor do Quaddra" style="width:100%;height:auto;display:block"></svg>
+      <p class="note">Avenidas e parque desenhados de forma indicativa, a partir do mapa de 1 km do estudo de julho. Para a distância real a pé, use a rota de cada linha na aba Projetos da planilha.</p>
+    </div>
+    <div class="panel"><ul class="plist" id="plist"></ul></div>
+  </div>
+</section>
+
+<section id="tipologias">
+  <h2><span class="n">03</span>Tipologias contra as faixas do Quaddra</h2>
+  <p class="lede">Cada ponto é uma planta publicada. As faixas sombreadas correspondem às plantas do Quaddra: A ≈ 298 m², B ≈ 350 m², C ≈ 395 m², D acima de 480 m² (duplex e coberturas).</p>
+  <div class="panel"><svg id="tipo" role="img" aria-label="Plantas de cada concorrente por metragem" style="width:100%;height:auto;display:block"></svg></div>
+  <div class="two" style="margin-top:14px" id="faixacount"></div>
+</section>
+
+<section id="atributos">
+  <h2><span class="n">04</span>Diferenciais lado a lado</h2>
+  <p class="lede">✓ consta na fonte pública · ✗ não tem ou não consta · ? sem informação. A coluna do Quaddra vem da base interna.</p>
+  <div class="tbl-wrap"><table id="attr"></table></div>
+</section>
+
+<section id="precos">
+  <h2><span class="n">05</span>Preços</h2>
+  <p class="lede">Lançamento, tabela e % vendido serão todos atualizados. Aguardar.</p>
+  <div class="tbl-wrap"><table id="precotbl"></table></div>
+</section>
+
+<section id="fichas">
+  <h2><span class="n">06</span>Fichas e battle cards</h2>
+  <p class="lede">Os battle cards são rascunhos. <b>Cada vulnerabilidade será auditada uma a uma</b> antes de ir para o canal; até lá, nenhuma deve ser usada como argumento de venda.</p>
+  <div class="filters" role="group" aria-label="Filtrar fichas">
+    <button data-f="all" aria-pressed="true">Todos</button><button data-f="Anel 1" aria-pressed="false">Anel 1</button><button data-f="Anel 2" aria-pressed="false">Anel 2</button><button data-f="new" aria-pressed="false">Fora dos estudos anteriores</button>
+  </div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="referencia">
+  <h2><span class="n">07</span>Referência</h2>
+  <p class="lede">Prontos com estoque, esgotados e produtos acima da faixa: não competem na planta, mas disputam o mesmo cliente ou servem de referência de preço.</p>
+  <div class="tbl-wrap"><table id="reftbl"></table></div>
+  <div hidden><h3 style="font-family:var(--display);font-weight:500;margin:26px 0 8px">A verificar</h3>
+  <p class="lede" style="margin-bottom:12px">Candidatos encontrados na varredura que ainda não entram na lista: endereço, status ou distância por confirmar.</p>
+  <div class="tbl-wrap"><table id="vertbl"></table></div></div>
+</section>
+
+<section id="metodo">
+  <h2><span class="n">08</span>Método</h2>
+  <div>
+    <div class="panel" style="font-size:14.5px">
+      <b style="font-family:var(--display);font-weight:500;font-size:17px">Como a lista foi montada</b>
+      <ul style="padding-left:18px;color:var(--ink-2)">
+        <li>Ponto de partida: estudos Yuny de fevereiro e julho de 2026.</li>
+        <li>Varredura dos portais Apto, MySide e Lopes para Moema, Indianópolis e Ibirapuera, mais comunicados de RI (EZTEC) e imprensa.</li>
+        <li>Entra quem tem ao menos uma planta de 200 m² ou mais e está em lançamento, breve lançamento ou obra.</li>
+        <li>Cada dado leva fonte e status: confirmado em duas fontes ou fonte oficial, uma fonte só, ou divergente.</li>
+        <li>Preços ficam fora da varredura pública: são validados pelo Rogerio com fechamentos reais.</li>
+      </ul>
+    </div>
+    <div class="panel" style="font-size:14.5px" hidden>
+      <b style="font-family:var(--display);font-weight:500;font-size:17px">Pendências</b>
+      <ul style="padding-left:18px;color:var(--ink-2)" id="pend"></ul>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px" hidden><b style="font-family:var(--display);font-weight:500;font-size:17px">Fontes</b><ul id="srcs" class="src" style="padding-left:18px;columns:2;column-gap:28px"></ul></div>
+</section>
+</main>
+<footer><div class="wrap">Gerência de Produtos · Yuny Incorporadora · Uso interno.</div></footer>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+const SHEET_ID = "1HvMSGj6wrxnnZOxEq7HRpSHoYAFlNilGEDBIPPrDE1k";
+let D = {"data": "03/11/2026", "quaddra": {"id": "Q", "nome": "Quaddra Sabiá", "incorporadora": "Yuny", "endereco": "Av. Sabiá (frente ao Lindenberg Moema) - nº a confirmar", "anel": "Projeto base", "segmento": "", "status_obra": "Pré-lançamento (SCP)", "lancamento": "", "entrega": "", "torres": "1", "pavimentos": "", "unidades": "", "unid_andar": "2", "terreno": "", "metragens": "~298, ~350, ~395 (9 unid.)", "suites": "", "vagas": "", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Base", "status_dado": "Base interna (Rogerio)", "obs": "Elevadores privativos; tênis oficial de saibro; piscina coberta raia 25 m + descoberta com solarium; Technogym; loja GPA no térreo com acesso independente.", "fonte1": "Base enviada pelo Rogerio em 03/11/2026", "fonte2": "", "x": 0, "y": 0, "pos_base": "mapa", "tipologias": [298, 350, 395], "atributos": ["2", "✓ elevador privativo", "✓ saibro, oficial", "✓", "✓ 25 m", "✓ Technogym", "✓ GPA, acesso independente", "✓"], "dist_m": 0}, "projetos": [{"id": "C01", "nome": "Lindenberg Moema", "alias": "Lindenberg Inhambu (estudo fev/26)", "incorporadora": "Adolpho Lindenberg", "endereco": "Av. Juriti x R. Inhambu, Moema", "anel": "Anel 1", "status_obra": "Lançamento", "lancamento": "11/2025", "entrega": "11/2028", "torres": "1", "pavimentos": "", "unidades": "58 (fev/26: 29+29)", "unid_andar": "?", "terreno": "3400", "metragens": "293 / 373", "suites": "4", "vagas": "4", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Fev/26 e Jul/26", "status_dado": "Confirmado (2 fontes)", "obs": "Em frente ao Quaddra. Fev/26 lista 291 m² com 3 suítes; portais dizem 293 m² com 4 suítes. Lazer com quadra de tênis e piscina coberta (Apto).", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/lindenberg-moema", "fonte2": "https://myside.com.br/apartamento-venda-lindenberg-moema-sao-paulo-sp", "x": 58, "y": 101, "pos_base": "mapa", "dist_m": 120, "dist_txt": "≈ 120 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Juriti%20x%20R.%20Inhambu%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [293, 373], "faixas": ["A", "B"], "atributos": ["?", "?", "✓ (tipo ?)", "✓", "?", "?", "✗", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C02", "nome": "La Galerie", "alias": "Cyrela Gaivota (fev/26); provável = 'Breve lançamento R. Lavandisca' (Apto)", "incorporadora": "Cyrela + Nortis", "endereco": "R. Gaivota, 418, Moema", "anel": "Anel 1", "status_obra": "Lançamento", "lancamento": "06/2026", "entrega": "02/2030 (MySide) ou 12/2031 (Apto)", "torres": "1 ou 2 (divergente)", "pavimentos": "", "unidades": "", "unid_andar": "1 na planta de 416 m²", "terreno": "4420", "metragens": "284 / 345 / 416 / 442 / 570 / 649 / 770 (duplex e casas suspensas)", "suites": "4", "vagas": "3 a 5", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Fev/26 e Jul/26 (incompleto)", "status_dado": "Divergente", "obs": "Estudos Yuny só trazem 283/288, 345 e 416 m². Lazer: piscina com raia, piscina coberta, quadra de tênis, spa. Loft descreve 2 torres (uma 1/andar); Apto diz 1 torre. Apto lista à parte um 'Breve lançamento R. Lavandisca' 283-415 m² com tênis: provável duplicidade.", "fonte1": "https://myside.com.br/apartamento-venda-la-galerie-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/la-galerie-moema", "x": 203, "y": -34, "pos_base": "mapa", "dist_m": 210, "dist_txt": "≈ 210 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=R.%20Gaivota%2C%20418%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [284, 345, 416, 442, 570, 649, 770], "faixas": ["A", "B", "C", "D"], "atributos": ["1 (na planta 416)", "✓ hall privativo", "✓ (tipo ?)", "✓", "✓ raia (comprimento ?)", "?", "✗", "divergente"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C03", "nome": "Casa Sabiá", "alias": "", "incorporadora": "Even", "endereco": "Av. Sabiá, 598 (quadra Sabiá / Arapanés / Jauaperi)", "anel": "Anel 1", "status_obra": "Em obra", "lancamento": "12/2023 (Apto: 02/2024)", "entrega": "08/2027", "torres": "2 residenciais + subcondomínio de studios", "pavimentos": "T+24", "unidades": "74 (fev/26: 70)", "unid_andar": "", "terreno": "5570", "metragens": "311 / 315 / 317 / até 621", "suites": "3 a 4", "vagas": "4 a 5", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Fev/26 e Jul/26", "status_dado": "Divergente", "obs": "Metragem diverge entre fontes (311, 315, 317). Laudo Kinea: empreendimento misto com subcondomínios independentes, incluindo torre de studios (Studio Sabiá) no mesmo terreno. Estará pronto antes do lançamento do Quaddra.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/casa-sabia", "fonte2": "https://kinea.com.br/wp-content/uploads/2024/11/DoKRES_Outras-Informacoes_11-2024.pdf", "x": 237, "y": -193, "pos_base": "mapa", "dist_m": 310, "dist_txt": "≈ 310 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Sabi%C3%A1%2C%20598%20%28quadra%20Sabi%C3%A1%20/%20Arapan%C3%A9s%20/%20Jauaperi%29%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [311, 317, 621], "faixas": ["A", "D"], "atributos": ["?", "?", "?", "?", "?", "?", "subcondomínio de studios", "✗ (2 torres)"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C04", "nome": "Singular Ibirapuera", "alias": "", "incorporadora": "Varicred", "endereco": "Av. Juriti, 129, Moema", "anel": "Anel 1", "status_obra": "Em obra", "lancamento": "07/2025 (fev/26: 02/2025)", "entrega": "07/2028", "torres": "1", "pavimentos": "", "unidades": "28", "unid_andar": "1", "terreno": "1600", "metragens": "317", "suites": "4", "vagas": "4", "arquitetura": "Jonas Birger", "paisagismo": "Rodrigo Oliveira", "interiores": "Gui Mattos (áreas comuns)", "vgv": "", "estudos_yuny": "Fev/26 e Jul/26", "status_dado": "Confirmado (2 fontes)", "obs": "1 apartamento por andar, elevador delivery exclusivo por unidade, piscina coberta. Data de lançamento diverge entre os estudos Yuny.", "fonte1": "https://myside.com.br/apartamento-venda-singular-ibirapuera-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/singular-ibirapuera", "x": 116, "y": 130, "pos_base": "mapa", "dist_m": 170, "dist_txt": "≈ 170 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Juriti%2C%20129%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [317], "faixas": ["A"], "atributos": ["1", "✓ elevador delivery exclusivo", "✗ (quadra esportiva)", "✓", "?", "?", "✗", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C05", "nome": "Splend Moema", "alias": "", "incorporadora": "Exto", "endereco": "Av. Juriti, 646, Moema", "anel": "Anel 1", "status_obra": "Em obra", "lancamento": "09/2024 (Apto: 02/2025)", "entrega": "10/2027", "torres": "1", "pavimentos": "", "unidades": "48 (fev/26: 26+22)", "unid_andar": "", "terreno": "1835", "metragens": "258", "suites": "4", "vagas": "3 ou 4", "arquitetura": "Exto (Dina Melaragno)", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Fev/26 e Jul/26", "status_dado": "Confirmado (2 fontes)", "obs": "Abaixo das nossas metragens. Piscina de 20 m, quadra de tênis Lisonda (piso sintético), Life Fitness, hall privativo, depósito.", "fonte1": "https://myside.com.br/apartamento-venda-splend-moema-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/splend-moema", "x": 411, "y": -208, "pos_base": "mapa", "dist_m": 460, "dist_txt": "≈ 460 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Juriti%2C%20646%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [258], "faixas": ["<A"], "atributos": ["?", "✓ hall privativo", "✓ Lisonda (sintético)", "?", "✓ 20 m", "✓ Life Fitness", "✗", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C06", "nome": "Agami Park Residences", "alias": "", "incorporadora": "EZTEC", "endereco": "Av. Agami, 220, Moema", "anel": "Anel 1", "status_obra": "Em obra", "lancamento": "02/2025", "entrega": "01/2029", "torres": "1", "pavimentos": "25", "unidades": "45 + 1 loja", "unid_andar": "2", "terreno": "1554", "metragens": "215 / 290 / 381 / 424 / 572 (garden, tipo, duplex)", "suites": "3 a 4", "vagas": "3 a 4", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "R$ 318 mi", "estudos_yuny": "Fev/26 e Jul/26 (incompleto)", "status_dado": "Confirmado (RI EZTEC + portal)", "obs": "Estudos Yuny só trazem 215 e 290 m²; as plantas de 381/424/572 m² competem com as nossas de 350 e 395. Piscina semiolímpica (25 m), 6 elevadores. Tem 1 loja.", "fonte1": "https://myside.com.br/apartamento-venda-agami-park-residences-sao-paulo-sp", "fonte2": "https://visnoinvest.com.br/news/6266/eztec-lanca-empreendimento-de-alto-padrao-por-r-318-milhoes", "x": 483, "y": 10, "pos_base": "mapa", "dist_m": 480, "dist_txt": "≈ 480 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Agami%2C%20220%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [215, 290, 381, 424, 572], "faixas": ["<A", "A", "C", "D"], "atributos": ["2", "?", "?", "?", "✓ semiolímpica (25 m)", "?", "✓ 1 loja", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C07", "nome": "Vista Parque Ibirapuera", "alias": "", "incorporadora": "Kallas", "endereco": "Av. República do Líbano, 2112", "anel": "Anel 1", "status_obra": "Em obra", "lancamento": "11/2025 (jul/26: 06/2025)", "entrega": "06/2028 a 08/2028", "torres": "1", "pavimentos": "29 a 30", "unidades": "38 a 40", "unid_andar": "2", "terreno": "2530", "metragens": "373 / 453 / 1.185 (cobertura)", "suites": "4 a 5", "vagas": "5 a 10", "arquitetura": "PSA Arquitetura", "paisagismo": "Benedito Abbud", "interiores": "Triptyque", "vgv": "", "estudos_yuny": "Fev/26 e Jul/26", "status_dado": "Confirmado (2 fontes)", "obs": "Vista para o Parque Ibirapuera. Piscina coberta, quadra de tênis, gerador full. Data de lançamento diverge entre os estudos Yuny.", "fonte1": "https://myside.com.br/apartamento-venda-vista-parque-ibirapuera-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/vista-parque-ibirapuera", "x": 464, "y": 145, "pos_base": "mapa", "dist_m": 490, "dist_txt": "≈ 490 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Rep%C3%BAblica%20do%20L%C3%ADbano%2C%202112%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [373, 453, 1185], "faixas": ["B", "C", "D"], "atributos": ["2", "✓ hall privativo", "✓ (tipo ?)", "✓", "?", "?", "✗", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C08", "nome": "Edifício Adolpho Lindenberg", "alias": "Lindenberg Canário (estudo fev/26)", "incorporadora": "Adolpho Lindenberg", "endereco": "R. Canário, 133, Moema", "anel": "Anel 1", "status_obra": "Lançamento", "lancamento": "06/2026", "entrega": "02/2031", "torres": "1", "pavimentos": "", "unidades": "75", "unid_andar": "", "terreno": "", "metragens": "330 / 332 / 430 / 470", "suites": "4", "vagas": "4", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "R$ 1,2 bi", "estudos_yuny": "Só fev/26 (sumiu em jul/26)", "status_dado": "Confirmado (2 fontes)", "obs": "Vendeu mais da metade das 75 unidades nos primeiros dias (imprensa). Não aparece no estudo de julho.", "fonte1": "https://myside.com.br/apartamento-venda-edificio-adolpho-lindenberg-sao-paulo-sp", "fonte2": "https://paraibabusiness.com.br/wellness-e-nome-proprio-a-formula-de-r-12-bi-da-lindenberg/", "x": 280, "y": 159, "pos_base": "mapa", "dist_m": 320, "dist_txt": "≈ 320 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=R.%20Can%C3%A1rio%2C%20133%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [330, 430, 470], "faixas": ["B", "C"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C09", "nome": "Almaz República do Líbano", "alias": "República do Líbano (fev/26); provável = 'Luxury Home' (Apto)", "incorporadora": "R. Yazbek (fev/26: Varicred, Luni e Yazbek)", "endereco": "Av. República do Líbano (nº a confirmar)", "anel": "Anel 1", "status_obra": "Breve lançamento", "lancamento": "10/2026", "entrega": "12/2031", "torres": "1", "pavimentos": "", "unidades": "42 a 44", "unid_andar": "", "terreno": "", "metragens": "335 / 336 / 431 / até 851", "suites": "3 a 4", "vagas": "3 a 8", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Só fev/26", "status_dado": "Divergente", "obs": "Apto lista 'Almaz' (336/431) e 'Luxury Home' (335-851, R. Yazbek, 44 unid.) na mesma avenida e com mesma entrega: provável mesmo projeto.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/almaz-republica-do-libano", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/luxury-home", "x": 585, "y": 39, "pos_base": "mapa", "dist_m": 590, "dist_txt": "≈ 590 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Rep%C3%BAblica%20do%20L%C3%ADbano%20%28n%C2%BA%20a%20confirmar%29%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [336, 431, 851], "faixas": ["B", "C", "D"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C10", "nome": "Maison Gabrielle", "alias": "", "incorporadora": "Zabo Engenharia", "endereco": "Av. Pavão, 246, Moema", "anel": "Anel 1", "status_obra": "Lançamento", "lancamento": "04/2026", "entrega": "04/2029", "torres": "1", "pavimentos": "", "unidades": "", "unid_andar": "", "terreno": "", "metragens": "267 / 530", "suites": "4", "vagas": "3 e 4", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "Confirmado (2 fontes)", "obs": "Não aparece em nenhum estudo Yuny. Lazer listado: academia, piscina adulto, hidromassagem, brinquedoteca. Distância estimada pelo endereço.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/maison-gabrielle", "fonte2": "https://www.lopes.com.br/lancamento/REM25673/maison-gabrielle-sao-paulo-indianopolis", "x": -709, "y": -154, "pos_base": "estimada", "dist_m": 730, "dist_txt": "≈ 730 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Pav%C3%A3o%2C%20246%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [267, 530], "faixas": ["A", "D"], "atributos": ["?", "?", "✗ não consta", "✗ não consta", "?", "✓ (marca ?)", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C11", "nome": "Aura Moema by Cyrela", "alias": "", "incorporadora": "Cyrela", "endereco": "Praça Nossa Senhora Aparecida, 58, Moema", "anel": "Anel 1", "status_obra": "Em obra (entrega 2026)", "lancamento": "10/2023", "entrega": "07/2026", "torres": "1", "pavimentos": "", "unidades": "46", "unid_andar": "", "terreno": "", "metragens": "250 / 251", "suites": "3 a 4", "vagas": "3 a 4", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "Confirmado (2 fontes)", "obs": "Concorrência parcial: planta única de 251 m², abaixo da nossa menor. Já pronto ou quase no lançamento do Quaddra. Distância estimada (junto à estação Moema).", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/aura-moema-by-cyrela", "fonte2": "https://www.quintoandar.com.br/condominio/aura-moema-moema-sao-paulo-p6js84v42k", "x": 480, "y": -390, "pos_base": "estimada", "dist_m": 620, "dist_txt": "≈ 620 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Pra%C3%A7a%20Nossa%20Senhora%20Aparecida%2C%2058%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [251], "faixas": ["<A"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C12", "nome": "LIS Moema", "alias": "", "incorporadora": "Cyrela", "endereco": "Al. dos Arapanés, 1335, Indianópolis", "anel": "Anel 1", "status_obra": "Em obra", "lancamento": "04/2023", "entrega": "11/2026", "torres": "3", "pavimentos": "", "unidades": "114", "unid_andar": "", "terreno": "6157", "metragens": "172 a 256", "suites": "2 a 4", "vagas": "2 a 3", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "1 fonte por dado", "obs": "Concorrência parcial (máximo 256 m²). Distância estimada, perto do limite de 1 km.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/lis-moema", "fonte2": "https://myside.com.br/apartamento-venda-lis-moema-sao-paulo-sp", "x": 834, "y": -357, "pos_base": "estimada", "dist_m": 910, "dist_txt": "≈ 910 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Al.%20dos%20Arapan%C3%A9s%2C%201335%2C%20Indian%C3%B3polis%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [256], "faixas": ["<A"], "atributos": ["?", "✓ hall privativo", "?", "?", "?", "?", "?", "✗ (3 torres)"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C13", "nome": "Gran Oscar Ibirapuera", "alias": "Granoscar (Apto)", "incorporadora": "Trisul", "endereco": "Al. dos Anapurus, 410, Moema", "anel": "Anel 2", "status_obra": "Lançamento", "lancamento": "11/2025 a 01/2026", "entrega": "10/2029", "torres": "", "pavimentos": "", "unidades": "", "unid_andar": "", "terreno": "6289", "metragens": "353 / 370 / 395 / 412 / até 654 (fontes divergem)", "suites": "4", "vagas": "4", "arquitetura": "Perkins&Will", "paisagismo": "", "interiores": "", "vgv": "R$ 1,2 bi", "estudos_yuny": "Só jul/26", "status_dado": "Divergente", "obs": "Maior lançamento da história da Trisul. Condomínio estimado pela Trisul em R$ 6 a 7 mil/mês. Metragens divergem entre portais.", "fonte1": "https://myside.com.br/apartamento-venda-gran-oscar-ibirapuera-sao-paulo-sp", "fonte2": "https://www.moneytimes.com.br/trisul-tris3-lanca-seu-maior-projeto-com-apartamentos-de-ate-r-25-milhoes-igdl/", "x": 1063, "y": -385, "pos_base": "mapa", "dist_m": 1130, "dist_txt": "≈ 1.130 m (mapa)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Al.%20dos%20Anapurus%2C%20410%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [353, 395, 654], "faixas": ["B", "C", "D"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "?"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C14", "nome": "Monã The Grand Lodge", "alias": "", "incorporadora": "Diálogo Engenharia", "endereco": "Av. Indianópolis, 588", "anel": "Anel 2", "status_obra": "Em obra (entrega 2026)", "lancamento": "", "entrega": "10/2026", "torres": "", "pavimentos": "", "unidades": "", "unid_andar": "2", "terreno": "", "metragens": "177 / 197 / 247 / 290 / 332 / 356 / 380 / 572", "suites": "3 a 4", "vagas": "3 a 5", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "1 fonte por dado", "obs": "Não aparece nos estudos Yuny. 2 por andar, quadra de tênis e de beach tennis. Estará pronto quando o Quaddra lançar. Distância estimada pelo endereço.", "fonte1": "https://myside.com.br/apartamento-venda-mona-the-grand-lodge-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/mona-the-grand-lodge", "x": 1169, "y": -287, "pos_base": "estimada", "dist_m": 1200, "dist_txt": "≈ 1.200 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Indian%C3%B3polis%2C%20588%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [247, 290, 332, 356, 380, 572], "faixas": ["<A", "A", "B", "D"], "atributos": ["2", "?", "✓ + beach tennis", "?", "?", "?", "?", "?"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C15", "nome": "Nuv Moema", "alias": "", "incorporadora": "Planik", "endereco": "Av. Jamaris, 633, Moema", "anel": "Anel 2", "status_obra": "Lançamento", "lancamento": "", "entrega": "05/2029", "torres": "1", "pavimentos": "", "unidades": "", "unid_andar": "", "terreno": "1352", "metragens": "208 / 446 / 447", "suites": "3 a 4", "vagas": "3 a 4", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "Confirmado (2 fontes)", "obs": "Não aparece nos estudos Yuny. A planta de 446/447 m² concorre com a nossa de 395. Distância estimada pelo endereço.", "fonte1": "https://myside.com.br/apartamento-venda-nuv-moema-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/nuv-moema", "x": 963, "y": -871, "pos_base": "estimada", "dist_m": 1300, "dist_txt": "≈ 1.300 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Jamaris%2C%20633%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [208, 447], "faixas": ["<A", "C"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C16", "nome": "Helbor Lens Moema", "alias": "", "incorporadora": "Helbor", "endereco": "Av. Indianópolis (nº a confirmar)", "anel": "Anel 2", "status_obra": "Breve lançamento", "lancamento": "", "entrega": "", "torres": "1", "pavimentos": "T+19", "unidades": "", "unid_andar": "", "terreno": "", "metragens": "157 a 476", "suites": "3", "vagas": "2 e 3", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "1 fonte por dado", "obs": "Concorrência parcial: só as plantas maiores (provavelmente coberturas) passam de 200 m². Posição muito incerta (número não divulgado).", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/helbor-lens-moema", "fonte2": "https://www.lopes.com.br/lancamento/REM25578/helbor-lens-moema-sao-paulo-moema", "x": 1349, "y": -522, "pos_base": "estimada", "dist_m": 1450, "dist_txt": "≈ 1.450 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Indian%C3%B3polis%20%28n%C2%BA%20a%20confirmar%29%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [476], "faixas": ["C"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C17", "nome": "Cyrela Zen by Yoo", "alias": "Zen Cyrela e Yoo (Apto)", "incorporadora": "Cyrela", "endereco": "R. Leopoldo de Bulhões, 40, Ibirapuera", "anel": "Anel 2", "status_obra": "Lançamento", "lancamento": "", "entrega": "12/2029", "torres": "2+", "pavimentos": "", "unidades": "", "unid_andar": "", "terreno": "", "metragens": "277 / 320 / 500", "suites": "3 a 4", "vagas": "3 a 4", "arquitetura": "", "paisagismo": "", "interiores": "Yoo", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "Confirmado (2 fontes)", "obs": "Não aparece nos estudos Yuny. Hall privativo, elevador panorâmico na torre 1. A 700 m do metrô AACD-Servidor. Distância estimada.", "fonte1": "https://myside.com.br/apartamento-venda-cyrela-zen-by-yoo-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/zen-cyrela-e-yoo", "x": 1700, "y": 0, "pos_base": "estimada", "dist_m": 1700, "dist_txt": "≈ 1.700 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=R.%20Leopoldo%20de%20Bulh%C3%B5es%2C%2040%2C%20Ibirapuera%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [277, 320, 500], "faixas": ["A", "D"], "atributos": ["?", "✓ hall privativo", "?", "?", "?", "?", "?", "✗"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C18", "nome": "Le Six Ibirapuera", "alias": "", "incorporadora": "Lavvi", "endereco": "Av. Chibarás, 133", "anel": "Anel 2", "status_obra": "Breve lançamento", "lancamento": "10/2026", "entrega": "09/2029", "torres": "1", "pavimentos": "", "unidades": "", "unid_andar": "", "terreno": "", "metragens": "194 / 264", "suites": "3 a 4", "vagas": "2 e 3", "arquitetura": "", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "Confirmado (2 fontes)", "obs": "Concorrência parcial (máx. 264 m²). Proposta com serviços de hotelaria administrados pela CBRE; quadra de tênis. Distância estimada.", "fonte1": "https://myside.com.br/apartamento-venda-le-six-ibirapuera-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/le-six-ibirapuera", "x": 1300, "y": -200, "pos_base": "estimada", "dist_m": 1320, "dist_txt": "≈ 1.320 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Chibar%C3%A1s%2C%20133%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [264], "faixas": ["A"], "atributos": ["?", "?", "✓ (tipo ?)", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}, {"id": "C19", "nome": "Aiká Moema", "alias": "", "incorporadora": "CNL", "endereco": "Av. Chibarás, 669", "anel": "Anel 2", "status_obra": "Lançamento", "lancamento": "02/2026", "entrega": "08/2029", "torres": "1", "pavimentos": "", "unidades": "", "unid_andar": "", "terreno": "", "metragens": "124 a 259", "suites": "2 a 4", "vagas": "2 e 3", "arquitetura": "Jonas Birger e Carlos Rossi", "paisagismo": "", "interiores": "", "vgv": "", "estudos_yuny": "Ausente", "status_dado": "Confirmado (2 fontes)", "obs": "Concorrência parcial (só a planta de 259 m² passa de 200). Distância estimada.", "fonte1": "https://myside.com.br/apartamento-venda-aika-moema-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/aika-moema", "x": 1500, "y": -600, "pos_base": "estimada", "dist_m": 1620, "dist_txt": "≈ 1.620 m (estimada)", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Chibar%C3%A1s%2C%20669%2C%20S%C3%A3o%20Paulo%20-%20SP", "tipologias": [259], "faixas": ["<A"], "atributos": ["?", "?", "?", "?", "?", "?", "?", "✓"], "preco_lanc_fev": "", "preco_tab_fev": "", "vendido_fev": ""}], "referencia": [{"id": "R01", "nome": "Arbórea Ibirapuera", "segmento": "Acima da faixa", "incorporadora": "Benx", "endereco": "Av. República do Líbano, 2000", "status_obra": "Breve lançamento", "metragens": "550 / 585 a 1.289", "entrega": "12/2031", "distancia_aprox": "≈ 530 m (mapa fev/26)", "obs": "Produto de outra faixa (a partir de 550-585 m²). Mesmo eixo do Vista Parque.", "fonte1": "https://apto.vc/br/sp/sao-paulo/ibirapuera/arborea-ibirapuera", "fonte2": "https://www.lopes.com.br/lancamento/REM25502/arborea-ibirapuera-sao-paulo-ibirapuera", "x": 522, "y": 87, "pos_base": "", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Rep%C3%BAblica%20do%20L%C3%ADbano%2C%202000%2C%20S%C3%A3o%20Paulo%20-%20SP"}, {"id": "R02", "nome": "Hélio 454", "segmento": "Pronto no lançamento / quase esgotado", "incorporadora": "RFM, Koema, RKG", "endereco": "Av. Hélio Pellegrino, 454, Vila Nova Conceição", "status_obra": "Entrega 11/2026", "metragens": "256 / 491", "entrega": "11/2026", "distancia_aprox": "≈ 350 m (mapa fev/26)", "obs": "8 unidades, 1 por andar. 85% vendido no estudo fev/26.", "fonte1": "https://myside.com.br/apartamento-venda-helio-454-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/vila-nova-conceicao/helio-454", "x": -266, "y": 222, "pos_base": "", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20H%C3%A9lio%20Pellegrino%2C%20454%2C%20Vila%20Nova%20Concei%C3%A7%C3%A3o%2C%20S%C3%A3o%20Paulo%20-%20SP"}, {"id": "R03", "nome": "Arbre Vila Nova", "segmento": "Esgotado (referência de preço)", "incorporadora": "", "endereco": "Vila Nova Conceição", "status_obra": "Entregue 12/2025", "metragens": "372", "entrega": "12/2025", "distancia_aprox": "≈ 300 m (mapa fev/26)", "obs": "100% vendido no estudo fev/26. Serve como referência de preço de lançamento (valor em atualização).", "fonte1": "Estudo Yuny fev/2026", "fonte2": "", "x": 19, "y": 304, "pos_base": "", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Vila%20Nova%20Concei%C3%A7%C3%A3o%2C%20S%C3%A3o%20Paulo%20-%20SP"}, {"id": "R04", "nome": "Cyrela Moema by YOO", "segmento": "Pronto com estoque", "incorporadora": "Cyrela", "endereco": "Av. dos Imarés, 182", "status_obra": "Entregue 2024/2025", "metragens": "252 a 291", "entrega": "Entregue", "distancia_aprox": "≈ 1,2 a 1,6 km (estimada)", "obs": "Pronto para morar, junto ao Shopping Ibirapuera.", "fonte1": "https://myside.com.br/apartamento-venda-cyrela-moema-by-yoo-sao-paulo-sp", "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/cyrela-moema-by-yoo", "x": null, "y": null, "pos_base": "", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20dos%20Imar%C3%A9s%2C%20182%2C%20S%C3%A3o%20Paulo%20-%20SP"}, {"id": "R05", "nome": "Saffire by Elie Saab", "segmento": "Pronto com estoque", "incorporadora": "Lavvi", "endereco": "Moema (endereço a confirmar)", "status_obra": "Pronto (Apto)", "metragens": "360 a 869", "entrega": "", "distancia_aprox": "a medir", "obs": "Primeiro residencial de grife (branded) da América do Sul, segundo a Lavvi.", "fonte1": "https://myside.com.br/venda-lancamentos-sao-paulo-sp/pagina-10", "fonte2": "https://www.2luxury2.com/saffire-residences-by-elie-saab-and-lavvi-south-americas-first-branded-haven", "x": null, "y": null, "pos_base": "", "gmaps": ""}, {"id": "R06", "nome": "Park Lane Ibirapuera", "segmento": "Pronto com estoque", "incorporadora": "", "endereco": "a confirmar", "status_obra": "Pronto (Apto)", "metragens": "375 / 688", "entrega": "", "distancia_aprox": "a medir", "obs": "Listado como pronto no Apto (Moema). Estoque não confirmado.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema?page=7", "fonte2": "", "x": null, "y": null, "pos_base": "", "gmaps": ""}, {"id": "R07", "nome": "Mirage Ibirapuera", "segmento": "Pronto com estoque", "incorporadora": "DZ Inc", "endereco": "a confirmar", "status_obra": "Pronto (Apto)", "metragens": "238 / 427", "entrega": "", "distancia_aprox": "a medir", "obs": "Listado como pronto no Apto. Estoque não confirmado.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema?page=7", "fonte2": "", "x": null, "y": null, "pos_base": "", "gmaps": ""}, {"id": "R08", "nome": "Park Avenue", "segmento": "Pronto com estoque", "incorporadora": "EZTEC", "endereco": "a confirmar", "status_obra": "Pronto (Apto)", "metragens": "240 / 298", "entrega": "", "distancia_aprox": "a medir", "obs": "Listado como pronto no Apto. Estoque não confirmado.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema?page=7", "fonte2": "", "x": null, "y": null, "pos_base": "", "gmaps": ""}, {"id": "R09", "nome": "The Frame Vila Nova Conceição", "segmento": "Pronto com estoque", "incorporadora": "", "endereco": "Vila Nova Conceição", "status_obra": "Pronto (Apto)", "metragens": "359", "entrega": "", "distancia_aprox": "a medir", "obs": "Listado como pronto no Apto. Estoque não confirmado.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema?page=7", "fonte2": "", "x": null, "y": null, "pos_base": "", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Vila%20Nova%20Concei%C3%A7%C3%A3o%2C%20S%C3%A3o%20Paulo%20-%20SP"}, {"id": "R10", "nome": "Atmos Moema", "segmento": "Pronto com estoque", "incorporadora": "", "endereco": "a confirmar", "status_obra": "Pronto (Apto, 'últimas unidades')", "metragens": "160 a 345", "entrega": "", "distancia_aprox": "a medir", "obs": "Apto marca 'últimas unidades'.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema?page=5", "fonte2": "", "x": null, "y": null, "pos_base": "", "gmaps": ""}, {"id": "R11", "nome": "Copa", "segmento": "Pronto com estoque", "incorporadora": "", "endereco": "Indianópolis", "status_obra": "Pronto (Apto)", "metragens": "301", "entrega": "", "distancia_aprox": "a medir", "obs": "Listado como pronto no Apto. Estoque não confirmado.", "fonte1": "https://apto.vc/br/sp/sao-paulo/moema?page=7", "fonte2": "", "x": null, "y": null, "pos_base": "", "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Indian%C3%B3polis%2C%20S%C3%A3o%20Paulo%20-%20SP"}], "verificar": [{"nome": "Quarten Ibirapuera (Trisul)", "motivo": "Duplex de 306 e 395 m²; Av. Dr. Altino Arantes (Vila Clementino). Medir se está a menos de 2 km.", "fonte": "https://jornaldobras.com.br/noticia/102065/quarten-ibirapuera-integra-natureza-exclusividade-e-bem-estar-em-um-dos-enderecos-mais-desejados-de-sao-paulo"}, {"nome": "The View Ibirapuera", "motivo": "Torre única de 290 m², Av. Prof. Ascendino Reis, 585. Status de venda não confirmado.", "fonte": "https://myside.com.br/apartamento-venda-the-view-ibirapuera-sao-paulo-sp"}, {"nome": "Mairin Ibirapuera", "motivo": "Plantas de 179 a 379 m² (bairro Ibirapuera). Endereço e status a confirmar.", "fonte": "https://myside.com.br/apartamentos-venda-ibirapuera-sao-paulo-sp"}, {"nome": "Hóriz Ibirapuera", "motivo": "Plantas de 231 e 301 m² com vista para o parque. Endereço e status a confirmar.", "fonte": "https://myside.com.br/apartamentos-venda-ibirapuera-sao-paulo-sp"}, {"nome": "Breve lançamento Av. Chibarás", "motivo": "Plantas de 180 e 250 m² (Apto). Incorporadora não divulgada.", "fonte": "https://apto.vc/br/sp/sao-paulo/moema?page=7"}, {"nome": "Portrait Parque do Ibirapuera (Cyrela)", "motivo": "232 a 355 m², mas no Paraíso: provavelmente além de 2 km. Fora do estudo, salvo decisão contrária.", "fonte": "https://myside.com.br/apartamento-venda-portrait-parque-do-ibirapuera-sao-paulo-sp"}], "attr_cols": ["Unid./andar", "Elevador ou hall privativo", "Quadra de tênis", "Piscina coberta", "Raia / comprimento", "Academia (marca)", "Varejo no térreo", "Torre única"], "battle": [{"id": "C01", "tipo": "Vulnerabilidade", "titulo": "Salto de 293 para 373 m²", "texto": "Não há planta intermediária: quem precisa de mais que 293 m² e não quer 373 m² fica sem opção. O Quaddra tem ~350 m².", "base": "Tipologias publicadas (Apto, MySide)"}, {"id": "C01", "tipo": "Ataque contra nós", "titulo": "Mesma quadra, um ano na frente", "texto": "Lançou em 11/2025 com entrega em 11/2028: obra mais adiantada no mesmo endereço, com tênis e piscina coberta.", "base": "Apto: lançamento 11/2025, entrega 11/2028"}, {"id": "C01", "tipo": "Resposta", "titulo": "Mais opções de planta e unidades especiais", "texto": "Três plantas (~298, ~350 e ~395 m²) contra duas. As 9 unidades de ~395 m² não têm equivalente no vizinho.", "base": "Base Quaddra"}, {"id": "C02", "tipo": "Vulnerabilidade", "titulo": "Entrega em 2030 ou depois", "texto": "Os portais indicam entrega entre 02/2030 e 12/2031, a mais distante entre os diretos.", "base": "MySide e Apto"}, {"id": "C02", "tipo": "Ataque contra nós", "titulo": "Mix maior e lazer equivalente", "texto": "Duplex e casas suspensas de até 770 m², piscina com raia, piscina coberta e tênis, com a marca Cyrela.", "base": "MySide"}, {"id": "C02", "tipo": "Resposta", "titulo": "Varejo próprio no térreo", "texto": "Loja GPA com acesso independente: conveniência que o La Galerie não oferece. Validar se o prazo de entrega do Quaddra é anterior.", "base": "Base Quaddra"}, {"id": "C03", "tipo": "Vulnerabilidade", "titulo": "Terreno compartilhado com studios", "texto": "O terreno abriga subcondomínios independentes, incluindo uma torre de studios (Studio Sabiá), segundo o laudo da Kinea.", "base": "Laudo Kinea, out/2024"}, {"id": "C03", "tipo": "Ataque contra nós", "titulo": "Pronto em 2027", "texto": "Com entrega em 08/2027, vai vender como imóvel pronto enquanto o Quaddra estiver na planta.", "base": "Estudo Yuny fev/26"}, {"id": "C03", "tipo": "Resposta", "titulo": "Torre única residencial", "texto": "Quaddra: uma torre residencial, 2 por andar, sem studios no mesmo terreno.", "base": "Base Quaddra"}, {"id": "C04", "tipo": "Vulnerabilidade", "titulo": "Planta única de 317 m²", "texto": "Quem precisa de mais área não tem alternativa no Singular.", "base": "MySide"}, {"id": "C04", "tipo": "Ataque contra nós", "titulo": "Um apartamento por andar", "texto": "28 unidades, uma por andar, com elevador delivery exclusivo: mais privacidade que 2 por andar.", "base": "MySide"}, {"id": "C04", "tipo": "Resposta", "titulo": "Lazer de clube", "texto": "Tênis oficial de saibro e raia de 25 m; o Singular lista quadra esportiva, sem quadra de tênis.", "base": "MySide (lista de lazer)"}, {"id": "C05", "tipo": "Vulnerabilidade", "titulo": "Metragem única e menor", "texto": "Só 258 m², abaixo da menor planta do Quaddra.", "base": "MySide"}, {"id": "C05", "tipo": "Ataque contra nós", "titulo": "Pronto antes e ticket menor", "texto": "Entrega em 10/2027 e ticket total menor por ter só 258 m².", "base": "MySide"}, {"id": "C05", "tipo": "Resposta", "titulo": "Lazer superior", "texto": "Raia de 25 m contra piscina de 20 m; saibro contra quadra sintética (Lisonda).", "base": "MySide"}, {"id": "C06", "tipo": "Vulnerabilidade", "titulo": "Sem quadra de tênis listada", "texto": "A lista de lazer publicada não traz quadra de tênis.", "base": "MySide"}, {"id": "C06", "tipo": "Ataque contra nós", "titulo": "Piscina semiolímpica e EZTEC", "texto": "Piscina semiolímpica (25 m) e plantas de 381 a 572 m² com a solidez da EZTEC.", "base": "MySide, RI EZTEC"}, {"id": "C06", "tipo": "Resposta", "titulo": "Tênis oficial e varejo", "texto": "Tênis oficial de saibro e loja GPA no térreo. Raia equivalente (25 m).", "base": "Base Quaddra"}, {"id": "C07", "tipo": "Vulnerabilidade", "titulo": "Ticket mais alto da região", "texto": "Plantas a partir de 373 m² de frente para o parque: o ticket total mais alto entre os diretos (valores em atualização).", "base": "MySide (metragens)"}, {"id": "C07", "tipo": "Ataque contra nós", "titulo": "Vista definitiva do parque", "texto": "Frente para o Parque Ibirapuera, 2 por andar, piscina coberta e tênis.", "base": "MySide"}, {"id": "C07", "tipo": "Resposta", "titulo": "Mesmo padrão de planta, ticket menor", "texto": "Plantas de 350 e 395 m² num bairro residencial, com ticket a confirmar quando os preços forem atualizados.", "base": "A validar com os preços atualizados"}, {"id": "C08", "tipo": "Vulnerabilidade", "titulo": "Entrega só em 2031", "texto": "Entrega prevista para 02/2031.", "base": "MySide"}, {"id": "C08", "tipo": "Ataque contra nós", "titulo": "Demanda comprovada", "texto": "Vendeu mais da metade das 75 unidades nos primeiros dias, com VGV de R$ 1,2 bi.", "base": "Imprensa"}, {"id": "C08", "tipo": "Resposta", "titulo": "Prazo (a confirmar)", "texto": "Se a entrega do Quaddra for anterior a 2031, esse é o argumento.", "base": "A definir"}, {"id": "C13", "tipo": "Vulnerabilidade", "titulo": "Condomínio alto", "texto": "A Trisul estima condomínio de R$ 6 a 7 mil por mês.", "base": "Money Times / Estadão"}, {"id": "C13", "tipo": "Ataque contra nós", "titulo": "Escala e plantas grandes", "texto": "Terreno de 6.289 m² e unidades de até 654 m².", "base": "Money Times; jul/26"}, {"id": "C13", "tipo": "Resposta", "titulo": "A definir", "texto": "Depende do condomínio estimado do Quaddra.", "base": "A definir"}, {"id": "C10", "tipo": "Vulnerabilidade", "titulo": "Lazer enxuto", "texto": "A lista de lazer publicada traz academia, piscina adulto e hidromassagem, sem tênis nem piscina coberta.", "base": "Apto"}, {"id": "C10", "tipo": "Ataque contra nós", "titulo": "Plantas de 267 e 530 m²", "texto": "Pega o cliente abaixo da nossa menor planta e o cliente de duplex.", "base": "Apto"}, {"id": "C10", "tipo": "Resposta", "titulo": "Clube completo", "texto": "Tênis oficial, raia de 25 m, Technogym e loja GPA.", "base": "Base Quaddra"}, {"id": "C14", "tipo": "Vulnerabilidade", "titulo": "Público misto na mesma torre", "texto": "As plantas vão de 177 a 572 m² no mesmo prédio.", "base": "MySide"}, {"id": "C14", "tipo": "Ataque contra nós", "titulo": "Pronto em 2026, com tênis", "texto": "Entrega em 10/2026, 2 por andar, quadra de tênis e beach tennis.", "base": "MySide, Apto"}, {"id": "C14", "tipo": "Resposta", "titulo": "Localização", "texto": "Moema Pássaros, em frente ao Lindenberg, contra Av. Indianópolis.", "base": "A validar"}], "faixas": [["A", "260-320", "~298 m²"], ["B", "321-380", "~350 m²"], ["C", "381-480", "~395 m²"], ["D", "acima de 480", "duplex e coberturas"]]};
+const COL = {q:"#B0682A", "Anel 1":"#008F7A", "Anel 2":"#6A5FC8", ref:"#8F8A80"};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = n => (n===null||n===undefined||n==="") ? "" : Number(n).toLocaleString("pt-BR");
+const money = v => { const n = toNum(v); return n ? "R$ " + n.toLocaleString("pt-BR") : ""; };
+function toNum(v){ if(v===null||v===undefined||v==="") return null; if(typeof v==="number") return v; const s=String(v).replace(/[R$\s]/g,"").replace(/\./g,"").replace(",","."); const n=parseFloat(s); return isNaN(n)?null:n; }
+const isNew = p => /Ausente/i.test(p.estudos_yuny||"");
+const tip = $("#tip");
+function showTip(e, html){ tip.innerHTML = html; tip.style.opacity = 1; moveTip(e); }
+function moveTip(e){ const x=e.clientX+14, y=e.clientY+14; const w=tip.offsetWidth, h=tip.offsetHeight; tip.style.left=Math.min(x, innerWidth-w-8)+"px"; tip.style.top=Math.min(y, innerHeight-h-8)+"px"; }
+function hideTip(){ tip.style.opacity = 0; }
+const numOf = id => id==="Q" ? "Q" : String(parseInt(id.slice(1),10));
+
+function render(){
+  $("#dt").textContent = D.data;
+  $("#sheetlink").href = "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/edit";
+  const P = D.projetos;
+  const a1 = P.filter(p=>p.anel==="Anel 1"), a2 = P.filter(p=>p.anel==="Anel 2");
+  const novos = P.filter(isNew);
+  const within500 = P.filter(p=>p.dist_m!=null && p.dist_m<=500);
+  $("#tiles").innerHTML = [
+    [a1.length, "concorrentes até 1 km", COL["Anel 1"]],
+    [a2.length, "concorrentes de 1 a 2 km", COL["Anel 2"]],
+    [novos.length, "fora dos estudos Yuny de fev e jul/26", "var(--bad)"],
+    [within500.length, "a até 500 m do Quaddra (medidos no mapa)", COL.q],
+  ].map(([v,l,c])=>`<div class="tile"><div class="bar" style="background:${c}"></div><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`).join("");
+
+  const ten = P.filter(p=>/^✓/.test(p.atributos[2]||""));
+  const twoOrLess = P.filter(p=>/^[12]\b/.test(String(p.atributos[0]||"").trim()));
+  const prontos = P.filter(p=>{ const m=/(\d{2})\/(\d{4})/.exec(p.entrega||""); return m && (+m[2]<2027 || (+m[2]===2027)); });
+  const fullNew = novos.filter(p=>!p.faixas.every(f=>f==="<A"));
+  const F = [
+    ["Tênis é comum na região", `${ten.length} concorrentes anunciam quadra de tênis (${ten.map(p=>p.nome).join(", ")}). O diferencial defensável é o saibro em quadra oficial: nenhuma fonte cita saibro nos concorrentes, e o Splend usa piso sintético. Confirmar o tipo de quadra dos demais.`],
+    ["Privacidade não é exclusiva", `${twoOrLess.length} concorrentes têm 1 ou 2 unidades por andar (${twoOrLess.map(p=>p.nome).join(", ")}). O Agami tem piscina semiolímpica, equivalente à nossa raia de 25 m, e também uma loja no térreo.`],
+    ["Vão competir como prontos", `${prontos.length} entregam até o fim de 2027 (${prontos.map(p=>p.nome+" "+p.entrega.split(" ")[0]).join(", ")}) e estarão prontos ou quase quando o Quaddra for lançado.`],
+  ];
+  $("#findings").innerHTML = F.map(([t,p])=>`<div class="find"><b>${esc(t)}</b><p>${esc(p)}</p></div>`).join("");
+
+  drawMap(); drawList(); drawTipo(); drawAttr(); drawPrecos(); drawCards("all"); drawRef(); drawMeta();
+}
+
+function drawMap(){
+  const svg = $("#map"); const P = D.projetos;
+  const R = (D.referencia||[]).filter(r=>r.x!=null);
+  const L = (pts)=>pts.map(([x,y])=>`${x},${-y}`).join(" ");
+  const roads = [
+    ["Av. Ibirapuera", [[-85,-853],[456,-368],[1349,709]] ,[1060,420]],
+    ["Av. Rep. do Líbano", [[228,1095],[834,40]], [420,820]],
+    ["Av. Indianópolis", [[834,40],[1239,-596]], [700,-190]],
+    ["Av. Hélio Pellegrino", [[-930,243],[-562,169],[-195,195],[99,287],[283,390]], [-640,250]],
+    ["Av. Santo Amaro", [[-691,526],[-857,-632]], [-1010,-60]],
+    ["Av. Sabiá", [[-600,500],[640,-540]], [-600,560]],
+  ];
+  let s = `<defs><pattern id="hatch" width="60" height="60" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="60" stroke="#CFE3D6" stroke-width="18"/></pattern></defs>`;
+  s += `<polygon points="${L([[260,1150],[560,760],[1250,820],[1500,1250],[1300,1700],[600,1750]])}" fill="url(#hatch)" opacity=".7"/>`;
+  s += `<text x="880" y="-1300" font-size="96" fill="#4F7F60" font-weight="600" text-anchor="middle">Parque Ibirapuera</text>`;
+  [2000,1000].forEach((r,i)=>{ s += `<circle cx="0" cy="0" r="${r}" fill="${i? '#F2F8F6':'#F6F5FB'}" stroke="${i? COL['Anel 1']:COL['Anel 2']}" stroke-width="5" stroke-dasharray="${i?'':'24 16'}" opacity="${i? .9:.8}"/>`; });
+  s += `<text x="0" y="-1035" font-size="92" text-anchor="middle" fill="${COL['Anel 1']}" font-weight="700">1 km</text>`;
+  s += `<text x="0" y="-2030" font-size="92" text-anchor="middle" fill="${COL['Anel 2']}" font-weight="700">2 km</text>`;
+  roads.forEach(([n,pts,lab])=>{ s += `<polyline points="${L(pts)}" fill="none" stroke="#D9D4CA" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`; });
+  roads.forEach(([n,pts,lab])=>{ s += `<text x="${lab[0]}" y="${-lab[1]}" font-size="80" fill="#7B756A" text-anchor="middle" style="paint-order:stroke" stroke="#FBFAF7" stroke-width="16">${esc(n)}</text>`; });
+  s += `<g><rect x="${456-24}" y="${368-24}" width="48" height="48" rx="10" fill="#fff" stroke="#8B857A" stroke-width="6"/><text x="${380}" y="${368+28}" font-size="76" text-anchor="end" fill="#7B756A">Metrô Moema</text></g>`;
+  P.filter(p=>p.x!=null).forEach(p=>{
+    const c = COL[p.anel]||COL.ref, est = p.pos_base==="estimada";
+    s += `<g class="pt" data-id="${p.id}" style="cursor:pointer"><circle cx="${p.x}" cy="${-p.y}" r="100" fill="transparent"/><circle cx="${p.x}" cy="${-p.y}" r="72" fill="${est? '#fff':c}" stroke="${est? c:'#fff'}" stroke-width="${est?10:8}" ${est?'stroke-dasharray="18 10"':''}/><text x="${p.x}" y="${-p.y+25}" font-size="72" font-weight="700" text-anchor="middle" fill="${est? c:'#fff'}">${numOf(p.id)}</text></g>`;
+  });
+  s += `<g><circle cx="0" cy="0" r="100" fill="${COL.q}" stroke="#fff" stroke-width="14"/><text x="0" y="28" font-size="80" font-weight="700" text-anchor="middle" fill="#fff">Q</text></g>`;
+  svg.innerHTML = s;
+  svg.querySelectorAll(".pt").forEach(g=>{
+    const id=g.dataset.id; const p = D.projetos.find(x=>x.id===id) || (D.referencia||[]).find(x=>x.id===id);
+    g.addEventListener("mousemove", e=>{ showTip(e, `<b>${esc(p.nome)}</b>${esc(p.incorporadora)}<br>${esc(p.metragens)} m²<br>${p.dist_txt?esc(p.dist_txt):esc(p.distancia_aprox||"")}`); hl(id,true); });
+    g.addEventListener("mouseleave", ()=>{ hideTip(); hl(id,false); });
+  });
+}
+function hl(id,on){ const li=document.querySelector(`#plist li[data-id="${id}"]`); if(li) li.classList.toggle("hl",on); }
+
+function drawList(){
+  const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9));
+  $("#plist").innerHTML = P.map(p=>`<li data-id="${p.id}" class="go" tabindex="0" role="link" aria-label="Abrir ficha de ${esc(p.nome)}"><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span><span>${esc(p.nome)}${isNew(p)?' <span class="chip new">novo</span>':''}<br><span class="s">${esc(p.incorporadora)} · ${esc(p.status_obra)}</span></span><span class="d">${p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":""}${p.pos_base==="estimada"?"<br><span class='s'>estimada</span>":""}</span></li>`).join("");
+}
+
+function drawTipo(){
+  const P=[{...D.quaddra, anel:"q", nome:"Quaddra Sabiá"}, ...[...D.projetos].sort((a,b)=>(a.anel>b.anel?1:a.anel<b.anel?-1:(a.dist_m??0)-(b.dist_m??0)))];
+  const W=1080, left=230, right=60, top=40, rowH=30, H=top+P.length*rowH+40;
+  const x0=200, x1=800; const X=v=>left+(Math.min(v,x1)-x0)/(x1-x0)*(W-left-right);
+  const svg=$("#tipo"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  let s="";
+  const bands=[[260,320,"A · ~298","#F3EEE6"],[320,380,"B · ~350","#EAF3F1"],[380,480,"C · ~395","#EFEDF8"],[480,800,"D · duplex e coberturas","#F4F4F2"]];
+  bands.forEach(([a,b,l,c])=>{ s+=`<rect x="${X(a)}" y="${top-10}" width="${X(b)-X(a)}" height="${P.length*rowH+10}" fill="${c}"/><text x="${(X(a)+X(b))/2}" y="${top-18}" font-size="12.5" text-anchor="middle" fill="#4E5754" font-weight="600">${l}</text>`; });
+  [200,300,400,500,600,700,800].forEach(v=>{ s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${top-10}" y2="${top+P.length*rowH}" stroke="#E4E1DA" stroke-width="1"/><text x="${X(v)}" y="${top+P.length*rowH+18}" font-size="12" text-anchor="middle" fill="#7B8380">${v===800?"800+":v} m²</text>`; });
+  P.forEach((p,i)=>{
+    const y=top+i*rowH+rowH/2; const c=COL[p.anel]||COL.ref;
+    if(i>0 && P[i-1].anel!==p.anel) s+=`<line x1="12" x2="${W-right}" y1="${y-rowH/2}" y2="${y-rowH/2}" stroke="#D9D4CA"/>`;
+    s+=`<text x="${left-12}" y="${y+4.5}" font-size="13" text-anchor="end" fill="${p.anel==='q'?'#1D2523':'#4E5754'}" font-weight="${p.anel==='q'?700:400}">${esc(p.nome)}</text>`;
+    const ms=(p.tipologias||[]); if(ms.length>1){ s+=`<line x1="${X(Math.min(...ms))}" x2="${X(Math.max(...ms))}" y1="${y}" y2="${y}" stroke="${c}" stroke-opacity=".35" stroke-width="2"/>`; }
+    ms.forEach(m=>{ s+=`<circle class="td" data-n="${esc(p.nome)}" data-m="${m}" cx="${X(m)}" cy="${y}" r="${p.anel==='q'?7:5.5}" fill="${c}" stroke="#fff" stroke-width="2"/>`; if(m>x1) s+=`<text x="${X(m)+10}" y="${y+4}" font-size="11" fill="#7B8380">${fmt(m)}</text>`; });
+  });
+  s+=`<rect x="12" y="${H-16}" width="10" height="10" rx="5" fill="${COL['Anel 1']}"/><text x="28" y="${H-7}" font-size="12" fill="#4E5754">Anel 1</text><rect x="90" y="${H-16}" width="10" height="10" rx="5" fill="${COL['Anel 2']}"/><text x="106" y="${H-7}" font-size="12" fill="#4E5754">Anel 2</text>`;
+  svg.innerHTML=s;
+  svg.querySelectorAll(".td").forEach(c=>{ c.addEventListener("mousemove",e=>showTip(e,`<b>${c.dataset.n}</b>${fmt(+c.dataset.m)} m²`)); c.addEventListener("mouseleave",hideTip); });
+  const bandOf=m=>m<260?null:m<=320?"A":m<=380?"B":m<=480?"C":"D";
+  const cnt={A:[],B:[],C:[],D:[]};
+  D.projetos.filter(p=>p.anel==="Anel 1").forEach(p=>{ new Set((p.tipologias||[]).map(bandOf).filter(Boolean)).forEach(b=>cnt[b].push(p.nome)); });
+  const lab={A:"Faixa A (~298 m²)",B:"Faixa B (~350 m²)",C:"Faixa C (~395 m²)",D:"Faixa D (duplex e coberturas)"};
+  $("#faixacount").innerHTML = ["A","B","C","D"].map(k=>`<div class="panel" style="padding:14px 16px"><b style="font-family:var(--display);font-weight:500">${lab[k]}</b> · <span style="font-variant-numeric:tabular-nums">${cnt[k].length}</span> concorrentes no anel 1<div class="s" style="font-size:13px;color:var(--ink-2);margin-top:4px">${esc(cnt[k].join(", ")||"nenhum")}</div></div>`).join("");
+}
+
+function cellCls(v){ v=String(v||""); return v.startsWith("✓")?"cell-yes":v.startsWith("✗")?"cell-no":(v==="?"?"cell-unk":""); }
+function drawAttr(){
+  const rows=[{...D.quaddra,anel:"q"}, ...[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9))];
+  let h=`<thead><tr><th>Empreendimento</th><th>Anel</th>${D.attr_cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>`;
+  rows.forEach(p=>{ h+=`<tr class="${p.anel==='q'?'q':''}"><td>${p.anel==='q'?esc(p.nome):`<a class="go" data-id="${p.id}" href="#ficha-${p.id.toLowerCase()}">${esc(p.nome)}</a>`}</td><td>${p.anel==='q'?'':`<span class="chip ${p.anel==='Anel 1'?'a1':'a2'}">${esc(p.anel)}</span>`}</td>${(p.atributos||[]).map(v=>`<td class="${cellCls(v)}">${esc(v)}</td>`).join("")}</tr>`; });
+  $("#attr").innerHTML=h+"</tbody>";
+}
+
+function drawPrecos(){
+  const rows=[{...D.quaddra,anel:"q"}, ...[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9))];
+  let h=`<thead><tr><th>Empreendimento</th><th class="r">Lançamento R$/m²</th><th class="r">Tabela atual R$/m²</th><th class="r">Fechamento real R$/m²</th><th class="r">Desconto</th><th>% vendido</th><th>Atualizado em</th></tr></thead><tbody>`;
+  rows.forEach(p=>{
+    const v=(D.precos||{})[p.id]||{};
+    const t=toNum(v.tab), f=toNum(v.fech); const desc=(t&&f)? ((1-f/t)*100).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%":"";
+    const nome = p.anel==='q'? esc(p.nome) : `<a class="go" data-id="${p.id}" href="#ficha-${p.id.toLowerCase()}">${esc(p.nome)}</a>`;
+    h+=`<tr class="${p.anel==='q'?'q':''}"><td>${nome}</td><td class="r">${money(v.lanc)}</td><td class="r">${money(v.tab)}</td><td class="r">${money(v.fech)}</td><td class="r">${desc}</td><td>${esc(v.vend||"")}</td><td>${v.data? esc(v.data) : '<span style="color:var(--muted);font-weight:400">aguardando</span>'}</td></tr>`;
+  });
+  $("#precotbl").innerHTML=h+"</tbody>";
+}
+
+function chipStatus(s){ s=s||""; return /Diverg/.test(s)?`<span class="chip div">${esc(s)}</span>`:/Confirm/.test(s)?`<span class="chip ok">${esc(s)}</span>`:`<span class="chip one">${esc(s)}</span>`; }
+function drawCards(f){
+  const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9)).filter(p=> f==="all" || (f==="new"? isNew(p) : p.anel===f));
+  const bcBy={}; (D.battle||[]).forEach(b=>{ (bcBy[b.id]=bcBy[b.id]||[]).push(b); });
+  $("#cards").innerHTML = P.map(p=>{
+    const kv=[["Endereço",p.endereco],["Distância",p.dist_txt],["Status",p.status_obra],["Lançamento",p.lancamento],["Entrega",p.entrega],["Plantas",p.metragens? (/\d$/.test(p.metragens)? p.metragens+" m²": p.metragens.replace(/(\d)( \()/, "$1 m²$2")):""],["Unidades",p.unidades],["Por andar",p.unid_andar],["Terreno",p.terreno? fmt(toNum(p.terreno))+" m²":""],["Projeto",[p.arquitetura,p.paisagismo,p.interiores].filter(Boolean).join(" · ")],["VGV",p.vgv]].filter(([k,v])=>v && v!=="?");
+    const bcs=(bcBy[p.id]||[]).map(b=>{ const cls=b.tipo==="Vulnerabilidade"?"v":b.tipo.startsWith("Ataque")?"at":"re"; const lab=b.tipo==="Vulnerabilidade"?"Vulnerabilidade deles":b.tipo.startsWith("Ataque")?"Como atacam o Quaddra":"Nossa resposta"; return `<div class="bc ${cls}"><b>${lab} · ${esc(b.titulo)}${cls==="v"?' <span class="chip one" style="text-transform:none;letter-spacing:0;margin-left:4px">em auditoria</span>':""}</b>${esc(b.texto)}</div>`; }).join("");
+    return `<article class="card" id="ficha-${p.id.toLowerCase()}"><h3><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span>${esc(p.nome)}</h3><div class="sub">${esc(p.incorporadora)} · <span class="chip ${p.anel==='Anel 1'?'a1':'a2'}">${esc(p.anel)}</span> ${isNew(p)?'<span class="chip new">fora dos estudos anteriores</span>':''} ${chipStatus(p.status_dado)}</div>
+      <dl class="kv">${kv.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+      ${bcs?`<div class="bcs">${bcs}</div>`:""}
+      <div class="obs">${esc(p.obs)}</div>
+      <div class="src">${[p.fonte1,p.fonte2].filter(Boolean).map(u=>/^https?:/.test(u)?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/,"").split("/")[0])}</a>`:esc(u)).join(" · ")}${p.gmaps?` · <a href="${esc(p.gmaps)}" target="_blank" rel="noopener">rota a pé</a>`:""}</div></article>`;
+  }).join("") || `<p class="lede">Nenhum projeto neste filtro.</p>`;
+}
+document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{ document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); drawCards(b.dataset.f); }));
+
+function drawRef(){
+  const order=["Acima da faixa","Pronto no lançamento / quase esgotado","Esgotado (referência de preço)","Pronto com estoque"];
+  const R=[...(D.referencia||[])].sort((a,b)=>order.indexOf(a.segmento)-order.indexOf(b.segmento));
+  let h=`<thead><tr><th>Segmento</th><th>Empreendimento</th><th>Incorporadora</th><th>Plantas (m²)</th><th>Status</th><th>Distância</th><th>Observação</th></tr></thead><tbody>`;
+  R.forEach(r=>{ h+=`<tr><td><span class="chip">${esc(r.segmento)}</span></td><td>${esc(r.nome)}</td><td>${esc(r.incorporadora)}</td><td>${esc(r.metragens)}</td><td>${esc(r.status_obra)}</td><td>${esc(r.distancia_aprox)}</td><td>${esc(r.obs)}</td></tr>`; });
+  $("#reftbl").innerHTML=h+"</tbody>";
+  $("#vertbl").innerHTML=`<thead><tr><th>Empreendimento</th><th>O que falta confirmar</th><th>Fonte</th></tr></thead><tbody>`+(D.verificar||[]).map(v=>`<tr><td>${esc(v.nome)}</td><td>${esc(v.motivo)}</td><td class="src">${/^https?:/.test(v.fonte)?`<a href="${esc(v.fonte)}" target="_blank" rel="noopener">${esc(v.fonte.replace(/^https?:\/\/(www\.)?/,"").split("/")[0])}</a>`:esc(v.fonte)}</td></tr>`).join("")+"</tbody>";
+}
+
+function drawMeta(){
+  const P=D.projetos;
+  const div=P.filter(p=>/Diverg/.test(p.status_dado)).map(p=>p.nome);
+  const est=P.filter(p=>p.pos_base==="estimada").map(p=>p.nome);
+  $("#pend").innerHTML=[
+    `Endereço exato do Quaddra, data de lançamento, entrega, número de unidades e terreno (para o m² de terreno por unidade).`,
+    `Dados divergentes entre fontes: ${div.join(", ")}.`,
+    `Distâncias estimadas pelo endereço, a medir: ${est.join(", ")}.`,
+    `Confirmar se "Breve lançamento R. Lavandisca" é o La Galerie e se "Luxury Home" é o Almaz.`,
+    `Tipo de quadra de tênis dos concorrentes (saibro ou sintética).`,
+  ].map(t=>`<li>${esc(t)}</li>`).join("");
+  const urls=new Map(); [...P,...(D.referencia||[])].forEach(p=>[p.fonte1,p.fonte2].forEach(u=>{ if(u && /^https?:/.test(u)) urls.set(u,p.nome); }));
+  (D.verificar||[]).forEach(v=>{ if(/^https?:/.test(v.fonte)) urls.set(v.fonte, v.nome); });
+  $("#srcs").innerHTML=[...urls].map(([u,n])=>`<li style="break-inside:avoid;margin-bottom:4px"><b style="color:var(--ink-2)">${esc(n)}</b>: <a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/,""))}</a></li>`).join("");
+}
+
+/* ---------- Atualização a partir do Google Sheets (conector do próprio leitor) ---------- */
+function parsePayload(res){
+  let p = res && (res.payload ?? res);
+  if (p && Array.isArray(p.content)) { const t=p.content.find(c=>c.type==="text"); if(t) { try{ p=JSON.parse(t.text); }catch(e){} } }
+  if (p && p.structuredContent) p = p.structuredContent;
+  return (p && p.values) || [];
+}
+function rowsToObjs(values){ const [h,...rs]=values; return rs.filter(r=>r && r.length && r[0]).map(r=>Object.fromEntries(h.map((k,i)=>[k, r[i]??""]))); }
+async function sync(mcp){
+  const btn=$("#syncbtn"), st=$("#syncst"); btn.disabled=true; st.className="status"; st.textContent="Lendo a planilha…";
+  const get = range => mcp.callTool("Google Sheets","get_values",{spreadsheetId:SHEET_ID, range}).then(parsePayload);
+  try{
+    const [proj, tip, attr, prec, bc] = await Promise.all([get("'Projetos'!A1:AE80"), get("'Tipologias'!A1:C300"), get("'Atributos'!A1:K80"), get("'Preços'!A1:K80"), get("'Battle cards'!A1:G300")]);
+    const PO=rowsToObjs(proj), TO=rowsToObjs(tip), AO=rowsToObjs(attr), PR=rowsToObjs(prec), BO=rowsToObjs(bc);
+    const old=Object.fromEntries(D.projetos.map(p=>[p.id,p]));
+    const tipBy={}; TO.forEach(t=>{ const m=toNum(t["Metragem (m²)"]); if(m) (tipBy[t.ID]=tipBy[t.ID]||[]).push(m); });
+    const attrBy={}; AO.forEach(a=>{ attrBy[a.ID]=D.attr_cols.map(c=>a[c]??"?"); });
+    const np=[];
+    PO.forEach(r=>{
+      const id=r.ID; if(!id) return;
+      const o=old[id]||{};
+      const dm=toNum(r["Distância aprox. (m)"]);
+      const base = /Estimada/i.test(r["Base da distância"])?"estimada":"mapa";
+      const rec={...o, id, nome:r["Empreendimento"], alias:r["Também chamado"], incorporadora:r["Incorporadora"], endereco:r["Endereço"], anel:r["Anel"], status_obra:r["Status da obra"], lancamento:r["Lançamento"], entrega:r["Entrega"], torres:r["Torres"], pavimentos:r["Pavimentos"], unidades:r["Unidades"], unid_andar:r["Unid./andar"], terreno:r["Terreno (m²)"], metragens:r["Metragens (m²)"], suites:r["Suítes"], vagas:r["Vagas"], arquitetura:r["Arquitetura"], paisagismo:r["Paisagismo"], interiores:r["Interiores"], vgv:r["VGV"], estudos_yuny:r["Presença nos estudos Yuny"], status_dado:r["Status do dado"], obs:r["Observações e divergências"], fonte1:r["Fonte 1"], fonte2:r["Fonte 2"], dist_m:dm, pos_base:base, dist_txt: dm!=null? "≈ "+fmt(dm)+" m ("+(base==="estimada"?"estimada":"mapa")+")":"", tipologias:tipBy[id]||o.tipologias||[], atributos:attrBy[id]||o.atributos||D.attr_cols.map(()=>"?")};
+      const bandOf=m=>m<260?"<A":m<=320?"A":m<=380?"B":m<=480?"C":"D";
+      rec.faixas=[...new Set(rec.tipologias.map(bandOf))];
+      if(id==="Q"){ D.quaddra={...D.quaddra, ...rec, anel:"Projeto base"}; } else if (rec.anel==="Anel 1"||rec.anel==="Anel 2") np.push(rec);
+    });
+    if(np.length) D.projetos=np;
+    D.precos={}; PR.forEach(r=>{ D.precos[r.ID]={lanc:r["Lançamento R$/m²"], tab:r["Tabela atual R$/m²"], fech:r["Fechamento real R$/m²"], vend:r["% vendido"], data:r["Data da atualização"]}; });
+    if(BO.length) D.battle=BO.map(b=>({id:b.ID, tipo:b["Tipo"], titulo:b["Título"], texto:b["Texto"], base:b["Base factual"]}));
+    const now=new Date(); D.data=now.toLocaleDateString("pt-BR")+" (planilha)";
+    render(); st.textContent="Atualizado da planilha às "+now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  }catch(e){
+    st.className="status err"; st.textContent = (e && e.code==="server_not_connected") ? "Conector do Google Sheets não conectado nesta conta. Mostrando os dados embutidos." : "Não foi possível ler a planilha ("+(e&&e.code||"erro")+"). Mostrando os dados embutidos.";
+  } finally { btn.disabled=false; }
+}
+
+function goTo(id){
+  let el=document.getElementById("ficha-"+id.toLowerCase());
+  if(!el){ document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed", x.dataset.f==="all"?"true":"false")); drawCards("all"); el=document.getElementById("ficha-"+id.toLowerCase()); }
+  if(!el) return;
+  el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth", block:"start"});
+  el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);
+}
+document.addEventListener("click", e=>{ const g=e.target.closest(".go, #map .pt"); if(!g||!g.dataset.id) return; e.preventDefault(); hideTip(); goTo(g.dataset.id); });
+document.addEventListener("keydown", e=>{ if(e.key!=="Enter") return; const g=e.target.closest && e.target.closest("li.go"); if(g){ goTo(g.dataset.id); } });
+render();
+(async()=>{ try{ const mcp = await (window.claude && window.claude.use ? window.claude.use("mcp") : null); if(mcp){ const b=$("#syncbtn"); b.disabled=false; b.addEventListener("click",()=>sync(mcp)); $("#syncst").textContent="Dados embutidos · pode atualizar da planilha"; } else { $("#syncst").textContent="Dados embutidos na página (versão de "+D.data+")"; } }catch(e){} })();
+</script>
+</body>
+</html>
