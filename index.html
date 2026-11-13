@@ -125,6 +125,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
   .maptools .sep{width:1px;height:20px;background:var(--line);margin:0 2px}
   #ajustebox{display:none;margin-top:10px} #ajustebox textarea{width:100%;height:120px;font:12px monospace}
   .attrib{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
+  td.cell-aud{color:var(--bad);font-weight:600}
 </style>
 </head>
 <body>
@@ -155,7 +156,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
 
 <section id="mapa">
   <h2><span class="n">02</span>Mapa dos anéis</h2>
-  <p class="lede">Mapa real, com o Quaddra no centro e os anéis de 1 e 2 km em escala. Posições medidas sobre os mapas dos estudos de fevereiro e julho de 2026 (±100 m) ou estimadas pelo endereço (contorno tracejado, ±300 a 400 m). Passe o mouse para ver o nome, clique para abrir a ficha.</p>
+  <p class="lede">Mapa real, com o Quaddra no centro e os anéis de 1 e 2 km em escala. Posições medidas em mapa (±100 m) ou estimadas pelo endereço (contorno tracejado, ±300 a 400 m). Passe o mouse para ver o nome, clique para abrir a ficha.</p>
   <div class="mapgrid">
     <div class="panel">
       <div class="legend"><span><i style="background:var(--bronze)"></i>Quaddra</span><span><i style="background:var(--a1)"></i>Anel 1 (até 1 km)</span><span><i style="background:var(--a2)"></i>Anel 2 (1 a 2 km)</span><span><i class="dash"></i>Posição estimada</span></div>
@@ -178,7 +179,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
 
 <section id="atributos">
   <h2><span class="n">04</span>Diferenciais lado a lado</h2>
-  <p class="lede">✓ consta na fonte pública · ✗ não tem ou não consta · ? sem informação. A coluna do Quaddra vem da base interna.</p>
+  <p class="lede">✓ tem, segundo fonte pública ou da incorporadora · ✗ não tem, ou a lista de lazer publicada não cita · "não consta": nenhuma fonte pública informa · "auditar": fontes discordam. A coluna do Quaddra vem da base interna. Fontes por linha na aba Atributos da planilha.</p>
   <div class="tbl-wrap"><table id="attr"></table></div>
 </section>
 
@@ -186,14 +187,14 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
   <h2><span class="n">05</span>Preços</h2>
   <p class="lede">Lançamento, tabela e % vendido serão todos atualizados. Aguardar.</p>
   <p class="note" id="sortinfo" style="margin:0 0 10px"></p><div class="tbl-wrap"><table id="precotbl"></table></div>
-  <p class="note nvlegend"><span class="chip nvchip">não validado</span> <span class="chip nvchip">parcial</span> Valores em cinza itálico ainda não foram validados: vêm do estudo Yuny de fev/26 ou de portais (preço "a partir de", unidade mais barata, que tende a ficar abaixo da média da tabela). Servem de referência até a confirmação com a incorporadora. Tabela atual = preço do andar médio. "Parcial" indica que parte da linha já foi confirmada; só o que está em cinza falta validar. Fechamento real nunca é preenchido a partir de fontes públicas.</p>
+  <p class="note nvlegend"><span class="chip nvchip">não validado</span> <span class="chip nvchip">parcial</span> Valores em cinza itálico ainda não foram validados: vêm da base interna de fev/26 ou de portais (preço "a partir de", unidade mais barata, que tende a ficar abaixo da média da tabela). Servem de referência até a confirmação com a incorporadora. Tabela atual = preço do andar médio. "Parcial" indica que parte da linha já foi confirmada; só o que está em cinza falta validar. Fechamento real nunca é preenchido a partir de fontes públicas.</p>
 </section>
 
 <section id="fichas">
   <h2><span class="n">06</span>Fichas e battle cards</h2>
   <p class="lede">Os battle cards são rascunhos. <b>Cada vulnerabilidade será auditada uma a uma</b> antes de ir para o canal; até lá, nenhuma deve ser usada como argumento de venda.</p>
   <div class="filters" role="group" aria-label="Filtrar fichas">
-    <button data-f="all" aria-pressed="true">Todos</button><button data-f="Anel 1" aria-pressed="false">Anel 1</button><button data-f="Anel 2" aria-pressed="false">Anel 2</button><button data-f="new" aria-pressed="false">Fora dos estudos anteriores</button>
+    <button data-f="all" aria-pressed="true">Todos</button><button data-f="Anel 1" aria-pressed="false">Anel 1</button><button data-f="Anel 2" aria-pressed="false">Anel 2</button>
   </div>
   <div class="cards" id="cards"></div>
 </section>
@@ -213,10 +214,10 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
     <div class="panel" style="font-size:14.5px">
       <b style="font-family:var(--display);font-weight:500;font-size:17px">Como a lista foi montada</b>
       <ul style="padding-left:18px;color:var(--ink-2)">
-        <li>Ponto de partida: estudos Yuny de fevereiro e julho de 2026.</li>
+        <li>Ponto de partida: base interna da Yuny.</li>
         <li>Varredura dos portais Apto, MySide e Lopes para Moema, Indianópolis e Ibirapuera, mais comunicados de RI (EZTEC) e imprensa.</li>
         <li>Entra quem tem ao menos uma planta de 200 m² ou mais e está em lançamento, breve lançamento ou obra.</li>
-        <li>Cada dado leva fonte e status: confirmado em duas fontes ou fonte oficial, uma fonte só, ou divergente.</li>
+        <li>Cada dado leva fonte e status: confirmado em duas fontes ou fonte oficial, uma fonte só, ou "auditar" quando as fontes discordam.</li>
         <li>Preços ficam fora da varredura pública: são validados pelo Rogerio com fechamentos reais.</li>
         <li>Preço médio de tabela é sempre o do andar médio do empreendimento, nunca a média de todos os valores. Quando o andar médio já foi vendido, o valor é estimado pelo degrau de preço entre andares da tabela oficial.</li>
       </ul>
@@ -336,10 +337,10 @@ let D = {
   },
   "C13": {
    "lanc": "R$ 32.900",
-   "tab": "R$ 28.700",
+   "tab": "R$ 28.825",
    "fech": "",
-   "vend": "",
-   "data": "portal 10/11 · atualizar"
+   "vend": "27,4",
+   "data": "10/11 · atualizar lançamento e tabela (média, não andar médio)"
   },
   "C14": {
    "lanc": "",
@@ -417,7 +418,7 @@ let D = {
   {
    "id": "C01",
    "nome": "Lindenberg Moema",
-   "alias": "Lindenberg Inhambu (estudo fev/26)",
+   "alias": "Lindenberg Inhambu",
    "incorporadora": "Adolpho Lindenberg",
    "endereco": "Av. Juriti x R. Inhambu, Moema",
    "anel": "Anel 1",
@@ -461,13 +462,13 @@ let D = {
     "D"
    ],
    "atributos": [
-    "?",
-    "?",
-    "✓ (tipo ?)",
-    "✓",
-    "?",
-    "?",
-    "✗",
+    "2",
+    "✓ hall e 2 elevadores privativos por prumada",
+    "✓ rápida, oficial",
+    "✓ aquecida",
+    "✓ raia (comprimento não consta)",
+    "✓ (marca não consta)",
+    "Auditar: ficha cita 146 unidades corporativas",
     "✓"
    ],
    "preco_lanc_fev": "",
@@ -497,8 +498,8 @@ let D = {
    "interiores": "",
    "vgv": "",
    "estudos_yuny": "Fev/26 e Jul/26 (incompleto)",
-   "status_dado": "Divergente",
-   "obs": "Estudos Yuny só trazem 283/288, 345 e 416 m². Lazer: piscina com raia, piscina coberta, quadra de tênis, spa. Loft descreve 2 torres (uma 1/andar); Apto diz 1 torre. Apto lista à parte um 'Breve lançamento R. Lavandisca' 283-415 m² com tênis: provável duplicidade.",
+   "status_dado": "Auditar",
+   "obs": "Plantas de 284 a 770 m², incluindo duplex e casas suspensas (MySide). Lazer: piscina coberta com raia de 25 m, piscinas externas, quadra de tênis, spa, sauna e fitness. Conteúdo da Cyrela na InfoMoney: 2 torres de 26 pavimentos e 68 unidades. Apto lista à parte um 'Breve lançamento R. Lavandisca' 283-415 m² com tênis: provável duplicidade, a auditar.",
    "fonte1": "https://myside.com.br/apartamento-venda-la-galerie-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/la-galerie-moema",
    "x": 203,
@@ -527,12 +528,12 @@ let D = {
    "atributos": [
     "1 (na planta 416)",
     "✓ hall privativo",
-    "✓ (tipo ?)",
+    "✓ (piso não consta)",
     "✓",
-    "✓ raia (comprimento ?)",
-    "?",
+    "✓ 25 m",
+    "✓ (marca não consta)",
     "✗",
-    "divergente"
+    "✗ (2 torres)"
    ],
    "preco_lanc_fev": "",
    "preco_tab_fev": "",
@@ -561,7 +562,7 @@ let D = {
    "interiores": "",
    "vgv": "",
    "estudos_yuny": "Fev/26 e Jul/26",
-   "status_dado": "Divergente",
+   "status_dado": "Auditar",
    "obs": "Metragem diverge entre fontes (311, 315, 317). Laudo Kinea: empreendimento misto com subcondomínios independentes, incluindo torre de studios (Studio Sabiá) no mesmo terreno. Estará pronto antes do lançamento do Quaddra.",
    "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/casa-sabia",
    "fonte2": "https://kinea.com.br/wp-content/uploads/2024/11/DoKRES_Outras-Informacoes_11-2024.pdf",
@@ -583,12 +584,12 @@ let D = {
     "D"
    ],
    "atributos": [
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
+    "não consta",
+    "✓ hall privativo, 2 elevadores",
+    "✓ (piso não consta)",
+    "✓",
+    "✓ 25 m",
+    "✓ (marca não consta)",
     "subcondomínio de studios",
     "✗ (2 torres)"
    ],
@@ -620,7 +621,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Fev/26 e Jul/26",
    "status_dado": "Confirmado (2 fontes)",
-   "obs": "1 apartamento por andar, elevador delivery exclusivo por unidade, piscina coberta. Data de lançamento diverge entre os estudos Yuny. Atualização Varicred 13/11: 28 unidades, 4 em estoque; 3 vendidas em 2026 com fechamento médio de R$ 34.700/m².",
+   "obs": "1 apartamento por andar, elevador delivery exclusivo por unidade, piscina coberta. Data de lançamento diverge entre fontes. Atualização Varicred 13/11: 28 unidades, 4 em estoque; 3 vendidas em 2026 com fechamento médio de R$ 34.700/m².",
    "fonte1": "https://myside.com.br/apartamento-venda-singular-ibirapuera-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/singular-ibirapuera",
    "x": 116,
@@ -642,8 +643,8 @@ let D = {
     "✓ elevador delivery exclusivo",
     "✗ (quadra esportiva)",
     "✓",
-    "?",
-    "?",
+    "✗ não consta",
+    "✓ (marca não consta)",
     "✗",
     "✓"
    ],
@@ -693,10 +694,10 @@ let D = {
     "<A"
    ],
    "atributos": [
-    "?",
+    "não consta",
     "✓ hall privativo",
     "✓ Lisonda (sintético)",
-    "?",
+    "✗ não consta",
     "✓ 20 m",
     "✓ Life Fitness",
     "✗",
@@ -730,7 +731,7 @@ let D = {
    "vgv": "R$ 318 mi",
    "estudos_yuny": "Fev/26 e Jul/26 (incompleto)",
    "status_dado": "Confirmado (RI EZTEC + portal)",
-   "obs": "Estudos Yuny só trazem 215 e 290 m²; as plantas de 381/424/572 m² competem com as nossas de 350 e 395. Piscina semiolímpica (25 m), 6 elevadores. Tem 1 loja.",
+   "obs": "As plantas de 381/424/572 m² competem com as nossas de 350 e 395. Piscina semiolímpica (25 m), 6 elevadores. Tem 1 loja.",
    "fonte1": "https://myside.com.br/apartamento-venda-agami-park-residences-sao-paulo-sp",
    "fonte2": "https://visnoinvest.com.br/news/6266/eztec-lanca-empreendimento-de-alto-padrao-por-r-318-milhoes",
    "x": 483,
@@ -756,11 +757,11 @@ let D = {
    ],
    "atributos": [
     "2",
-    "?",
-    "?",
-    "?",
+    "✓ hall privativo",
+    "✗ (miniquadra gramada)",
+    "✗ não consta",
     "✓ semiolímpica (25 m)",
-    "?",
+    "✓ (marca não consta)",
     "✓ 1 loja",
     "✓"
    ],
@@ -792,7 +793,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Fev/26 e Jul/26",
    "status_dado": "Confirmado (2 fontes)",
-   "obs": "Vista para o Parque Ibirapuera. Piscina coberta, quadra de tênis, gerador full. Data de lançamento diverge entre os estudos Yuny.",
+   "obs": "Vista para o Parque Ibirapuera. Piscina coberta, quadra de tênis, gerador full. Data de lançamento diverge entre fontes.",
    "fonte1": "https://myside.com.br/apartamento-venda-vista-parque-ibirapuera-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/vista-parque-ibirapuera",
    "x": 464,
@@ -816,10 +817,10 @@ let D = {
    "atributos": [
     "2",
     "✓ hall privativo",
-    "✓ (tipo ?)",
+    "✓ elevada (piso não consta)",
     "✓",
-    "?",
-    "?",
+    "✓ 25 m",
+    "✓ (marca não consta)",
     "✗",
     "✓"
    ],
@@ -830,7 +831,7 @@ let D = {
   {
    "id": "C08",
    "nome": "Edifício Adolpho Lindenberg",
-   "alias": "Lindenberg Canário (estudo fev/26)",
+   "alias": "Lindenberg Canário",
    "incorporadora": "Adolpho Lindenberg",
    "endereco": "R. Canário, 133, Moema",
    "anel": "Anel 1",
@@ -875,14 +876,14 @@ let D = {
     "D"
    ],
    "atributos": [
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "✓"
+    "1 a 2",
+    "✓ hall e 2 elevadores privativos por prumada",
+    "✓ saibro, coberta, oficial",
+    "✓",
+    "✓ 25 m",
+    "✓ Technogym",
+    "Auditar: ficha cita 146 unidades corporativas",
+    "✗ (2 torres)"
    ],
    "preco_lanc_fev": "",
    "preco_tab_fev": "",
@@ -912,7 +913,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Só fev/26",
    "status_dado": "Confirmado (incorporadora)",
-   "obs": "Atualização Varicred 13/11: 44 unidades, 22 de 335 m² (2 em estoque) e 22 de 430 m² (9 em estoque), todas com 4 suítes e 4 vagas. Primeiras unidades a cerca de R$ 40.000/m² na tabela 15/35/50; hoje cerca de R$ 45.000/m². A planta de 851 m² citada pelo Apto não aparece na informação da incorporadora.",
+   "obs": "Atualização Varicred 13/11: 44 unidades, 22 de 335 m² (2 em estoque) e 22 de 430 m² (9 em estoque), todas com 4 suítes e 4 vagas. Primeiras unidades a cerca de R$ 40.000/m² na tabela 15/35/50; hoje cerca de R$ 45.000/m². A planta de 851 m² listada pelo Apto não foi citada pela incorporadora.",
    "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/almaz-republica-do-libano",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/luxury-home",
    "x": 585,
@@ -932,13 +933,13 @@ let D = {
     "C"
    ],
    "atributos": [
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
+    "não consta",
+    "não consta",
+    "não consta",
+    "não consta",
+    "não consta",
+    "não consta",
+    "não consta",
     "✓"
    ],
    "preco_lanc_fev": "",
@@ -969,7 +970,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Ausente",
    "status_dado": "Confirmado (2 fontes)",
-   "obs": "Não aparece em nenhum estudo Yuny. Lazer listado: academia, piscina adulto, hidromassagem, brinquedoteca. Distância estimada pelo endereço.",
+   "obs": "Lazer listado: academia, piscina adulto, hidromassagem, brinquedoteca. Distância estimada pelo endereço.",
    "fonte1": "https://apto.vc/br/sp/sao-paulo/moema/maison-gabrielle",
    "fonte2": "https://www.lopes.com.br/lancamento/REM25673/maison-gabrielle-sao-paulo-indianopolis",
    "x": -709,
@@ -989,13 +990,13 @@ let D = {
     "D"
    ],
    "atributos": [
-    "?",
-    "?",
+    "não consta",
+    "não consta",
     "✗ não consta",
     "✗ não consta",
-    "?",
-    "✓ (marca ?)",
-    "?",
+    "✗ não consta",
+    "✓ (marca não consta)",
+    "✗ não consta",
     "✓"
    ],
    "preco_lanc_fev": "",
@@ -1044,13 +1045,13 @@ let D = {
     "<A"
    ],
    "atributos": [
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
+    "não consta",
+    "não consta",
+    "✗ não consta",
+    "✗ não consta (tem spa interno)",
+    "✗ não consta",
+    "✗ não consta",
+    "✗ não consta",
     "✓"
    ],
    "preco_lanc_fev": "",
@@ -1067,12 +1068,12 @@ let D = {
    "status_obra": "Lançamento",
    "lancamento": "11/2025 a 01/2026",
    "entrega": "10/2029",
-   "torres": "",
+   "torres": "2",
    "pavimentos": "",
-   "unidades": "",
+   "unidades": "88 residenciais (84 de 374 m² + 4 duplex); 483 no total com HIS, HMP e studios",
    "unid_andar": "",
    "terreno": "6289",
-   "metragens": "353 / 370 / 395 / 412 / até 654 (fontes divergem)",
+   "metragens": "374 / duplex 628",
    "suites": "4",
    "vagas": "4",
    "arquitetura": "Perkins&Will",
@@ -1080,8 +1081,8 @@ let D = {
    "interiores": "",
    "vgv": "R$ 1,2 bi",
    "estudos_yuny": "Só jul/26",
-   "status_dado": "Divergente",
-   "obs": "Maior lançamento da história da Trisul. Condomínio estimado pela Trisul em R$ 6 a 7 mil/mês. Metragens divergem entre portais.",
+   "status_dado": "Confirmado (planilha de vendas)",
+   "obs": "Planilha de vendas de 10/11: empreendimento misto com 483 unidades (30 HIS e 167 HMP de 33 m², 198 studios de 21 m², 84 apartamentos de 4 dorms com 374 m² e 4 duplex de 628 m²). Residencial 4 dorms: 27,4% vendido (23 de 84). Lazer: quadra de tênis de saibro coberta, piscina coberta com raia de 25 m, Technogym.",
    "fonte1": "https://myside.com.br/apartamento-venda-gran-oscar-ibirapuera-sao-paulo-sp",
    "fonte2": "https://www.moneytimes.com.br/trisul-tris3-lanca-seu-maior-projeto-com-apartamentos-de-ate-r-25-milhoes-igdl/",
    "x": 1063,
@@ -1093,24 +1094,22 @@ let D = {
    "dist_txt": "≈ 1.130 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Al.%20dos%20Anapurus%2C%20410%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
-    353,
-    395,
-    654
+    374,
+    628
    ],
    "faixas": [
     "B",
-    "C",
     "D"
    ],
    "atributos": [
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?"
+    "não consta",
+    "não consta",
+    "✓ saibro, coberta, oficial",
+    "✓",
+    "✓ 25 m",
+    "✓ Technogym",
+    "uso misto: 395 unidades HIS, HMP e studios",
+    "✗ (2 torres)"
    ],
    "preco_lanc_fev": "",
    "preco_tab_fev": "",
@@ -1140,7 +1139,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Ausente",
    "status_dado": "1 fonte por dado",
-   "obs": "Não aparece nos estudos Yuny. 2 por andar, quadra de tênis e de beach tennis. Estará pronto quando o Quaddra lançar. Distância estimada pelo endereço.",
+   "obs": "2 por andar, quadra de tênis oficial e de beach tennis, piscina coberta e aquecida. Estará pronto quando o Quaddra lançar. Distância estimada pelo endereço.",
    "fonte1": "https://myside.com.br/apartamento-venda-mona-the-grand-lodge-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/mona-the-grand-lodge",
    "x": 1169,
@@ -1167,13 +1166,13 @@ let D = {
    ],
    "atributos": [
     "2",
-    "?",
-    "✓ + beach tennis",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?"
+    "não consta",
+    "✓ oficial + beach tennis",
+    "✓ aquecida",
+    "✗ não consta",
+    "✓ (marca não consta)",
+    "✗ não consta",
+    "✗ (4 torres)"
    ],
    "preco_lanc_fev": "",
    "preco_tab_fev": "",
@@ -1203,7 +1202,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Ausente",
    "status_dado": "Confirmado (2 fontes)",
-   "obs": "Não aparece nos estudos Yuny. A planta de 446/447 m² concorre com a nossa de 395. Distância estimada pelo endereço.",
+   "obs": "Torre única com 38 apartamentos. A planta de 446/447 m² concorre com a nossa de 395. Distância estimada pelo endereço.",
    "fonte1": "https://myside.com.br/apartamento-venda-nuv-moema-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/nuv-moema",
    "x": 963,
@@ -1223,13 +1222,13 @@ let D = {
     "C"
    ],
    "atributos": [
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
+    "não consta",
+    "não consta",
+    "✗ não consta",
+    "✓ climatizada",
+    "✗ não consta",
+    "✓ (marca não consta)",
+    "✗ não consta",
     "✓"
    ],
    "preco_lanc_fev": "",
@@ -1260,7 +1259,7 @@ let D = {
    "vgv": "",
    "estudos_yuny": "Ausente",
    "status_dado": "Confirmado (2 fontes)",
-   "obs": "Não aparece nos estudos Yuny. Hall privativo, elevador panorâmico na torre 1. A 700 m do metrô AACD-Servidor. Distância estimada.",
+   "obs": "Hall privativo, elevador panorâmico na torre 1. A 700 m do metrô AACD-Servidor. Distância estimada.",
    "fonte1": "https://myside.com.br/apartamento-venda-cyrela-zen-by-yoo-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/zen-cyrela-e-yoo",
    "x": 1700,
@@ -1281,13 +1280,13 @@ let D = {
     "D"
    ],
    "atributos": [
-    "?",
+    "não consta",
     "✓ hall privativo",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
+    "✓ (piso não consta)",
+    "✓",
+    "✓ 25 m",
+    "✓ (marca não consta)",
+    "✗ não consta",
     "✗"
    ],
    "preco_lanc_fev": "",
@@ -1336,13 +1335,13 @@ let D = {
     "A"
    ],
    "atributos": [
-    "?",
-    "?",
-    "✓ (tipo ?)",
-    "?",
-    "?",
-    "?",
-    "?",
+    "não consta",
+    "não consta",
+    "✓ (piso não consta)",
+    "✓",
+    "✗ não consta",
+    "✓ (marca não consta)",
+    "✗ não consta",
     "✓"
    ],
    "preco_lanc_fev": "",
@@ -1360,7 +1359,7 @@ let D = {
    "status_obra": "Breve lançamento",
    "metragens": "550 / 585 a 1.289",
    "entrega": "12/2031",
-   "distancia_aprox": "≈ 530 m (mapa fev/26)",
+   "distancia_aprox": "≈ 530 m (medida em mapa)",
    "obs": "Produto de outra faixa (a partir de 550-585 m²). Mesmo eixo do Vista Parque.",
    "fonte1": "https://apto.vc/br/sp/sao-paulo/ibirapuera/arborea-ibirapuera",
    "fonte2": "https://www.lopes.com.br/lancamento/REM25502/arborea-ibirapuera-sao-paulo-ibirapuera",
@@ -1378,8 +1377,8 @@ let D = {
    "status_obra": "Entrega 11/2026",
    "metragens": "256 / 491",
    "entrega": "11/2026",
-   "distancia_aprox": "≈ 350 m (mapa fev/26)",
-   "obs": "8 unidades, 1 por andar. 85% vendido no estudo fev/26.",
+   "distancia_aprox": "≈ 350 m (medida em mapa)",
+   "obs": "8 unidades, 1 por andar. 85% vendido em fev/26 (base interna).",
    "fonte1": "https://myside.com.br/apartamento-venda-helio-454-sao-paulo-sp",
    "fonte2": "https://apto.vc/br/sp/sao-paulo/vila-nova-conceicao/helio-454",
    "x": -266,
@@ -1396,9 +1395,9 @@ let D = {
    "status_obra": "Entregue 12/2025",
    "metragens": "372",
    "entrega": "12/2025",
-   "distancia_aprox": "≈ 300 m (mapa fev/26)",
-   "obs": "100% vendido no estudo fev/26. Serve como referência de preço de lançamento (valor em atualização).",
-   "fonte1": "Estudo Yuny fev/2026",
+   "distancia_aprox": "≈ 300 m (medida em mapa)",
+   "obs": "100% vendido em fev/26 (base interna). Serve como referência de preço de lançamento (valor em atualização).",
+   "fonte1": "Base interna Yuny (fev/2026)",
    "fonte2": "",
    "x": 19,
    "y": 304,
@@ -1854,7 +1853,7 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;
 const fmt = n => (n===null||n===undefined||n==="") ? "" : Number(n).toLocaleString("pt-BR");
 const money = v => { const n = toNum(v); return n ? "R$ " + n.toLocaleString("pt-BR") : ""; };
 function toNum(v){ if(v===null||v===undefined||v==="") return null; if(typeof v==="number") return v; let s=String(v).replace(/[R$\s%]/g,""); if(/^-?\d+(\.\d+)?$/.test(s) && !/^\d{1,3}(\.\d{3})+$/.test(s)) return parseFloat(s); s=s.replace(/\./g,"").replace(",","."); const n=parseFloat(s); return isNaN(n)?null:n; }
-const isNew = p => /Ausente/i.test(p.estudos_yuny||"");
+const isNew = p => false;
 const tip = $("#tip");
 function showTip(e, html){ tip.innerHTML = html; tip.style.opacity = 1; moveTip(e); }
 function moveTip(e){ const x=e.clientX+14, y=e.clientY+14; const w=tip.offsetWidth, h=tip.offsetHeight; tip.style.left=Math.min(x, innerWidth-w-8)+"px"; tip.style.top=Math.min(y, innerHeight-h-8)+"px"; }
@@ -1871,7 +1870,7 @@ function render(){
   $("#tiles").innerHTML = [
     [a1.length, "concorrentes até 1 km", COL["Anel 1"]],
     [a2.length, "concorrentes de 1 a 2 km", COL["Anel 2"]],
-    [novos.length, "fora dos estudos Yuny de fev e jul/26", "var(--bad)"],
+    [P.filter(p=>/Lan[çc]amento|Breve/i.test(p.status_obra||"")).length, "em lançamento ou breve lançamento", "var(--bad)"],
     [within500.length, "a até 500 m do Quaddra (medidos no mapa)", COL.q],
   ].map(([v,l,c])=>`<div class="tile"><div class="bar" style="background:${c}"></div><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`).join("");
 
@@ -1880,7 +1879,7 @@ function render(){
   const prontos = P.filter(p=>{ const m=/(\d{2})\/(\d{4})/.exec(p.entrega||""); return m && (+m[2]<2027 || (+m[2]===2027)); });
   const fullNew = novos.filter(p=>!p.faixas.every(f=>f==="<A"));
   const F = [
-    ["Tênis é comum na região", `${ten.length} concorrentes anunciam quadra de tênis (${ten.map(p=>p.nome).join(", ")}). O diferencial defensável é o saibro em quadra oficial: nenhuma fonte cita saibro nos concorrentes, e o Splend usa piso sintético. Confirmar o tipo de quadra dos demais.`],
+    ["Saibro não é exclusivo", `${ten.length} concorrentes anunciam quadra de tênis. Dois deles têm saibro em quadra oficial e coberta, com academia Technogym e piscina coberta de 25 m: o Edifício Adolpho Lindenberg e o Gran Oscar Ibirapuera. O pacote tênis de saibro + raia de 25 m + Technogym deixou de ser diferencial exclusivo do Quaddra.`],
     ["Privacidade não é exclusiva", `${twoOrLess.length} concorrentes têm 1 ou 2 unidades por andar (${twoOrLess.map(p=>p.nome).join(", ")}). O Agami tem piscina semiolímpica, equivalente à nossa raia de 25 m, e também uma loja no térreo.`],
     ["Vão competir como prontos", `${prontos.length} entregam até o fim de 2027 (${prontos.map(p=>p.nome+" "+p.entrega.split(" ")[0]).join(", ")}) e estarão prontos ou quase quando o Quaddra for lançado.`],
   ];
@@ -2004,7 +2003,7 @@ function hl(id,on){ const li=document.querySelector(`#plist li[data-id="${id}"]`
 
 function drawList(){
   const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9));
-  $("#plist").innerHTML = P.map(p=>`<li data-id="${p.id}" class="go" tabindex="0" role="link" aria-label="Abrir ficha de ${esc(p.nome)}"><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span><span>${esc(p.nome)}${isNew(p)?' <span class="chip new">novo</span>':''}<br><span class="s">${esc(p.incorporadora)} · ${esc(p.status_obra)}</span></span><span class="d">${p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":""}${p.pos_base==="estimada"?"<br><span class='s'>estimada</span>":""}</span></li>`).join("");
+  $("#plist").innerHTML = P.map(p=>`<li data-id="${p.id}" class="go" tabindex="0" role="link" aria-label="Abrir ficha de ${esc(p.nome)}"><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span><span>${esc(p.nome)}<br><span class="s">${esc(p.incorporadora)} · ${esc(p.status_obra)}</span></span><span class="d">${p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":""}${p.pos_base==="estimada"?"<br><span class='s'>estimada</span>":""}</span></li>`).join("");
 }
 
 function drawTipo(){
@@ -2033,7 +2032,7 @@ function drawTipo(){
   $("#faixacount").innerHTML = ["A","B","C","D"].map(k=>`<div class="panel" style="padding:14px 16px"><b style="font-family:var(--display);font-weight:500">${lab[k]}</b> · <span style="font-variant-numeric:tabular-nums">${cnt[k].length}</span> concorrentes no anel 1<div class="s" style="font-size:13px;color:var(--ink-2);margin-top:4px">${esc(cnt[k].join(", ")||"nenhum")}</div></div>`).join("");
 }
 
-function cellCls(v){ v=String(v||""); return v.startsWith("✓")?"cell-yes":v.startsWith("✗")?"cell-no":(v==="?"?"cell-unk":""); }
+function cellCls(v){ v=String(v||""); return v.startsWith("✓")?"cell-yes":v.startsWith("✗")?"cell-no":(/^(\?|não consta)$/i.test(v)?"cell-unk":/^auditar/i.test(v)?"cell-aud":""); }
 function drawAttr(){
   const rows=[{...D.quaddra,anel:"q"}, ...[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9))];
   let h=`<thead><tr><th>Empreendimento</th><th>Anel</th>${D.attr_cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>`;
@@ -2069,14 +2068,14 @@ function drawPrecos(){
   const r=$("#sortreset"); if(r) r.onclick=()=>{ PSORT={key:"dist",dir:1}; drawPrecos(); };
 }
 
-function chipStatus(s){ s=s||""; return /Diverg/.test(s)?`<span class="chip div">${esc(s)}</span>`:/Confirm/.test(s)?`<span class="chip ok">${esc(s)}</span>`:`<span class="chip one">${esc(s)}</span>`; }
+function chipStatus(s){ s=(s||"").replace(/Divergente/i,"Auditar"); return /Diverg|Auditar/i.test(s)?`<span class="chip div">${esc(s)}</span>`:/Confirm/.test(s)?`<span class="chip ok">${esc(s)}</span>`:`<span class="chip one">${esc(s)}</span>`; }
 function drawCards(f){
   const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9)).filter(p=> f==="all" || (f==="new"? isNew(p) : p.anel===f));
   const bcBy={}; (D.battle||[]).forEach(b=>{ (bcBy[b.id]=bcBy[b.id]||[]).push(b); });
   $("#cards").innerHTML = P.map(p=>{
     const kv=[["Endereço",p.endereco],["Distância",p.dist_txt],["Status",p.status_obra],["Lançamento",p.lancamento],["Entrega",p.entrega],["Plantas",p.metragens? (/\d$/.test(p.metragens)? p.metragens+" m²": p.metragens.replace(/(\d)( \()/, "$1 m²$2")):""],["Unidades",p.unidades],["Por andar",p.unid_andar],["Terreno",p.terreno? fmt(toNum(p.terreno))+" m²":""],["Projeto",[p.arquitetura,p.paisagismo,p.interiores].filter(Boolean).join(" · ")],["VGV",p.vgv]].filter(([k,v])=>v && v!=="?");
     const bcs=(bcBy[p.id]||[]).map(b=>{ const cls=b.tipo==="Vulnerabilidade"?"v":b.tipo.startsWith("Ataque")?"at":"re"; const lab=b.tipo==="Vulnerabilidade"?"Vulnerabilidade deles":b.tipo.startsWith("Ataque")?"Como atacam o Quaddra":"Nossa resposta"; return `<div class="bc ${cls}"><b>${lab} · ${esc(b.titulo)}${cls==="v"?' <span class="chip one" style="text-transform:none;letter-spacing:0;margin-left:4px">em auditoria</span>':""}</b>${esc(b.texto)}</div>`; }).join("");
-    return `<article class="card" id="ficha-${p.id.toLowerCase()}"><h3><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span>${esc(p.nome)}</h3><div class="sub">${esc(p.incorporadora)} · <span class="chip ${p.anel==='Anel 1'?'a1':'a2'}">${esc(p.anel)}</span> ${isNew(p)?'<span class="chip new">fora dos estudos anteriores</span>':''} ${chipStatus(p.status_dado)}</div>
+    return `<article class="card" id="ficha-${p.id.toLowerCase()}"><h3><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span>${esc(p.nome)}</h3><div class="sub">${esc(p.incorporadora)} · <span class="chip ${p.anel==='Anel 1'?'a1':'a2'}">${esc(p.anel)}</span> ${chipStatus(p.status_dado)}</div>
       <dl class="kv">${kv.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
       ${bcs?`<div class="bcs">${bcs}</div>`:""}
       <div class="obs">${esc(p.obs)}</div>
@@ -2096,7 +2095,7 @@ function drawRef(){
 
 function drawMeta(){
   const P=D.projetos;
-  const div=P.filter(p=>/Diverg/.test(p.status_dado)).map(p=>p.nome);
+  const div=P.filter(p=>/Diverg|Auditar/i.test(p.status_dado)).map(p=>p.nome);
   const est=P.filter(p=>p.pos_base==="estimada").map(p=>p.nome);
   $("#pend").innerHTML=[
     `Endereço exato do Quaddra, data de lançamento, entrega, número de unidades e terreno (para o m² de terreno por unidade).`,
