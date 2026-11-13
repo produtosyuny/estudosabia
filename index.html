@@ -126,9 +126,42 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
   #ajustebox{display:none;margin-top:10px} #ajustebox textarea{width:100%;height:120px;font:12px monospace}
   .attrib{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
   td.cell-aud{color:var(--bad);font-weight:600}
+
+  #pres{display:none}
+  @media print{
+    @page{size:338.67mm 190.5mm;margin:0}
+    html,body{background:#fff!important}
+    body>*:not(#pres){display:none!important}
+    #pres{display:block!important}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  .pslide{width:338.67mm;height:190.5mm;box-sizing:border-box;padding:9mm 10mm 7mm;display:grid;grid-template-rows:auto 1fr auto;gap:5mm;font-family:"Source Sans 3",sans-serif;color:#2b2925;background:#fff;page-break-after:always;overflow:hidden}
+  .pslide .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #B0682A;padding-bottom:3mm}
+  .pslide .ph .t{font-family:Jost,sans-serif;font-size:22pt;font-weight:500;line-height:1.05}
+  .pslide .ph .t small{display:block;font-size:10.5pt;color:#6b6660;font-family:"Source Sans 3",sans-serif;font-weight:400;margin-top:1.5mm}
+  .pslide .ph .r{text-align:right;font-size:9pt;color:#6b6660}
+  .pslide .ph .r b{font-family:Jost,sans-serif;letter-spacing:.12em;color:#B0682A;font-size:11pt}
+  .pslide .pb{display:grid;grid-template-columns:104mm minmax(0,1fr);gap:6mm;min-height:0}
+  .pslide .pm{position:relative;min-height:0}
+  .pslide .pm svg{width:100%;height:auto;display:block;border-radius:2mm;border:1px solid #ddd8cf}
+  .pslide .pleg{display:flex;gap:4mm;flex-wrap:wrap;font-size:8pt;color:#4a4640;margin-top:2mm}
+  .pslide .pleg i{display:inline-block;width:3mm;height:3mm;border-radius:50%;margin-right:1mm;vertical-align:-0.3mm}
+  .pslide table{width:100%;border-collapse:collapse;font-size:8.6pt;line-height:1.15;table-layout:auto}
+  .pslide th{font-size:6.9pt;text-transform:uppercase;letter-spacing:.04em;color:#6b6660;text-align:left;font-weight:600;padding:1mm 1.1mm;border-bottom:1.5px solid #2b2925;vertical-align:bottom}
+  .pslide td{padding:1.25mm 1.2mm;border-bottom:1px solid #ebe7e0;vertical-align:middle;white-space:nowrap}
+  .pslide td.r,.pslide th.r{text-align:right}
+  .pslide td .s{font-size:7pt;color:#8f8a80;margin-left:1.2mm}
+  .pslide tr.q td{background:#f6eee6;font-weight:600}
+  .pslide tr.sep td{background:#f4f2ee;font-size:6.6pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.8mm 1.1mm}
+  .pslide td.nv{color:#9a948a;font-style:italic}
+  .pslide .n{display:inline-flex;width:4.8mm;height:4.8mm;border-radius:50%;color:#fff;font-weight:700;font-size:7pt;align-items:center;justify-content:center}
+  .pslide .pz{min-height:0;overflow:hidden;border-radius:2mm;border:1px solid #ddd8cf}
+  .pslide .pz svg{width:100%;height:100%;display:block}
+  .pslide .pf{display:flex;justify-content:space-between;font-size:7.4pt;color:#6b6660;border-top:1px solid #ebe7e0;padding-top:2mm}
 </style>
 </head>
 <body>
+<div id="pres" aria-hidden="true"></div>
 <header class="top">
   <div class="wrap">
     <div>
@@ -139,6 +172,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
       <div>Versão diretoria · dados checados em <b id="dt"></b></div>
       <div>Base: planilha <a id="sheetlink" href="#" target="_blank" rel="noopener">Quaddra Sabiá - Concorrência 200m+</a></div>
       <div style="display:flex;gap:8px;align-items:center"><span class="status" id="syncst">Dados embutidos na página</span><button class="btn" id="syncbtn" disabled>Atualizar da planilha</button></div>
+      <div><button class="btn" id="presbtn" type="button">Exportar apresentação (PDF)</button></div>
     </div>
   </div>
 </header>
@@ -395,8 +429,8 @@ let D = {
   "x": 0,
   "y": 0,
   "pos_base": "mapa",
-  "lat": -23.600304,
-  "lng": -46.66641,
+  "lat": -23.600047,
+  "lng": -46.666608,
   "tipologias": [
    298,
    350,
@@ -445,8 +479,8 @@ let D = {
    "x": 58,
    "y": 101,
    "pos_base": "mapa",
-   "lat": -23.599397,
-   "lng": -46.665842,
+   "lat": -23.599161,
+   "lng": -46.665931,
    "dist_m": 120,
    "dist_txt": "≈ 120 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Juriti%20x%20R.%20Inhambu%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
@@ -505,10 +539,10 @@ let D = {
    "x": 203,
    "y": -34,
    "pos_base": "mapa",
-   "lat": -23.60061,
-   "lng": -46.66442,
-   "dist_m": 210,
-   "dist_txt": "≈ 210 m (mapa)",
+   "lat": -23.600091,
+   "lng": -46.664746,
+   "dist_m": 190,
+   "dist_txt": "≈ 190 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=R.%20Gaivota%2C%20418%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     284,
@@ -571,8 +605,8 @@ let D = {
    "pos_base": "mapa",
    "lat": -23.602038,
    "lng": -46.664087,
-   "dist_m": 310,
-   "dist_txt": "≈ 310 m (mapa)",
+   "dist_m": 340,
+   "dist_txt": "≈ 340 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Sabi%C3%A1%2C%20598%20%28quadra%20Sabi%C3%A1%20/%20Arapan%C3%A9s%20/%20Jauaperi%29%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     311,
@@ -627,10 +661,10 @@ let D = {
    "x": 116,
    "y": 130,
    "pos_base": "mapa",
-   "lat": -23.599136,
-   "lng": -46.665273,
-   "dist_m": 170,
-   "dist_txt": "≈ 170 m (mapa)",
+   "lat": -23.59854,
+   "lng": -46.665472,
+   "dist_m": 200,
+   "dist_txt": "≈ 200 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Juriti%2C%20129%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     317
@@ -684,8 +718,8 @@ let D = {
    "pos_base": "mapa",
    "lat": -23.602173,
    "lng": -46.662381,
-   "dist_m": 460,
-   "dist_txt": "≈ 460 m (mapa)",
+   "dist_m": 490,
+   "dist_txt": "≈ 490 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Juriti%2C%20646%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     258
@@ -739,8 +773,8 @@ let D = {
    "pos_base": "mapa",
    "lat": -23.600214,
    "lng": -46.661675,
-   "dist_m": 480,
-   "dist_txt": "≈ 480 m (mapa)",
+   "dist_m": 500,
+   "dist_txt": "≈ 500 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Agami%2C%20220%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     215,
@@ -799,10 +833,10 @@ let D = {
    "x": 464,
    "y": 145,
    "pos_base": "mapa",
-   "lat": -23.599002,
-   "lng": -46.661862,
-   "dist_m": 490,
-   "dist_txt": "≈ 490 m (mapa)",
+   "lat": -23.59843,
+   "lng": -46.661604,
+   "dist_m": 540,
+   "dist_txt": "≈ 540 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Rep%C3%BAblica%20do%20L%C3%ADbano%2C%202112%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     373,
@@ -858,10 +892,10 @@ let D = {
    "x": 280,
    "y": 159,
    "pos_base": "mapa",
-   "lat": -23.598876,
-   "lng": -46.663665,
-   "dist_m": 320,
-   "dist_txt": "≈ 320 m (mapa)",
+   "lat": -23.598208,
+   "lng": -46.663175,
+   "dist_m": 410,
+   "dist_txt": "≈ 410 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=R.%20Can%C3%A1rio%2C%20133%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     331,
@@ -919,10 +953,10 @@ let D = {
    "x": 585,
    "y": 39,
    "pos_base": "mapa",
-   "lat": -23.599954,
-   "lng": -46.660675,
-   "dist_m": 590,
-   "dist_txt": "≈ 590 m (mapa)",
+   "lat": -23.599249,
+   "lng": -46.660661,
+   "dist_m": 610,
+   "dist_txt": "≈ 610 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Rep%C3%BAblica%20do%20L%C3%ADbano%20%28n%C2%BA%20a%20confirmar%29%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     335,
@@ -975,11 +1009,11 @@ let D = {
    "fonte2": "https://www.lopes.com.br/lancamento/REM25673/maison-gabrielle-sao-paulo-indianopolis",
    "x": -709,
    "y": -154,
-   "pos_base": "estimada",
-   "lat": -23.601688,
-   "lng": -46.673361,
+   "pos_base": "mapa",
+   "lat": -23.603547,
+   "lng": -46.672627,
    "dist_m": 730,
-   "dist_txt": "≈ 730 m (estimada)",
+   "dist_txt": "≈ 730 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Pav%C3%A3o%2C%20246%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     267,
@@ -1035,8 +1069,8 @@ let D = {
    "pos_base": "estimada",
    "lat": -23.603808,
    "lng": -46.661705,
-   "dist_m": 620,
-   "dist_txt": "≈ 620 m (estimada)",
+   "dist_m": 650,
+   "dist_txt": "≈ 650 m (estimada)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Pra%C3%A7a%20Nossa%20Senhora%20Aparecida%2C%2058%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     251
@@ -1088,10 +1122,10 @@ let D = {
    "x": 1063,
    "y": -385,
    "pos_base": "mapa",
-   "lat": -23.603763,
-   "lng": -46.655989,
-   "dist_m": 1130,
-   "dist_txt": "≈ 1.130 m (mapa)",
+   "lat": -23.603268,
+   "lng": -46.656242,
+   "dist_m": 1120,
+   "dist_txt": "≈ 1.120 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Al.%20dos%20Anapurus%2C%20410%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     374,
@@ -1144,11 +1178,11 @@ let D = {
    "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/mona-the-grand-lodge",
    "x": 1169,
    "y": -287,
-   "pos_base": "estimada",
-   "lat": -23.602882,
-   "lng": -46.65495,
-   "dist_m": 1200,
-   "dist_txt": "≈ 1.200 m (estimada)",
+   "pos_base": "mapa",
+   "lat": -23.605058,
+   "lng": -46.654638,
+   "dist_m": 1340,
+   "dist_txt": "≈ 1.340 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Indian%C3%B3polis%2C%20588%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     247,
@@ -1210,8 +1244,8 @@ let D = {
    "pos_base": "estimada",
    "lat": -23.608129,
    "lng": -46.65697,
-   "dist_m": 1300,
-   "dist_txt": "≈ 1.300 m (estimada)",
+   "dist_m": 1330,
+   "dist_txt": "≈ 1.330 m (estimada)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Jamaris%2C%20633%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     208,
@@ -1264,11 +1298,11 @@ let D = {
    "fonte2": "https://apto.vc/br/sp/sao-paulo/ibirapuera/zen-cyrela-e-yoo",
    "x": 1700,
    "y": 0,
-   "pos_base": "estimada",
-   "lat": -23.600304,
-   "lng": -46.649745,
-   "dist_m": 1700,
-   "dist_txt": "≈ 1.700 m (estimada)",
+   "pos_base": "mapa",
+   "lat": -23.594642,
+   "lng": -46.651988,
+   "dist_m": 1610,
+   "dist_txt": "≈ 1.610 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=R.%20Leopoldo%20de%20Bulh%C3%B5es%2C%2040%2C%20Ibirapuera%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     277,
@@ -1299,7 +1333,7 @@ let D = {
    "alias": "",
    "incorporadora": "Lavvi",
    "endereco": "Av. Chibarás, 133",
-   "anel": "Anel 2",
+   "anel": "Anel 1",
    "status_obra": "Breve lançamento",
    "lancamento": "2027 (previsto)",
    "entrega": "09/2029",
@@ -1322,11 +1356,11 @@ let D = {
    "fonte2": "https://apto.vc/br/sp/sao-paulo/moema/le-six-ibirapuera",
    "x": 1300,
    "y": -200,
-   "pos_base": "estimada",
-   "lat": -23.602101,
-   "lng": -46.653666,
-   "dist_m": 1320,
-   "dist_txt": "≈ 1.320 m (estimada)",
+   "pos_base": "mapa",
+   "lat": -23.602246,
+   "lng": -46.659101,
+   "dist_m": 800,
+   "dist_txt": "≈ 800 m (mapa)",
    "gmaps": "https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=Avenida%20Sabi%C3%A1%2C%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP&destination=Av.%20Chibar%C3%A1s%2C%20133%2C%20S%C3%A3o%20Paulo%20-%20SP",
    "tipologias": [
     264
@@ -1999,6 +2033,87 @@ function initRealMap(){
       const txt=rows.map(([id,[a,b]])=>`${id};${a.toFixed(6)};${b.toFixed(6)}${RM.pos[id]?" (ajustado)":""}`).join("\n");
       $("#ajustetxt").value=txt; $("#ajustebox").style.display="block"; $("#ajustetxt").select(); try{ navigator.clipboard.writeText(txt).catch(()=>{}); }catch(err){} }); }
 }
+
+// ---------- Exportar apresentação (slide 16:9 em PDF pelo navegador) ----------
+function presMapSVG(){
+  const Q=D.quaddra, z=15, half=2080;
+  const mpp=156543.03392*Math.cos(Q.lat*Math.PI/180)/Math.pow(2,z);
+  const [cx,cy]=merc(Q.lat,Q.lng,z); const h=2*half/mpp, w=h, x0=cx-w/2, y0=cy-h/2, u=w/1000;
+  const L=(x,y)=>[x-x0,y-y0];
+  let s=`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><g style="filter:grayscale(1) contrast(.82) brightness(1.1)">`;
+  for(let tx=Math.floor(x0/256); tx<=Math.floor((x0+w)/256); tx++) for(let ty=Math.floor(y0/256); ty<=Math.floor((y0+h)/256); ty++)
+    s+=`<image href="${TILE(z,tx,ty)}" x="${tx*256-x0}" y="${ty*256-y0}" width="256.6" height="256.6"/>`;
+  s+=`</g>`;
+  const [qx,qy]=L(cx,cy);
+  [[2000,COL["Anel 2"],true,.04,"2 km"],[1000,COL["Anel 1"],false,.07,"1 km"]].forEach(([m,c,dash,fo,lab])=>{ const r=m/mpp;
+    s+=`<circle cx="${qx}" cy="${qy}" r="${r}" fill="${c}" fill-opacity="${fo}" stroke="${c}" stroke-width="${3*u}" ${dash?`stroke-dasharray="${10*u} ${7*u}"`:''}/><text x="${qx}" y="${qy-r-7*u}" font-size="${22*u}" font-weight="700" text-anchor="middle" fill="${c}" stroke="#fff" stroke-width="${6*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">${lab}</text>`; });
+  const R=24*u;
+  D.projetos.filter(p=>posOf(p)).sort((a,b)=>(b.dist_m||0)-(a.dist_m||0)).forEach(p=>{ const [la,ln]=posOf(p); const [x,y]=L(...merc(la,ln,z)); const c=COL[p.anel]||COL.ref, est=p.pos_base==="estimada";
+    s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${3.2*u}" ${est?`stroke-dasharray="${6*u} ${4*u}"`:''}/><text x="${x}" y="${y+8*u}" font-size="${23*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" font-family="Source Sans 3,sans-serif">${numOf(p.id)}</text>`; });
+  s+=`<circle cx="${qx}" cy="${qy}" r="${R*1.45}" fill="${COL.q}" stroke="#fff" stroke-width="${4*u}"/><text x="${qx}" y="${qy+8*u}" font-size="${23*u}" font-weight="700" text-anchor="middle" fill="#fff" font-family="Jost,sans-serif">Q</text>`;
+  s+=`<text x="${w-8*u}" y="${h-8*u}" font-size="${13*u}" text-anchor="end" fill="#6b6660" stroke="#fff" stroke-width="${4*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">© colaboradores do OpenStreetMap</text></svg>`;
+  return s;
+}
+function presTable(){
+  const ds=v=>String(v.data||""); 
+  const flags=v=>{ const d=ds(v); const part=/atualizar\s+(.+)$/i.exec(d); const all=!part && /atualizar|n[ãa]o valid/i.test(d);
+    const f=k=> all || (part && ({lanc:/lan[çc]/i,tab:/tabela|pre[çc]o/i,fech:/fech|pre[çc]o/i,vend:/vend/i}[k]).test(part[1])); return f; };
+  const date=s=>String(s||"").replace(/\s*\(.*?\)\s*/g," ").trim().split(/ (?:a|ou) /)[0];
+  const plantas=s=>{ const n=(String(s||"").replace(/\(.*?\)/g,"").match(/\d[\d.]*/g)||[]).map(x=>+x.replace(".","")).filter(x=>x>=100); if(!n.length) return ""; const mn=Math.min(...n), mx=Math.max(...n); return mn===mx? fmt(mn) : fmt(mn)+" a "+fmt(mx); };
+  const cell=(val,nv,cls="r")=>`<td class="${cls}${nv&&val?' nv':''}">${val?esc(val)+(nv?'*':''):'<span style="color:#c9c4bb">–</span>'}</td>`;
+  const row=p=>{ const v=(D.precos||{})[p.id]||{}; const f=flags(v); const pct=v.vend? (/%$/.test(String(v.vend))?v.vend:v.vend+"%"):"";
+    return `<tr><td><span class="n" style="background:${COL[p.anel]}">${numOf(p.id)}</span></td><td>${esc(p.nome)}<span class="s">${esc(p.incorporadora.replace(/\s*\(.*\)/,""))}</span></td><td class="r">${p.dist_m!=null?fmt(p.dist_m)+" m":""}</td><td>${esc(date(p.lancamento))}</td><td>${esc(date(p.entrega))}</td><td>${esc(plantas(p.metragens))}</td>${cell(money(v.lanc),f("lanc"))}${cell(money(v.tab),f("tab"))}${cell(money(v.fech),f("fech"))}${cell(pct,f("vend"))}</tr>`; };
+  const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9));
+  let h=`<table><thead><tr><th></th><th>Empreendimento</th><th class="r">Dist.</th><th>Lançam.</th><th>Entrega</th><th>Plantas (m²)</th><th class="r">Lanç. R$/m²</th><th class="r">Tabela R$/m²</th><th class="r">Fech. R$/m²</th><th class="r">Vendido</th></tr></thead><tbody>`;
+  h+=`<tr class="q"><td><span class="n" style="background:${COL.q}">Q</span></td><td>${esc(D.quaddra.nome)}<span class="s">Yuny</span></td><td class="r">–</td><td>${esc(date(D.quaddra.lancamento))||"a definir"}</td><td>${esc(date(D.quaddra.entrega))||"–"}</td><td>298 a 395</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td></tr>`;
+  [["Anel 1","Anel 1 · até 1 km"],["Anel 2","Anel 2 · de 1 a 2 km"]].forEach(([a,lab])=>{ const g=P.filter(p=>p.anel===a); if(!g.length) return; h+=`<tr class="sep"><td colspan="10" style="color:${COL[a]}">${lab} · ${g.length} empreendimentos</td></tr>`+g.map(row).join(""); });
+  return h+`</tbody></table>`;
+}
+
+function presZoomSVG(){
+  const Q=D.quaddra, z=16, halfH=720;
+  const mpp=156543.03392*Math.cos(Q.lat*Math.PI/180)/Math.pow(2,z);
+  const [cx,cy]=merc(Q.lat,Q.lng,z); const h=2*halfH/mpp, w=h*(318/128), x0=cx-w/2, y0=cy-h/2, u=h/1000;
+  const L=(x,y)=>[x-x0,y-y0];
+  let s=`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><g style="filter:grayscale(1) contrast(.82) brightness(1.1)">`;
+  for(let tx=Math.floor(x0/256); tx<=Math.floor((x0+w)/256); tx++) for(let ty=Math.floor(y0/256); ty<=Math.floor((y0+h)/256); ty++)
+    s+=`<image href="${TILE(z,tx,ty)}" x="${tx*256-x0}" y="${ty*256-y0}" width="256.6" height="256.6"/>`;
+  s+=`</g>`;
+  const [qx,qy]=L(cx,cy); const r1=1000/mpp;
+  s+=`<circle cx="${qx}" cy="${qy}" r="${r1}" fill="${COL["Anel 1"]}" fill-opacity=".06" stroke="${COL["Anel 1"]}" stroke-width="${3*u}"/><text x="${qx+r1*0.72}" y="${qy-r1*0.72}" font-size="${28*u}" font-weight="700" fill="${COL["Anel 1"]}" stroke="#fff" stroke-width="${7*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">1 km</text>`;
+  const R=24*u, pts=[], LBL=[];
+  D.projetos.filter(p=>posOf(p)).forEach(p=>{ const [la,ln]=posOf(p); const [x,y]=L(...merc(la,ln,z)); if(x<0||y<0||x>w||y>h) return; pts.push({p,x,y}); });
+  pts.forEach(({p,x,y})=>{ const c=COL[p.anel]||COL.ref, est=p.pos_base==="estimada";
+    s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${3*u}" ${est?`stroke-dasharray="${5*u} ${3.5*u}"`:''}/><text x="${x}" y="${y+8.5*u}" font-size="${24*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" font-family="Source Sans 3,sans-serif">${numOf(p.id)}</text>`;
+    const v=(D.precos||{})[p.id]||{}; LBL.push({x,y,r:R,txt:p.nome,fs:25*u,col:"#2b2925",fw:600, sub:(p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":"")}); });
+  s+=`<circle cx="${qx}" cy="${qy}" r="${R*1.5}" fill="${COL.q}" stroke="#fff" stroke-width="${3.5*u}"/><text x="${qx}" y="${qy+11*u}" font-size="${32*u}" font-weight="700" text-anchor="middle" fill="#fff" font-family="Jost,sans-serif">Q</text>`;
+  LBL.unshift({x:qx,y:qy,r:R*1.5,txt:Q.nome,fs:30*u,col:COL.q,fw:700,sub:""});
+  const boxes=LBL.map(l=>({x0:l.x-l.r,y0:l.y-l.r,x1:l.x+l.r,y1:l.y+l.r}));
+  const hit=b=>boxes.some(o=>b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0)||b.x0<0||b.y0<0||b.x1>w||b.y1>h;
+  LBL.forEach(l=>{ const tw=Math.max(l.txt.length*l.fs*0.56, l.sub.length*l.fs*0.5), th=l.fs*(l.sub?2.15:1.15), g=4*u;
+    const c=[["start",l.x+l.r+g,l.y],["end",l.x-l.r-g,l.y],["middle",l.x,l.y-l.r-g-th/2],["middle",l.x,l.y+l.r+g+th/2],["start",l.x+l.r*0.6,l.y-l.r-th/2-g],["start",l.x+l.r*0.6,l.y+l.r+th/2+g],["end",l.x-l.r*0.6,l.y-l.r-th/2-g],["end",l.x-l.r*0.6,l.y+l.r+th/2+g]];
+    const bx=([a,tx,ty])=>{ const xa=a==="start"?tx:a==="end"?tx-tw:tx-tw/2; return {x0:xa,y0:ty-th/2,x1:xa+tw,y1:ty+th/2}; };
+    let pick=c.find(k=>!hit(bx(k))); const lead=!pick; if(!pick){ pick=c.map(k=>[k,boxes.filter(o=>{const b=bx(k);return b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0;}).length]).sort((a,b)=>a[1]-b[1])[0][0]; }
+    boxes.push(bx(pick)); const [a,tx,ty]=pick; const top=ty-th/2+l.fs*0.85;
+    s+=`<text x="${tx}" y="${top}" text-anchor="${a}" font-size="${l.fs}" font-weight="${l.fw}" fill="${l.col}" stroke="#fff" stroke-width="${6*u}" stroke-linejoin="round" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">${esc(l.txt)}</text>`;
+    if(l.sub) s+=`<text x="${tx}" y="${top+l.fs*1.05}" text-anchor="${a}" font-size="${l.fs*0.82}" fill="#6b6660" stroke="#fff" stroke-width="${4*u}" stroke-linejoin="round" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">${esc(l.sub)}</text>`; });
+  s+=`<text x="${w-8*u}" y="${h-8*u}" font-size="${12*u}" text-anchor="end" fill="#6b6660" stroke="#fff" stroke-width="${4*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">© colaboradores do OpenStreetMap</text></svg>`;
+  return s;
+}
+async function exportPres(){
+  const box=$("#pres"); const hoje=new Date().toLocaleDateString("pt-BR");
+  box.innerHTML=`<section class="pslide"><div class="ph"><div class="t">Concorrência no entorno do Quaddra Sabiá<small>Produtos com plantas de 200 m² ou mais · Moema · anéis de 1 e 2 km</small></div><div class="r"><b>QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny<br>Gerado em ${hoje}</div></div>
+  <div class="pb"><div class="pm">${presMapSVG()}<div class="pleg"><span><i style="background:${COL.q}"></i>Quaddra</span><span><i style="background:${COL["Anel 1"]}"></i>Anel 1 (até 1 km)</span><span><i style="background:${COL["Anel 2"]}"></i>Anel 2 (1 a 2 km)</span><span><i style="background:#fff;border:1.5px dashed #8f8a80"></i>posição estimada</span></div></div>
+  <div class="pt">${presTable()}</div></div>
+  <div class="pf"><span>* Valor ainda não validado com a incorporadora (base interna de fev/26 ou portal). Tabela = preço do andar médio. Distâncias em linha reta.</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`+
+  `<section class="pslide"><div class="ph"><div class="t">Anel 1 em detalhe<small>Concorrentes a até 1 km do Quaddra Sabiá · distâncias em linha reta</small></div><div class="r"><b>QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny<br>Gerado em ${hoje}</div></div>
+  <div class="pz">${presZoomSVG()}</div>
+  <div class="pf"><span>Pinos tracejados: posição estimada pelo endereço. Números iguais aos da tabela do slide anterior.</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`;
+  const imgs=[...box.querySelectorAll("image")];
+  await Promise.race([Promise.all(imgs.map(im=>new Promise(r=>{ im.addEventListener("load",r,{once:true}); im.addEventListener("error",r,{once:true}); }))), new Promise(r=>setTimeout(r,5000))]);
+  await new Promise(r=>setTimeout(r,300));
+  try{ window.print(); }catch(e){ alert("Use Ctrl+P para salvar em PDF."); }
+}
 function hl(id,on){ const li=document.querySelector(`#plist li[data-id="${id}"]`); if(li) li.classList.toggle("hl",on); }
 
 function drawList(){
@@ -2184,6 +2299,7 @@ function goTo(id){
 document.addEventListener("click", e=>{ const g=e.target.closest(".go, #map .pt"); if(!g||!g.dataset.id) return; e.preventDefault(); hideTip(); goTo(g.dataset.id); });
 document.addEventListener("keydown", e=>{ if(e.key!=="Enter") return; const g=e.target.closest && e.target.closest("li.go"); if(g){ goTo(g.dataset.id); } });
 initRealMap();
+document.getElementById('presbtn').addEventListener('click',exportPres);
 render();
 (async()=>{
   const b=$("#syncbtn");
