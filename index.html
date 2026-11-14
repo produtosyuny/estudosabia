@@ -63,7 +63,7 @@ svg text{font-family:var(--body)}
 a.go{color:var(--ink);text-decoration:underline;text-decoration-color:#CFC8BC;text-underline-offset:3px}a.go:hover{text-decoration-color:var(--bronze)}
 .card{scroll-margin-top:60px}.card.flash{box-shadow:0 0 0 3px var(--bronze);transition:box-shadow .3s}
 .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;font-weight:700}
-.plist .d{font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:13px}
+.plist .d{font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:13px;text-align:right}
 .plist .s{font-size:12px;color:var(--muted)}
 .note{font-size:12.5px;color:var(--muted);margin-top:10px;max-width:90ch}
 .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
@@ -203,7 +203,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
       <svg id="map" viewBox="-2150 -2150 4300 4300" role="img" aria-label="Mapa esquemático dos concorrentes em anéis de 1 e 2 km ao redor do Quaddra" style="width:100%;height:auto;display:block"></svg>
       <p class="attrib" id="attrib">Mapa: © <a href="https://www.openstreetmap.org/copyright">colaboradores do OpenStreetMap</a></p><p class="note" id="mapnote">Para a distância real a pé, use a rota de cada linha na aba Projetos da planilha.</p>
     </div>
-    <div class="panel"><ul class="plist" id="plist"></ul></div>
+    <div class="panel"><div class="maptools" style="margin-bottom:8px"><span class="note" style="margin:0">Ordenar por</span><button type="button" class="lsort" data-s="dist" aria-pressed="true">Distância</button><button type="button" class="lsort" data-s="lanc" aria-pressed="false">Lançamento</button></div><ul class="plist" id="plist"></ul></div>
   </div>
 </section>
 
@@ -2066,8 +2066,9 @@ function presTable(){
   const cell=(val,nv,cls="r")=>`<td class="${cls}${nv&&val?' nv':''}">${val?esc(val)+(nv?'*':''):'<span style="color:#c9c4bb">–</span>'}</td>`;
   const row=p=>{ const v=(D.precos||{})[p.id]||{}; const f=flags(v); const pct=v.vend? (/^[\d.,]+$/.test(String(v.vend).trim())?v.vend+"%":(/lan[çc]/i.test(v.vend)?"não lançado":String(v.vend).slice(0,12))):"";
     return `<tr><td><span class="n" style="background:${COL[p.anel]}">${numOf(p.id)}</span></td><td>${esc(p.nome)}<span class="s">${esc(p.incorporadora.replace(/\s*\(.*\)/,""))}</span></td><td>${esc(date(p.lancamento))}</td><td>${esc(date(p.entrega))}</td><td>${esc(plantas(p.metragens))}</td>${cell(money(v.lanc),f("lanc"))}${cell(money(v.tab),f("tab"))}${cell(money(v.fech),f("fech"))}${cell(pct,f("vend"))}</tr>`; };
-  const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9));
-  let h=`<table><thead><tr><th></th><th>Empreendimento</th><th>Lançam.</th><th>Entrega</th><th>Plantas (m²)</th><th class="r">Lanç. R$/m²</th><th class="r">Tabela R$/m²</th><th class="r">Fech. R$/m²</th><th class="r">Vendido</th></tr></thead><tbody>`;
+  const dkey=s=>{ s=String(s||""); let m=s.match(/(\d{1,2})\/(\d{4})/); if(m) return +m[2]*100+ +m[1]; m=s.match(/(\d{4})/); return m? +m[1]*100+6 : 999999; };
+  const P=sortProj(D.projetos);
+  let h=`<table><thead><tr><th></th><th>Empreendimento</th><th>Lançam.${LSORT==="lanc"?" ▲":""}</th><th>Entrega</th><th>Plantas (m²)</th><th class="r">Lanç. R$/m²</th><th class="r">Tabela R$/m²</th><th class="r">Fech. R$/m²</th><th class="r">Vendido</th></tr></thead><tbody>`;
   h+=`<tr class="q"><td><span class="n" style="background:${COL.q}">Q</span></td><td>${esc(D.quaddra.nome)}<span class="s">Yuny</span></td><td>${esc(date(D.quaddra.lancamento))||"a definir"}</td><td>${esc(date(D.quaddra.entrega))||"–"}</td><td>298 a 395</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td></tr>`;
   [["Anel 1","Anel 1 · até 1 km"],["Anel 2","Anel 2 · de 1 a 2 km"]].forEach(([a,lab])=>{ const g=P.filter(p=>p.anel===a); if(!g.length) return; h+=`<tr class="sep"><td colspan="9" style="color:${COL[a]}">${lab} · ${g.length} empreendimentos</td></tr>`+g.map(row).join(""); });
   return h+`</tbody></table>`;
@@ -2135,7 +2136,7 @@ async function exportPres(){
   box.innerHTML=`<section class="pslide"><div class="ph"><div class="t">Concorrência no entorno do Quaddra Sabiá<small>Produtos com plantas de 200 m² ou mais · Moema · mapa: Anel 1 (até 1 km); tabela: Anéis 1 e 2</small></div><div class="r"><b>YUNY · QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny Incorporadora<br>Gerado em ${hoje}</div></div>
   <div class="pb"><div class="pm">${presMapSVG()}<div class="pleg"><span><i style="background:${COL.q}"></i>Quaddra</span><span><i style="background:${COL["Anel 1"]}"></i>Anel 1 (até 1 km)</span><span><i style="background:${COL["Anel 2"]}"></i>Anel 2 (1 a 2 km)</span><span><i style="background:#fff;border:1.5px dashed #8f8a80"></i>posição estimada</span></div></div>
   <div class="pt">${presTable()}</div></div>
-  <div class="pf"><span>* Valor ainda não validado com a incorporadora (base interna de fev/26 ou portal). Tabela = preço do andar médio. Distâncias em linha reta.</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`+
+  <div class="pf"><span>* Valor ainda não validado com a incorporadora (base interna de fev/26 ou portal). Tabela = preço do andar médio. Ordem: ${LSORT==="lanc"?"data de lançamento":"distância ao Quaddra"} (escolhida na página).</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`+
   `<section class="pslide"><div class="ph"><div class="t">Concorrentes nos anéis de 1 e 2 km<small>Nome e distância em linha reta até o Quaddra Sabiá</small></div><div class="r"><b>YUNY · QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny Incorporadora<br>Gerado em ${hoje}</div></div>
   <div class="pz">${presZoomSVG()}</div>
   <div class="pf"><span>Pinos tracejados: posição estimada pelo endereço. Números iguais aos da tabela do slide anterior.</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`;
@@ -2146,9 +2147,12 @@ async function exportPres(){
 }
 function hl(id,on){ const li=document.querySelector(`#plist li[data-id="${id}"]`); if(li) li.classList.toggle("hl",on); }
 
+let LSORT="dist";
+const dateKey=s=>{ s=String(s||""); let m=s.match(/(\d{1,2})\/(\d{4})/); if(m) return +m[2]*100+ +m[1]; m=s.match(/(\d{4})/); return m? +m[1]*100+6 : 999999; };
+const sortProj=arr=>[...arr].sort((a,b)=> LSORT==="lanc" ? ((dateKey(a.lancamento)-dateKey(b.lancamento))||((a.dist_m??9e9)-(b.dist_m??9e9))) : (((a.dist_m??9e9)-(b.dist_m??9e9))||(dateKey(a.lancamento)-dateKey(b.lancamento))));
 function drawList(){
-  const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9));
-  $("#plist").innerHTML = P.map(p=>`<li data-id="${p.id}" class="go" tabindex="0" role="link" aria-label="Abrir ficha de ${esc(p.nome)}"><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span><span>${esc(p.nome)}<br><span class="s">${esc(p.incorporadora)} · ${esc(p.status_obra)}</span></span><span class="d">${p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":""}${p.pos_base==="estimada"?"<br><span class='s'>estimada</span>":""}</span></li>`).join("");
+  const P=sortProj(D.projetos);
+  $("#plist").innerHTML = P.map(p=>`<li data-id="${p.id}" class="go" tabindex="0" role="link" aria-label="Abrir ficha de ${esc(p.nome)}"><span class="num" style="background:${COL[p.anel]}">${numOf(p.id)}</span><span>${esc(p.nome)}<br><span class="s">${esc(p.incorporadora)} · ${esc(p.status_obra)}</span></span><span class="d">${p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":""}${p.pos_base==="estimada"?" <span class='s'>(estim.)</span>":""}<br><span class="s">lanç. ${esc(String(p.lancamento||"–").replace(/\s*\(.*?\)\s*/g," ").trim().split(/ (?:a|ou) /)[0]||"–")}</span></span></li>`).join("");
 }
 
 function drawTipo(){
@@ -2329,6 +2333,7 @@ function goTo(id){
 document.addEventListener("click", e=>{ const g=e.target.closest(".go, #map .pt"); if(!g||!g.dataset.id) return; e.preventDefault(); hideTip(); goTo(g.dataset.id); });
 document.addEventListener("keydown", e=>{ if(e.key!=="Enter") return; const g=e.target.closest && e.target.closest("li.go"); if(g){ goTo(g.dataset.id); } });
 initRealMap();
+document.querySelectorAll('.lsort').forEach(b=>b.addEventListener('click',()=>{ LSORT=b.dataset.s; document.querySelectorAll('.lsort').forEach(x=>x.setAttribute('aria-pressed',x===b)); drawList(); }));
 document.getElementById('presbtn').addEventListener('click',exportPres);
 render();
 (async()=>{
