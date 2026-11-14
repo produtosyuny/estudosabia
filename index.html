@@ -3,52 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quaddra Sabiá · Concorrência</title>
+<title>Quaddra Sabiá · Concorrência · Yuny</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <style>
 /* Layout: coluna editorial de 1120px; resumo antes do detalhe; mapa e tipologias como peças centrais. */
 :root{
-  --bg:#FBFAF7; --surface:#FFFFFF; --ink:#1D2523; --ink-2:#4E5754; --muted:#7B8380; --line:#E4E1DA; --line-2:#EFECE6;
-  --bronze:#B0682A; --a1:#008F7A; --a2:#6A5FC8; --ref:#8F8A80;
-  --ok:#2E7D4F; --warn:#B7791F; --bad:#B4412F;
-  --band-a:#F3EEE6; --band-b:#EAF3F1; --band-c:#EFEDF8; --band-d:#F4F4F2;
-  --display:"Jost","Helvetica Neue",Arial,sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --bg:#F7F4F0; --surface:#FBF9F6; --ink:#1A1612; --ink-2:#4A443E; --muted:#6B6560; --line:#E0DBD4; --line-2:#EEEBE6;
+  --bronze:#A07840; --a1:#2A2520; --a2:#9A948E; --ref:#B9B2A8;
+  --ok:#4E6B3A; --warn:#A07840; --bad:#9A3B3B;
+  --band-a:#F1EBE1; --band-b:#ECE8E2; --band-c:#E6E1DA; --band-d:#F4F1EC;
+  --display:"Satoshi","DM Sans",system-ui,sans-serif; --body:"DM Sans",system-ui,sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
-a{color:var(--a1)}
+a{color:#7A5A28}
 a:focus-visible,button:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-header.top{border-bottom:1px solid var(--line);background:var(--surface)}
+header.top{border-bottom:1px solid var(--line);background:var(--bg)}
 .top .wrap{display:flex;gap:24px;align-items:flex-end;justify-content:space-between;padding-top:28px;padding-bottom:22px;flex-wrap:wrap}
-.brand{font-family:var(--display);font-weight:300;letter-spacing:.42em;font-size:34px;line-height:1;color:var(--bronze)}
-.brand small{display:block;font-size:12px;letter-spacing:.5em;margin-top:8px;color:var(--ink-2);font-weight:400}
-.top h1{font-family:var(--display);font-weight:400;font-size:20px;margin:14px 0 0;letter-spacing:.02em;text-wrap:balance}
+.brand{display:flex;align-items:center;gap:18px;font-family:var(--display);font-weight:500;letter-spacing:.32em;font-size:15px;line-height:1;color:var(--bronze);text-transform:uppercase}
+.brand img{height:34px;width:auto;display:block}
+.brand .sep{width:1px;height:28px;background:var(--line)}
+.brand small{display:inline;font-size:15px;letter-spacing:.32em;margin-left:.4em;color:var(--ink);font-weight:500}
+.top h1{font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:30px;margin:14px 0 0;letter-spacing:.02em;text-wrap:balance}
 .meta{font-size:13px;color:var(--ink-2);text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-.btn{font:600 13px var(--body);border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;padding:7px 12px;cursor:pointer}
+.btn{font:600 11px var(--body);letter-spacing:.12em;text-transform:uppercase;border:1px solid #A07840;background:#A07840;color:#F7F4F0;border-radius:2px;padding:9px 14px;cursor:pointer}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
 .btn.ghost{background:transparent;color:var(--ink)}
-nav.toc{position:sticky;top:0;z-index:5;background:rgba(251,250,247,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-nav.toc .wrap{display:flex;gap:18px;overflow-x:auto;padding-top:10px;padding-bottom:10px;font-size:13px;white-space:nowrap}
+nav.toc{position:sticky;top:0;z-index:5;background:rgba(247,244,240,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:22px;overflow-x:auto;padding-top:12px;padding-bottom:12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
 nav.toc a{color:var(--ink-2);text-decoration:none}
 nav.toc a:hover{color:var(--ink)}
 section{padding:44px 0 8px}
-h2{font-family:var(--display);font-weight:400;font-size:26px;margin:0 0 6px;text-wrap:balance}
-h2 .n{color:var(--bronze);font-size:15px;letter-spacing:.2em;margin-right:12px;vertical-align:4px}
+h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:28px;margin:0 0 6px;text-wrap:balance}
+h2 .n{display:block;color:var(--bronze);font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 6px}
 .lede{color:var(--ink-2);max-width:68ch;margin:0 0 22px}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
 .tile .v{font-family:var(--display);font-size:40px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums}
 .tile .l{font-size:13px;color:var(--ink-2);margin-top:6px}
 .tile .bar{height:3px;border-radius:2px;margin-bottom:12px}
 .findings{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-.find{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--bronze);border-radius:8px;padding:14px 16px}
+.find{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--bronze);border-radius:3px;padding:14px 16px}
 .find b{display:block;font-family:var(--display);font-weight:500;font-size:16px;margin-bottom:4px}
 .find p{margin:0;font-size:14.5px;color:var(--ink-2)}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px}
 .mapgrid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:16px;align-items:start}
 svg text{font-family:var(--body)}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin:4px 0 10px}
@@ -63,7 +66,7 @@ a.go{color:var(--ink);text-decoration:underline;text-decoration-color:#CFC8BC;te
 .plist .d{font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:13px}
 .plist .s{font-size:12px;color:var(--muted)}
 .note{font-size:12.5px;color:var(--muted);margin-top:10px;max-width:90ch}
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;font-size:13.5px}
 th,td{padding:9px 10px;border-bottom:1px solid var(--line-2);text-align:left;vertical-align:top}
 th{font-weight:600;color:var(--ink-2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;background:#FAF8F4;position:sticky;top:0}
@@ -85,21 +88,21 @@ tr.q td{background:#FBF4EC;font-weight:600}
 .filters button{font:600 13px var(--body);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer;color:var(--ink-2)}
 .filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .card h3{font-family:var(--display);font-weight:500;font-size:19px;margin:0;display:flex;gap:10px;align-items:center}
 .card .sub{font-size:13px;color:var(--ink-2);margin-top:-6px}
 .kv{display:grid;grid-template-columns:120px 1fr;gap:3px 10px;font-size:13.5px;margin:0}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0}
 .bcs{display:grid;gap:8px}
-.bc{border-radius:8px;padding:9px 11px;font-size:13.5px;border:1px solid var(--line-2)}
+.bc{border-radius:3px;padding:9px 11px;font-size:13.5px;border:1px solid var(--line-2)}
 .bc b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-.bc.v{background:#F2F8F6}.bc.v b{color:var(--a1)}
+.bc.v{background:#F1EDE7}.bc.v b{color:var(--a1)}
 .bc.at{background:#FBF1EE}.bc.at b{color:var(--bad)}
 .bc.re{background:#FBF4EC}.bc.re b{color:var(--bronze)}
 .obs{font-size:13px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:8px}
 .src{font-size:12px;color:var(--muted);word-break:break-all}
-.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:8px 10px;border-radius:6px;max-width:280px;z-index:20;opacity:0;transition:opacity .08s;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:8px 10px;border-radius:2px;max-width:280px;z-index:20;opacity:0;transition:opacity .08s;box-shadow:0 4px 16px rgba(0,0,0,.18)}
 .tip b{display:block;font-size:13px}
 .status{font-size:12.5px;color:var(--ink-2)}
 .status.err{color:var(--bad)}
@@ -112,16 +115,16 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   td.nv{color:var(--muted);font-style:italic}
-  .chip.nvchip{background:#eceae6;color:#6b6660;border:1px dashed #b9b3ab;font-style:normal}
+  .chip.nvchip{background:#eceae6;color:#6B6560;border:1px dashed #b9b3ab;font-style:normal}
   .nvsrc{color:var(--muted);font-size:.85em}
   .nvlegend{margin-top:10px}
-  #rmap{width:100%;height:auto;display:none;border-radius:8px;border:1px solid var(--line);background:#EEF0EE;touch-action:none}
+  #rmap{width:100%;height:auto;display:none;border-radius:3px;border:1px solid var(--line);background:#EEEBE6;touch-action:none}
   .rmap-on #rmap{display:block} .rmap-on #map{display:none!important}
   #rmap .pt{cursor:pointer} #rmap .pt:hover .dot{filter:brightness(1.12)}
   #rmap.ajuste .pt{cursor:grab}
   .maptools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
-  .maptools button{font:600 13px "Source Sans 3",sans-serif;border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink,#2b2925)}
-  .maptools button[aria-pressed="true"]{background:#3b3833;color:#fff;border-color:transparent}
+  .maptools button{font:600 13px "DM Sans",sans-serif;border:1px solid var(--line);background:#fff;border-radius:2px;padding:5px 10px;cursor:pointer;color:var(--ink,#1A1612)}
+  .maptools button[aria-pressed="true"]{background:#A07840;color:#F7F4F0;border-color:transparent}
   .maptools .sep{width:1px;height:20px;background:var(--line);margin:0 2px}
   #ajustebox{display:none;margin-top:10px} #ajustebox textarea{width:100%;height:120px;font:12px monospace}
   .attrib{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
@@ -135,20 +138,20 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
     #pres{display:block!important}
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
-  .pslide{width:338.67mm;height:190.5mm;box-sizing:border-box;padding:9mm 10mm 7mm;display:grid;grid-template-rows:auto 1fr auto;gap:5mm;font-family:"Source Sans 3",sans-serif;color:#2b2925;background:#fff;page-break-after:always;overflow:hidden}
-  .pslide .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #B0682A;padding-bottom:3mm}
-  .pslide .ph .t{font-family:Jost,sans-serif;font-size:22pt;font-weight:500;line-height:1.05}
-  .pslide .ph .t small{display:block;font-size:10.5pt;color:#6b6660;font-family:"Source Sans 3",sans-serif;font-weight:400;margin-top:1.5mm}
-  .pslide .ph .r{text-align:right;font-size:9pt;color:#6b6660}
-  .pslide .ph .r b{font-family:Jost,sans-serif;letter-spacing:.12em;color:#B0682A;font-size:11pt}
-  .pslide .pb{display:grid;grid-template-columns:104mm minmax(0,1fr);gap:6mm;min-height:0}
+  .pslide{width:338.67mm;height:190.5mm;box-sizing:border-box;padding:9mm 10mm 7mm;display:grid;grid-template-rows:auto 1fr auto;gap:5mm;font-family:"DM Sans",sans-serif;color:#1A1612;background:#fff;page-break-after:always;overflow:hidden}
+  .pslide .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #A07840;padding-bottom:3mm}
+  .pslide .ph .t{font-family:Satoshi,sans-serif;font-size:22pt;font-weight:500;line-height:1.05}
+  .pslide .ph .t small{display:block;font-size:10.5pt;color:#6B6560;font-family:"DM Sans",sans-serif;font-weight:400;margin-top:1.5mm}
+  .pslide .ph .r{text-align:right;font-size:9pt;color:#6B6560}
+  .pslide .ph .r b{font-family:Satoshi,sans-serif;letter-spacing:.12em;color:#A07840;font-size:11pt}
+  .pslide .pb{display:grid;grid-template-columns:122mm minmax(0,1fr);gap:6mm;min-height:0}
   .pslide .pm{position:relative;min-height:0}
   .pslide .pm svg{width:100%;height:auto;display:block;border-radius:2mm;border:1px solid #ddd8cf}
   .pslide .pleg{display:flex;gap:4mm;flex-wrap:wrap;font-size:8pt;color:#4a4640;margin-top:2mm}
   .pslide .pleg i{display:inline-block;width:3mm;height:3mm;border-radius:50%;margin-right:1mm;vertical-align:-0.3mm}
   .pslide table{width:100%;border-collapse:collapse;font-size:8.6pt;line-height:1.15;table-layout:auto}
-  .pslide th{font-size:6.9pt;text-transform:uppercase;letter-spacing:.04em;color:#6b6660;text-align:left;font-weight:600;padding:1mm 1.1mm;border-bottom:1.5px solid #2b2925;vertical-align:bottom}
-  .pslide td{padding:1.25mm 1.2mm;border-bottom:1px solid #ebe7e0;vertical-align:middle;white-space:nowrap}
+  .pslide th{font-size:6.9pt;text-transform:uppercase;letter-spacing:.04em;color:#6B6560;text-align:left;font-weight:600;padding:1mm 1.1mm;border-bottom:1.5px solid #1A1612;vertical-align:bottom}
+  .pslide td{padding:1.05mm 1.2mm;border-bottom:1px solid #ebe7e0;vertical-align:middle;white-space:nowrap}
   .pslide td.r,.pslide th.r{text-align:right}
   .pslide td .s{font-size:7pt;color:#8f8a80;margin-left:1.2mm}
   .pslide tr.q td{background:#f6eee6;font-weight:600}
@@ -157,7 +160,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
   .pslide .n{display:inline-flex;width:4.8mm;height:4.8mm;border-radius:50%;color:#fff;font-weight:700;font-size:7pt;align-items:center;justify-content:center}
   .pslide .pz{min-height:0;overflow:hidden;border-radius:2mm;border:1px solid #ddd8cf}
   .pslide .pz svg{width:100%;height:100%;display:block}
-  .pslide .pf{display:flex;justify-content:space-between;font-size:7.4pt;color:#6b6660;border-top:1px solid #ebe7e0;padding-top:2mm}
+  .pslide .pf{display:flex;justify-content:space-between;font-size:7.4pt;color:#6B6560;border-top:1px solid #ebe7e0;padding-top:2mm}
 </style>
 </head>
 <body>
@@ -165,7 +168,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
 <header class="top">
   <div class="wrap">
     <div>
-      <div class="brand">QUADDRA<small>SABIÁ</small></div>
+      <div class="brand"><img src="https://yuny.com.br/brand/logoyuny_black.png" alt="Yuny" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'YUNY',style:'letter-spacing:.3em;color:#1A1612'}))"><span class="sep"></span><span>Quaddra<small>Sabiá</small></span></div>
       <h1>Estudo de concorrência · produtos de 200 m² ou mais</h1>
     </div>
     <div class="meta">
@@ -264,7 +267,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:12.5px}
   <div class="panel" style="margin-top:14px" hidden><b style="font-family:var(--display);font-weight:500;font-size:17px">Fontes</b><ul id="srcs" class="src" style="padding-left:18px;columns:2;column-gap:28px"></ul></div>
 </section>
 </main>
-<footer><div class="wrap">Gerência de Produtos · Yuny Incorporadora · Uso interno.</div></footer>
+<footer><div class="wrap">Gerência de Produtos · Yuny Incorporadora Incorporadora · Uso interno.</div></footer>
 <div class="tip" id="tip" role="tooltip"></div>
 
 <script>
@@ -293,11 +296,11 @@ let D = {
    "data": "03/11"
   },
   "C11": {
-   "lanc": "",
-   "tab": "",
-   "fech": "",
+   "lanc": "R$ 28.000",
+   "tab": "R$ 35.000",
+   "fech": "R$ 35.000",
    "vend": "100",
-   "data": "03/11"
+   "data": "13/11 (REVENDA)"
   },
   "C12": {
    "lanc": "R$ 18.900",
@@ -323,30 +326,30 @@ let D = {
   "C01": {
    "lanc": "R$ 32.500",
    "tab": "R$ 40.500",
-   "fech": "",
+   "fech": "R$ 37.260",
    "vend": "83",
-   "data": "10/11 · atualizar lançamento e % vendido"
+   "data": "10/11"
   },
   "C03": {
    "lanc": "R$ 27.000",
-   "tab": "R$ 42.000",
-   "fech": "",
+   "tab": "R$ 43.550",
+   "fech": "R$ 30.000",
    "vend": "65",
-   "data": "fev/26 · atualizar"
+   "data": "14/11"
   },
   "C04": {
    "lanc": "R$ 32.000",
    "tab": "R$ 35.000",
    "fech": "R$ 34.700",
    "vend": "86",
-   "data": "13/11 · atualizar lançamento e tabela"
+   "data": "13/11"
   },
   "C06": {
    "lanc": "R$ 29.000",
    "tab": "R$ 30.850",
-   "fech": "",
+   "fech": "R$ 25.828",
    "vend": "52",
-   "data": "fev/26 · atualizar"
+   "data": "14/11"
   },
   "C08": {
    "lanc": "",
@@ -358,7 +361,7 @@ let D = {
   "C09": {
    "lanc": "R$ 40.000",
    "tab": "R$ 45.000",
-   "fech": "",
+   "fech": "R$ 45.000",
    "vend": "75",
    "data": "13/11"
   },
@@ -371,10 +374,10 @@ let D = {
   },
   "C13": {
    "lanc": "R$ 32.900",
-   "tab": "R$ 28.825",
-   "fech": "",
+   "tab": "R$ 32.900",
+   "fech": "R$ 28.825",
    "vend": "27,4",
-   "data": "10/11 · atualizar lançamento e tabela (média, não andar médio)"
+   "data": "10/11"
   },
   "C14": {
    "lanc": "",
@@ -394,8 +397,8 @@ let D = {
    "lanc": "R$ 26.000",
    "tab": "",
    "fech": "",
-   "vend": "",
-   "data": "10/11 · previsto"
+   "vend": "AINDA NAO LANÇADO",
+   "data": "10/11"
   }
  },
  "data": "03/11/2026",
@@ -1881,7 +1884,7 @@ let D = {
   ]
  ]
 };
-const COL = {q:"#B0682A", "Anel 1":"#008F7A", "Anel 2":"#6A5FC8", ref:"#8F8A80"};
+const COL = {q:"#A07840", "Anel 1":"#2A2520", "Anel 2":"#9A948E", ref:"#B9B2A8"};
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmt = n => (n===null||n===undefined||n==="") ? "" : Number(n).toLocaleString("pt-BR");
@@ -1937,11 +1940,11 @@ function drawMap(){
   let s = `<defs><pattern id="hatch" width="60" height="60" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="60" stroke="#CFE3D6" stroke-width="18"/></pattern></defs>`;
   s += `<polygon points="${L([[260,1150],[560,760],[1250,820],[1500,1250],[1300,1700],[600,1750]])}" fill="url(#hatch)" opacity=".7"/>`;
   s += `<text x="880" y="-1300" font-size="96" fill="#4F7F60" font-weight="600" text-anchor="middle">Parque Ibirapuera</text>`;
-  [2000,1000].forEach((r,i)=>{ s += `<circle cx="0" cy="0" r="${r}" fill="${i? '#F2F8F6':'#F6F5FB'}" stroke="${i? COL['Anel 1']:COL['Anel 2']}" stroke-width="5" stroke-dasharray="${i?'':'24 16'}" opacity="${i? .9:.8}"/>`; });
+  [2000,1000].forEach((r,i)=>{ s += `<circle cx="0" cy="0" r="${r}" fill="${i? '#F1EDE7':'#F4F1EC'}" stroke="${i? COL['Anel 1']:COL['Anel 2']}" stroke-width="5" stroke-dasharray="${i?'':'24 16'}" opacity="${i? .9:.8}"/>`; });
   s += `<text x="0" y="-1035" font-size="92" text-anchor="middle" fill="${COL['Anel 1']}" font-weight="700">1 km</text>`;
   s += `<text x="0" y="-2030" font-size="92" text-anchor="middle" fill="${COL['Anel 2']}" font-weight="700">2 km</text>`;
   roads.forEach(([n,pts,lab])=>{ s += `<polyline points="${L(pts)}" fill="none" stroke="#D9D4CA" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`; });
-  roads.forEach(([n,pts,lab])=>{ s += `<text x="${lab[0]}" y="${-lab[1]}" font-size="80" fill="#7B756A" text-anchor="middle" style="paint-order:stroke" stroke="#FBFAF7" stroke-width="16">${esc(n)}</text>`; });
+  roads.forEach(([n,pts,lab])=>{ s += `<text x="${lab[0]}" y="${-lab[1]}" font-size="80" fill="#7B756A" text-anchor="middle" style="paint-order:stroke" stroke="#F7F4F0" stroke-width="16">${esc(n)}</text>`; });
   s += `<g><rect x="${456-24}" y="${368-24}" width="48" height="48" rx="10" fill="#fff" stroke="#8B857A" stroke-width="6"/><text x="${380}" y="${368+28}" font-size="76" text-anchor="end" fill="#7B756A">Metrô Moema</text></g>`;
   P.filter(p=>p.x!=null).forEach(p=>{
     const c = COL[p.anel]||COL.ref, est = p.pos_base==="estimada";
@@ -1989,7 +1992,7 @@ function drawRealMap(){
   pts.forEach(({p,x,y})=>{
     const c=COL[p.anel]||COL.ref, est=p.pos_base==="estimada";
     s+=`<g class="pt" data-id="${p.id}" tabindex="0" role="link" aria-label="${esc(p.nome)}"><circle cx="${x}" cy="${y}" r="${R*1.6}" fill="transparent"/><circle class="dot" cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${2.6*u}" ${est?`stroke-dasharray="${5*u} ${3*u}"`:''} style="filter:drop-shadow(0 ${u}px ${2*u}px rgba(0,0,0,.35))"/><text x="${x}" y="${y+4.6*u}" font-size="${13*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" pointer-events="none">${numOf(p.id)}</text></g>`;
-    LBL.push({x,y,r:R,txt:p.nome,fs:13*u,col:"#2b2925",fw:600});
+    LBL.push({x,y,r:R,txt:p.nome,fs:13*u,col:"#1A1612",fw:600});
   });
   { const qp=RM.pos.Q||[Q.lat,Q.lng]; const [x,y]=L(...merc(qp[0],qp[1],z));
     s+=`<g class="pt" data-id="Q"><circle cx="${x}" cy="${y}" r="${R*1.45}" fill="${COL.q}" stroke="#fff" stroke-width="${3.2*u}" style="filter:drop-shadow(0 ${u}px ${2.5*u}px rgba(0,0,0,.4))"/><text x="${x}" y="${y+6*u}" font-size="${17*u}" font-weight="700" text-anchor="middle" fill="#fff" pointer-events="none">Q</text></g>`;
@@ -2036,7 +2039,7 @@ function initRealMap(){
 
 // ---------- Exportar apresentação (slide 16:9 em PDF pelo navegador) ----------
 function presMapSVG(){
-  const Q=D.quaddra, z=15, half=2080;
+  const Q=D.quaddra, z=16, half=1090;
   const mpp=156543.03392*Math.cos(Q.lat*Math.PI/180)/Math.pow(2,z);
   const [cx,cy]=merc(Q.lat,Q.lng,z); const h=2*half/mpp, w=h, x0=cx-w/2, y0=cy-h/2, u=w/1000;
   const L=(x,y)=>[x-x0,y-y0];
@@ -2046,12 +2049,12 @@ function presMapSVG(){
   s+=`</g>`;
   const [qx,qy]=L(cx,cy);
   [[2000,COL["Anel 2"],true,.04,"2 km"],[1000,COL["Anel 1"],false,.07,"1 km"]].forEach(([m,c,dash,fo,lab])=>{ const r=m/mpp;
-    s+=`<circle cx="${qx}" cy="${qy}" r="${r}" fill="${c}" fill-opacity="${fo}" stroke="${c}" stroke-width="${3*u}" ${dash?`stroke-dasharray="${10*u} ${7*u}"`:''}/><text x="${qx}" y="${qy-r-7*u}" font-size="${22*u}" font-weight="700" text-anchor="middle" fill="${c}" stroke="#fff" stroke-width="${6*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">${lab}</text>`; });
-  const R=24*u;
+    s+=`<circle cx="${qx}" cy="${qy}" r="${r}" fill="${c}" fill-opacity="${fo}" stroke="${c}" stroke-width="${3*u}" ${dash?`stroke-dasharray="${10*u} ${7*u}"`:''}/><text x="${qx}" y="${qy-r-7*u}" font-size="${22*u}" font-weight="700" text-anchor="middle" fill="${c}" stroke="#fff" stroke-width="${6*u}" style="paint-order:stroke" font-family="DM Sans,sans-serif">${lab}</text>`; });
+  const R=27*u;
   D.projetos.filter(p=>posOf(p)).sort((a,b)=>(b.dist_m||0)-(a.dist_m||0)).forEach(p=>{ const [la,ln]=posOf(p); const [x,y]=L(...merc(la,ln,z)); const c=COL[p.anel]||COL.ref, est=p.pos_base==="estimada";
-    s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${3.2*u}" ${est?`stroke-dasharray="${6*u} ${4*u}"`:''}/><text x="${x}" y="${y+8*u}" font-size="${23*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" font-family="Source Sans 3,sans-serif">${numOf(p.id)}</text>`; });
-  s+=`<circle cx="${qx}" cy="${qy}" r="${R*1.45}" fill="${COL.q}" stroke="#fff" stroke-width="${4*u}"/><text x="${qx}" y="${qy+8*u}" font-size="${23*u}" font-weight="700" text-anchor="middle" fill="#fff" font-family="Jost,sans-serif">Q</text>`;
-  s+=`<text x="${w-8*u}" y="${h-8*u}" font-size="${13*u}" text-anchor="end" fill="#6b6660" stroke="#fff" stroke-width="${4*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">© colaboradores do OpenStreetMap</text></svg>`;
+    s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${3.2*u}" ${est?`stroke-dasharray="${6*u} ${4*u}"`:''}/><text x="${x}" y="${y+9*u}" font-size="${25*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" font-family="DM Sans,sans-serif">${numOf(p.id)}</text>`; });
+  s+=`<circle cx="${qx}" cy="${qy}" r="${R*1.45}" fill="${COL.q}" stroke="#fff" stroke-width="${4*u}"/><text x="${qx}" y="${qy+8*u}" font-size="${23*u}" font-weight="700" text-anchor="middle" fill="#fff" font-family="Satoshi,sans-serif">Q</text>`;
+  s+=`<text x="${w-8*u}" y="${h-8*u}" font-size="${13*u}" text-anchor="end" fill="#6B6560" stroke="#fff" stroke-width="${4*u}" style="paint-order:stroke" font-family="DM Sans,sans-serif">© colaboradores do OpenStreetMap</text></svg>`;
   return s;
 }
 function presTable(){
@@ -2061,17 +2064,17 @@ function presTable(){
   const date=s=>String(s||"").replace(/\s*\(.*?\)\s*/g," ").trim().split(/ (?:a|ou) /)[0];
   const plantas=s=>{ const n=(String(s||"").replace(/\(.*?\)/g,"").match(/\d[\d.]*/g)||[]).map(x=>+x.replace(".","")).filter(x=>x>=100); if(!n.length) return ""; const mn=Math.min(...n), mx=Math.max(...n); return mn===mx? fmt(mn) : fmt(mn)+" a "+fmt(mx); };
   const cell=(val,nv,cls="r")=>`<td class="${cls}${nv&&val?' nv':''}">${val?esc(val)+(nv?'*':''):'<span style="color:#c9c4bb">–</span>'}</td>`;
-  const row=p=>{ const v=(D.precos||{})[p.id]||{}; const f=flags(v); const pct=v.vend? (/%$/.test(String(v.vend))?v.vend:v.vend+"%"):"";
-    return `<tr><td><span class="n" style="background:${COL[p.anel]}">${numOf(p.id)}</span></td><td>${esc(p.nome)}<span class="s">${esc(p.incorporadora.replace(/\s*\(.*\)/,""))}</span></td><td class="r">${p.dist_m!=null?fmt(p.dist_m)+" m":""}</td><td>${esc(date(p.lancamento))}</td><td>${esc(date(p.entrega))}</td><td>${esc(plantas(p.metragens))}</td>${cell(money(v.lanc),f("lanc"))}${cell(money(v.tab),f("tab"))}${cell(money(v.fech),f("fech"))}${cell(pct,f("vend"))}</tr>`; };
+  const row=p=>{ const v=(D.precos||{})[p.id]||{}; const f=flags(v); const pct=v.vend? (/^[\d.,]+$/.test(String(v.vend).trim())?v.vend+"%":(/lan[çc]/i.test(v.vend)?"não lançado":String(v.vend).slice(0,12))):"";
+    return `<tr><td><span class="n" style="background:${COL[p.anel]}">${numOf(p.id)}</span></td><td>${esc(p.nome)}<span class="s">${esc(p.incorporadora.replace(/\s*\(.*\)/,""))}</span></td><td>${esc(date(p.lancamento))}</td><td>${esc(date(p.entrega))}</td><td>${esc(plantas(p.metragens))}</td>${cell(money(v.lanc),f("lanc"))}${cell(money(v.tab),f("tab"))}${cell(money(v.fech),f("fech"))}${cell(pct,f("vend"))}</tr>`; };
   const P=[...D.projetos].sort((a,b)=>(a.dist_m??9e9)-(b.dist_m??9e9));
-  let h=`<table><thead><tr><th></th><th>Empreendimento</th><th class="r">Dist.</th><th>Lançam.</th><th>Entrega</th><th>Plantas (m²)</th><th class="r">Lanç. R$/m²</th><th class="r">Tabela R$/m²</th><th class="r">Fech. R$/m²</th><th class="r">Vendido</th></tr></thead><tbody>`;
-  h+=`<tr class="q"><td><span class="n" style="background:${COL.q}">Q</span></td><td>${esc(D.quaddra.nome)}<span class="s">Yuny</span></td><td class="r">–</td><td>${esc(date(D.quaddra.lancamento))||"a definir"}</td><td>${esc(date(D.quaddra.entrega))||"–"}</td><td>298 a 395</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td></tr>`;
-  [["Anel 1","Anel 1 · até 1 km"],["Anel 2","Anel 2 · de 1 a 2 km"]].forEach(([a,lab])=>{ const g=P.filter(p=>p.anel===a); if(!g.length) return; h+=`<tr class="sep"><td colspan="10" style="color:${COL[a]}">${lab} · ${g.length} empreendimentos</td></tr>`+g.map(row).join(""); });
+  let h=`<table><thead><tr><th></th><th>Empreendimento</th><th>Lançam.</th><th>Entrega</th><th>Plantas (m²)</th><th class="r">Lanç. R$/m²</th><th class="r">Tabela R$/m²</th><th class="r">Fech. R$/m²</th><th class="r">Vendido</th></tr></thead><tbody>`;
+  h+=`<tr class="q"><td><span class="n" style="background:${COL.q}">Q</span></td><td>${esc(D.quaddra.nome)}<span class="s">Yuny</span></td><td>${esc(date(D.quaddra.lancamento))||"a definir"}</td><td>${esc(date(D.quaddra.entrega))||"–"}</td><td>298 a 395</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td></tr>`;
+  [["Anel 1","Anel 1 · até 1 km"],["Anel 2","Anel 2 · de 1 a 2 km"]].forEach(([a,lab])=>{ const g=P.filter(p=>p.anel===a); if(!g.length) return; h+=`<tr class="sep"><td colspan="9" style="color:${COL[a]}">${lab} · ${g.length} empreendimentos</td></tr>`+g.map(row).join(""); });
   return h+`</tbody></table>`;
 }
 
 function presZoomSVG(){
-  const Q=D.quaddra, z=16, halfH=720;
+  const Q=D.quaddra, z=15, halfH=2080;
   const mpp=156543.03392*Math.cos(Q.lat*Math.PI/180)/Math.pow(2,z);
   const [cx,cy]=merc(Q.lat,Q.lng,z); const h=2*halfH/mpp, w=h*(318/128), x0=cx-w/2, y0=cy-h/2, u=h/1000;
   const L=(x,y)=>[x-x0,y-y0];
@@ -2079,34 +2082,61 @@ function presZoomSVG(){
   for(let tx=Math.floor(x0/256); tx<=Math.floor((x0+w)/256); tx++) for(let ty=Math.floor(y0/256); ty<=Math.floor((y0+h)/256); ty++)
     s+=`<image href="${TILE(z,tx,ty)}" x="${tx*256-x0}" y="${ty*256-y0}" width="256.6" height="256.6"/>`;
   s+=`</g>`;
-  const [qx,qy]=L(cx,cy); const r1=1000/mpp;
-  s+=`<circle cx="${qx}" cy="${qy}" r="${r1}" fill="${COL["Anel 1"]}" fill-opacity=".06" stroke="${COL["Anel 1"]}" stroke-width="${3*u}"/><text x="${qx+r1*0.72}" y="${qy-r1*0.72}" font-size="${28*u}" font-weight="700" fill="${COL["Anel 1"]}" stroke="#fff" stroke-width="${7*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">1 km</text>`;
-  const R=24*u, pts=[], LBL=[];
+  const [qx,qy]=L(cx,cy); const r1=1000/mpp, r2=2000/mpp;
+  s+=`<circle cx="${qx}" cy="${qy}" r="${r2}" fill="${COL["Anel 2"]}" fill-opacity=".05" stroke="${COL["Anel 2"]}" stroke-width="${3*u}" stroke-dasharray="${10*u} ${7*u}"/><text x="${qx-r2+14*u}" y="${qy-24*u}" text-anchor="start" font-size="${28*u}" font-weight="700" fill="${COL["Anel 2"]}" stroke="#fff" stroke-width="${7*u}" style="paint-order:stroke" font-family="DM Sans,sans-serif">2 km</text>`;
+  s+=`<circle cx="${qx}" cy="${qy}" r="${r1}" fill="${COL["Anel 1"]}" fill-opacity=".06" stroke="${COL["Anel 1"]}" stroke-width="${3*u}"/><text x="${qx+r1*0.72}" y="${qy-r1*0.72}" font-size="${28*u}" font-weight="700" fill="${COL["Anel 1"]}" stroke="#fff" stroke-width="${7*u}" style="paint-order:stroke" font-family="DM Sans,sans-serif">1 km</text>`;
+  const R=17*u, pts=[], LBL=[]; let pinsSVG="";
   D.projetos.filter(p=>posOf(p)).forEach(p=>{ const [la,ln]=posOf(p); const [x,y]=L(...merc(la,ln,z)); if(x<0||y<0||x>w||y>h) return; pts.push({p,x,y}); });
   pts.forEach(({p,x,y})=>{ const c=COL[p.anel]||COL.ref, est=p.pos_base==="estimada";
-    s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${3*u}" ${est?`stroke-dasharray="${5*u} ${3.5*u}"`:''}/><text x="${x}" y="${y+8.5*u}" font-size="${24*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" font-family="Source Sans 3,sans-serif">${numOf(p.id)}</text>`;
-    const v=(D.precos||{})[p.id]||{}; LBL.push({x,y,r:R,txt:p.nome,fs:25*u,col:"#2b2925",fw:600, sub:(p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":"")}); });
-  s+=`<circle cx="${qx}" cy="${qy}" r="${R*1.5}" fill="${COL.q}" stroke="#fff" stroke-width="${3.5*u}"/><text x="${qx}" y="${qy+11*u}" font-size="${32*u}" font-weight="700" text-anchor="middle" fill="#fff" font-family="Jost,sans-serif">Q</text>`;
+    pinsSVG+=`<circle cx="${x}" cy="${y}" r="${R}" fill="${est?'#fff':c}" stroke="${est?c:'#fff'}" stroke-width="${3*u}" ${est?`stroke-dasharray="${5*u} ${3.5*u}"`:''}/><text x="${x}" y="${y+6*u}" font-size="${17*u}" font-weight="700" text-anchor="middle" fill="${est?c:'#fff'}" font-family="DM Sans,sans-serif">${numOf(p.id)}</text>`;
+    const v=(D.precos||{})[p.id]||{}; LBL.push({x,y,r:R,id:p.id,anel:p.anel,txt:p.nome,fs:25*u,col:"#1A1612",fw:600, sub:(p.dist_m!=null? "≈ "+fmt(p.dist_m)+" m":"")}); });
+  pinsSVG=`<circle cx="${qx}" cy="${qy}" r="${R*1.5}" fill="${COL.q}" stroke="#fff" stroke-width="${3.5*u}"/><text x="${qx}" y="${qy+8*u}" font-size="${24*u}" font-weight="700" text-anchor="middle" fill="#fff" font-family="Satoshi,sans-serif">Q</text>`+pinsSVG;
   LBL.unshift({x:qx,y:qy,r:R*1.5,txt:Q.nome,fs:30*u,col:COL.q,fw:700,sub:""});
-  const boxes=LBL.map(l=>({x0:l.x-l.r,y0:l.y-l.r,x1:l.x+l.r,y1:l.y+l.r}));
-  const hit=b=>boxes.some(o=>b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0)||b.x0<0||b.y0<0||b.x1>w||b.y1>h;
-  LBL.forEach(l=>{ const tw=Math.max(l.txt.length*l.fs*0.56, l.sub.length*l.fs*0.5), th=l.fs*(l.sub?2.15:1.15), g=4*u;
-    const c=[["start",l.x+l.r+g,l.y],["end",l.x-l.r-g,l.y],["middle",l.x,l.y-l.r-g-th/2],["middle",l.x,l.y+l.r+g+th/2],["start",l.x+l.r*0.6,l.y-l.r-th/2-g],["start",l.x+l.r*0.6,l.y+l.r+th/2+g],["end",l.x-l.r*0.6,l.y-l.r-th/2-g],["end",l.x-l.r*0.6,l.y+l.r+th/2+g]];
-    const bx=([a,tx,ty])=>{ const xa=a==="start"?tx:a==="end"?tx-tw:tx-tw/2; return {x0:xa,y0:ty-th/2,x1:xa+tw,y1:ty+th/2}; };
-    let pick=c.find(k=>!hit(bx(k))); const lead=!pick; if(!pick){ pick=c.map(k=>[k,boxes.filter(o=>{const b=bx(k);return b.x0<o.x1&&b.x1>o.x0&&b.y0<o.y1&&b.y1>o.y0;}).length]).sort((a,b)=>a[1]-b[1])[0][0]; }
-    boxes.push(bx(pick)); const [a,tx,ty]=pick; const top=ty-th/2+l.fs*0.85;
-    s+=`<text x="${tx}" y="${top}" text-anchor="${a}" font-size="${l.fs}" font-weight="${l.fw}" fill="${l.col}" stroke="#fff" stroke-width="${6*u}" stroke-linejoin="round" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">${esc(l.txt)}</text>`;
-    if(l.sub) s+=`<text x="${tx}" y="${top+l.fs*1.05}" text-anchor="${a}" font-size="${l.fs*0.82}" fill="#6b6660" stroke="#fff" stroke-width="${4*u}" stroke-linejoin="round" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">${esc(l.sub)}</text>`; });
-  s+=`<text x="${w-8*u}" y="${h-8*u}" font-size="${12*u}" text-anchor="end" fill="#6b6660" stroke="#fff" stroke-width="${4*u}" style="paint-order:stroke" font-family="Source Sans 3,sans-serif">© colaboradores do OpenStreetMap</text></svg>`;
+  // nomes espalhados em volta do mapa (elipse), na mesma ordem angular dos pinos, com linha até o pino
+  const items=LBL.filter(l=>l.col!==COL.q);
+  const fs=24*u, rx=w*0.38, ry=h*0.43, n=items.length;
+  items.forEach(l=>l.a=Math.atan2(l.y-qy,l.x-qx));
+  items.sort((a,b)=>a.a-b.a);
+  let best=null;
+  for(let o=0;o<360;o+=2){ const off=o*Math.PI/180; let cost=0;
+    items.forEach((l,k)=>{ const s0=off+k*2*Math.PI/n; let d=Math.abs(Math.atan2(Math.sin(s0-l.a),Math.cos(s0-l.a))); cost+=d*d; });
+    if(!best||cost<best[0]) best=[cost,off]; }
+  // mistura: metade ângulo do pino, metade distribuição uniforme; depois separação mínima
+  items.forEach((l,k)=>{ const s0=best[1]+k*2*Math.PI/n; const d=Math.atan2(Math.sin(s0-l.a),Math.cos(s0-l.a)); l.t=l.a+d*0.42; });
+  const gap=2*Math.PI/n*0.82;
+  for(let it=0;it<60;it++){ for(let k=0;k<n;k++){ const A=items[k], B=items[(k+1)%n]; let d=Math.atan2(Math.sin(B.t-A.t),Math.cos(B.t-A.t)); if(d<gap){ const m=(gap-d)/2; A.t-=m; B.t+=m; } } }
+  items.forEach(l=>{ l.lx=qx+rx*Math.cos(l.t); l.ly=qy+ry*Math.sin(l.t); l.ca=Math.cos(l.t); });
+  // caixas de texto: cabe na imagem e sem sobreposição
+  const bh=fs*2.05;
+  items.forEach(l=>{ l.tw=Math.max((numOf(l.id)+" · "+l.txt).length*fs*0.56, (l.sub+" · "+(l.anel||"")).length*fs*0.46)+12*u;
+    if(l.ca>=0 && l.lx+l.tw>w-12*u) l.lx=w-12*u-l.tw; if(l.ca<0 && l.lx-l.tw<12*u) l.lx=12*u+l.tw; });
+  const box=l=> l.ca>=0? [l.lx, l.ly-fs, l.lx+l.tw, l.ly-fs+bh] : [l.lx-l.tw, l.ly-fs, l.lx, l.ly-fs+bh];
+  for(let it=0;it<200;it++){ let moved=false;
+    for(let i2=0;i2<n;i2++) for(let j2=i2+1;j2<n;j2++){ const A=box(items[i2]), B=box(items[j2]);
+      if(A[0]<B[2]&&A[2]>B[0]&&A[1]<B[3]&&A[3]>B[1]){ const ov=Math.min(A[3],B[3])-Math.max(A[1],B[1])+2*u; const up=items[i2].ly<items[j2].ly? items[i2]:items[j2], dn= up===items[i2]? items[j2]:items[i2]; up.ly-=ov/2; dn.ly+=ov/2; moved=true; } }
+    items.forEach(l=>{ l.ly=Math.max(fs+14*u, Math.min(h-bh+fs-14*u, l.ly)); });
+    if(!moved) break; }
+  items.forEach(l=>{
+    const anchor= l.ca>=0? "start" : "end";
+    s+=`<line x1="${l.x}" y1="${l.y}" x2="${l.lx}" y2="${l.ly}" stroke="#8F8A80" stroke-width="${1.6*u}"/><circle cx="${l.lx}" cy="${l.ly}" r="${3*u}" fill="#8F8A80"/>`;
+    const dx= anchor==="start"? 10*u : anchor==="end"? -10*u : 0, dy= anchor==="middle"? (l.ly<qy? -12*u : fs+6*u) : -2*u;
+    const tx=l.lx+dx, ty=l.ly+dy;
+    s+=`<text x="${tx}" y="${ty}" text-anchor="${anchor}" font-size="${fs}" font-weight="700" fill="#1A1612" stroke="#F7F4F0" stroke-width="${6*u}" stroke-linejoin="round" style="paint-order:stroke" font-family="DM Sans,sans-serif">${numOf(l.id)} · ${esc(l.txt)}</text>`;
+    if(l.sub) s+=`<text x="${tx}" y="${ty+fs*0.98}" text-anchor="${anchor}" font-size="${fs*0.8}" fill="#6B6560" stroke="#F7F4F0" stroke-width="${5*u}" stroke-linejoin="round" style="paint-order:stroke" font-family="DM Sans,sans-serif">${esc(l.sub)} · ${esc(l.anel||"")}</text>`;
+  });
+  // rótulo do Quaddra
+  pinsSVG+=`<text x="${qx-R*1.5-10*u}" y="${qy+28*u}" text-anchor="end" font-size="${24*u}" font-weight="700" fill="${COL.q}" stroke="#fff" stroke-width="${6*u}" style="paint-order:stroke" font-family="Satoshi,DM Sans,sans-serif">Quaddra Sabiá</text>`;
+  s+=pinsSVG;
+  s+=`<text x="${w-8*u}" y="${h-8*u}" font-size="${12*u}" text-anchor="end" fill="#6B6560" stroke="#fff" stroke-width="${4*u}" style="paint-order:stroke" font-family="DM Sans,sans-serif">© colaboradores do OpenStreetMap</text></svg>`;
   return s;
 }
 async function exportPres(){
   const box=$("#pres"); const hoje=new Date().toLocaleDateString("pt-BR");
-  box.innerHTML=`<section class="pslide"><div class="ph"><div class="t">Concorrência no entorno do Quaddra Sabiá<small>Produtos com plantas de 200 m² ou mais · Moema · anéis de 1 e 2 km</small></div><div class="r"><b>QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny<br>Gerado em ${hoje}</div></div>
+  box.innerHTML=`<section class="pslide"><div class="ph"><div class="t">Concorrência no entorno do Quaddra Sabiá<small>Produtos com plantas de 200 m² ou mais · Moema · mapa: Anel 1 (até 1 km); tabela: Anéis 1 e 2</small></div><div class="r"><b>YUNY · QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny Incorporadora<br>Gerado em ${hoje}</div></div>
   <div class="pb"><div class="pm">${presMapSVG()}<div class="pleg"><span><i style="background:${COL.q}"></i>Quaddra</span><span><i style="background:${COL["Anel 1"]}"></i>Anel 1 (até 1 km)</span><span><i style="background:${COL["Anel 2"]}"></i>Anel 2 (1 a 2 km)</span><span><i style="background:#fff;border:1.5px dashed #8f8a80"></i>posição estimada</span></div></div>
   <div class="pt">${presTable()}</div></div>
   <div class="pf"><span>* Valor ainda não validado com a incorporadora (base interna de fev/26 ou portal). Tabela = preço do andar médio. Distâncias em linha reta.</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`+
-  `<section class="pslide"><div class="ph"><div class="t">Anel 1 em detalhe<small>Concorrentes a até 1 km do Quaddra Sabiá · distâncias em linha reta</small></div><div class="r"><b>QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny<br>Gerado em ${hoje}</div></div>
+  `<section class="pslide"><div class="ph"><div class="t">Concorrentes nos anéis de 1 e 2 km<small>Nome e distância em linha reta até o Quaddra Sabiá</small></div><div class="r"><b>YUNY · QUADDRA SABIÁ</b><br>Gerência de Produtos · Yuny Incorporadora<br>Gerado em ${hoje}</div></div>
   <div class="pz">${presZoomSVG()}</div>
   <div class="pf"><span>Pinos tracejados: posição estimada pelo endereço. Números iguais aos da tabela do slide anterior.</span><span>Versão interativa: ${esc(location.href.split("#")[0].split("?")[0])}</span></div></section>`;
   const imgs=[...box.querySelectorAll("image")];
@@ -2127,17 +2157,17 @@ function drawTipo(){
   const x0=200, x1=800; const X=v=>left+(Math.min(v,x1)-x0)/(x1-x0)*(W-left-right);
   const svg=$("#tipo"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
   let s="";
-  const bands=[[260,320,"A · ~298","#F3EEE6"],[320,380,"B · ~350","#EAF3F1"],[380,480,"C · ~395","#EFEDF8"],[480,800,"D · duplex e coberturas","#F4F4F2"]];
-  bands.forEach(([a,b,l,c])=>{ s+=`<rect x="${X(a)}" y="${top-10}" width="${X(b)-X(a)}" height="${P.length*rowH+10}" fill="${c}"/><text x="${(X(a)+X(b))/2}" y="${top-18}" font-size="12.5" text-anchor="middle" fill="#4E5754" font-weight="600">${l}</text>`; });
-  [200,300,400,500,600,700,800].forEach(v=>{ s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${top-10}" y2="${top+P.length*rowH}" stroke="#E4E1DA" stroke-width="1"/><text x="${X(v)}" y="${top+P.length*rowH+18}" font-size="12" text-anchor="middle" fill="#7B8380">${v===800?"800+":v} m²</text>`; });
+  const bands=[[260,320,"A · ~298","#F3EEE6"],[320,380,"B · ~350","#ECE8E2"],[380,480,"C · ~395","#E6E1DA"],[480,800,"D · duplex e coberturas","#F4F4F2"]];
+  bands.forEach(([a,b,l,c])=>{ s+=`<rect x="${X(a)}" y="${top-10}" width="${X(b)-X(a)}" height="${P.length*rowH+10}" fill="${c}"/><text x="${(X(a)+X(b))/2}" y="${top-18}" font-size="12.5" text-anchor="middle" fill="#4A443E" font-weight="600">${l}</text>`; });
+  [200,300,400,500,600,700,800].forEach(v=>{ s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${top-10}" y2="${top+P.length*rowH}" stroke="#E0DBD4" stroke-width="1"/><text x="${X(v)}" y="${top+P.length*rowH+18}" font-size="12" text-anchor="middle" fill="#6B6560">${v===800?"800+":v} m²</text>`; });
   P.forEach((p,i)=>{
     const y=top+i*rowH+rowH/2; const c=COL[p.anel]||COL.ref;
     if(i>0 && P[i-1].anel!==p.anel) s+=`<line x1="12" x2="${W-right}" y1="${y-rowH/2}" y2="${y-rowH/2}" stroke="#D9D4CA"/>`;
-    s+=`<text x="${left-12}" y="${y+4.5}" font-size="13" text-anchor="end" fill="${p.anel==='q'?'#1D2523':'#4E5754'}" font-weight="${p.anel==='q'?700:400}">${esc(p.nome)}</text>`;
+    s+=`<text x="${left-12}" y="${y+4.5}" font-size="13" text-anchor="end" fill="${p.anel==='q'?'#1A1612':'#4A443E'}" font-weight="${p.anel==='q'?700:400}">${esc(p.nome)}</text>`;
     const ms=(p.tipologias||[]); if(ms.length>1){ s+=`<line x1="${X(Math.min(...ms))}" x2="${X(Math.max(...ms))}" y1="${y}" y2="${y}" stroke="${c}" stroke-opacity=".35" stroke-width="2"/>`; }
-    ms.forEach(m=>{ s+=`<circle class="td" data-n="${esc(p.nome)}" data-m="${m}" cx="${X(m)}" cy="${y}" r="${p.anel==='q'?7:5.5}" fill="${c}" stroke="#fff" stroke-width="2"/>`; if(m>x1) s+=`<text x="${X(m)+10}" y="${y+4}" font-size="11" fill="#7B8380">${fmt(m)}</text>`; });
+    ms.forEach(m=>{ s+=`<circle class="td" data-n="${esc(p.nome)}" data-m="${m}" cx="${X(m)}" cy="${y}" r="${p.anel==='q'?7:5.5}" fill="${c}" stroke="#fff" stroke-width="2"/>`; if(m>x1) s+=`<text x="${X(m)+10}" y="${y+4}" font-size="11" fill="#6B6560">${fmt(m)}</text>`; });
   });
-  s+=`<rect x="12" y="${H-16}" width="10" height="10" rx="5" fill="${COL['Anel 1']}"/><text x="28" y="${H-7}" font-size="12" fill="#4E5754">Anel 1</text><rect x="90" y="${H-16}" width="10" height="10" rx="5" fill="${COL['Anel 2']}"/><text x="106" y="${H-7}" font-size="12" fill="#4E5754">Anel 2</text>`;
+  s+=`<rect x="12" y="${H-16}" width="10" height="10" rx="5" fill="${COL['Anel 1']}"/><text x="28" y="${H-7}" font-size="12" fill="#4A443E">Anel 1</text><rect x="90" y="${H-16}" width="10" height="10" rx="5" fill="${COL['Anel 2']}"/><text x="106" y="${H-7}" font-size="12" fill="#4A443E">Anel 2</text>`;
   svg.innerHTML=s;
   svg.querySelectorAll(".td").forEach(c=>{ c.addEventListener("mousemove",e=>showTip(e,`<b>${c.dataset.n}</b>${fmt(+c.dataset.m)} m²`)); c.addEventListener("mouseleave",hideTip); });
   const bandOf=m=>m<260?null:m<=320?"A":m<=380?"B":m<=480?"C":"D";
@@ -2174,7 +2204,7 @@ function drawPrecos(){
     const fl=k=> all || (part && ({lanc:/lan[çc]/i,tab:/tabela|pre[çc]o/i,fech:/fech|pre[çc]o/i,desc:/fech|tabela|pre[çc]o/i,vend:/vend/i}[k]).test(part[1]));
     const cl=k=> fl(k)?' nv':'';
     const dt = !ds ? '<span style="color:var(--muted);font-weight:400">aguardando</span>' : all ? `<span class="chip nvchip">não validado</span> <span class="nvsrc">${esc(ds.replace(/\s*·?\s*(preço\s*)?atualizar\s*$/i,""))}</span>` : part ? `${esc(ds.slice(0,part.index).replace(/\s*·\s*$/,""))} <span class="chip nvchip" title="Não validado: ${esc(part[1])}">parcial</span>` : esc(ds);
-    return `<tr class="${p.anel==='q'?'q':''}"><td>${nome}</td><td class="r${cl('lanc')}">${money(v.lanc)}</td><td class="r${cl('tab')}">${money(v.tab)}</td><td class="r${cl('fech')}">${money(v.fech)}</td><td class="r${cl('desc')}">${desc}</td><td class="${cl('vend')}">${v.vend? esc(/%$/.test(String(v.vend))? v.vend : v.vend+"%") : ""}</td><td>${dt}</td></tr>`; };
+    return `<tr class="${p.anel==='q'?'q':''}"><td>${nome}</td><td class="r${cl('lanc')}">${money(v.lanc)}</td><td class="r${cl('tab')}">${money(v.tab)}</td><td class="r${cl('fech')}">${money(v.fech)}</td><td class="r${cl('desc')}">${desc}</td><td class="${cl('vend')}">${v.vend? esc((/^[\d.,]+$/.test(String(v.vend).trim())? v.vend+"%" : v.vend)) : ""}</td><td>${dt}</td></tr>`; };
   h+=line({...D.quaddra,anel:"q"}) + rows.map(line).join("");
   $("#precotbl").innerHTML=h+"</tbody>";
   $("#precotbl").querySelectorAll(".sortbtn").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.k; if(PSORT.key===k) PSORT.dir*=-1; else { PSORT.key=k; PSORT.dir = (k==="nome")?1:-1; } drawPrecos(); }));
